@@ -1,0 +1,76 @@
+﻿
+
+
+
+
+<div class="row">
+    <div class="col-12">
+        <div>
+            <h5>Tematik Alan Düzenle</h5>
+            <hr>
+            <button id="table2-new-row-button" class="btn btn-outline-dark btn-sm mb-2">Yeni Tematik Alan Ekle</button>
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered mb-0" id="table2">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Tematik Alan Adı</th>
+                            <th scope="col">Tematik Alan Açıklama</th>
+                            <th name="bstable-actions"></th>
+                            <th scope="col">Düzenlenme Tarihi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            @if (!string.IsNullOrEmpty(Model.Title))
+                            {
+                                <td>@Model.Title</td>
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
+
+                            @if (!string.IsNullOrEmpty(Model.Description))
+                            {
+                                <td>@Model.Description</td>
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
+
+                            <td name="bstable-actions">
+                                <div class="btn-group pull-right">
+                                    <button id="bEdit" type="button" class="btn btn-sm btn-default">
+                                        <span class="fa fa-edit"> </span>
+                                    </button>
+                                    <button id="bDel" type="button" class="btn btn-sm btn-default">
+                                        <span class="fa fa-trash"> </span>
+                                    </button>
+                                    <button id="bAcep" type="button" class="btn btn-sm btn-default" style="display:none;">
+                                        <span class="fa fa-check-circle"> </span>
+                                    </button>
+                                    <button id="bCanc" type="button" class="btn btn-sm btn-default" style="display:none;">
+                                        <span class="fa fa-times-circle"> </span>
+                                    </button>
+                                </div>
+                            </td>
+
+                            @if (Model.CreatedDate != DateTime.MinValue)
+                            {
+                                <td>@Model.CreatedDate.ToString("dd/MM/yyyy")</td>
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

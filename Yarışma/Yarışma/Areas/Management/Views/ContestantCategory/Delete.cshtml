@@ -1,0 +1,29 @@
+﻿@model Yarışma.Models.ContestantCategory
+
+<div class="page-content-wrapper">
+	<div class="page-content">
+		<div class="card border-top border-0 border-4 border-danger">
+			<div class="card-body p-5">
+				<div class="card-title d-flex align-items-center">
+					<div>
+						<i class="bx bxs-user me-1 font-22 text-danger"></i>
+					</div>
+					<h5 class="mb-0 text-danger">Yarışmacı Kategory Sil</h5>
+				</div>
+				<hr>
+				<form class="row g-3" method="post">
+					<input type="hidden" asp-for="Id" />
+					<div class="col-md-6">
+						<label asp-for="Name" class="form-label">Kategori Adı:</label>
+						<label asp-for="Name" class="form-label">@Model.Name</label>
+					</div>
+					<div class="col-12">
+						<button type="submit" class="btn btn-danger px-5">Sil</button>
+					</div>
+				</form>
+			</div>
+		</div>  
+	</div>
+</div>
+
+

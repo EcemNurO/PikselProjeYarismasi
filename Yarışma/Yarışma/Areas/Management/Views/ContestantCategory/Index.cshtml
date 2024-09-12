@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Yarışma.Models.ContestantCategory>
+
+<div class="page-content-wrapper">
+	<div class="page-content">
+		<div class="page-content">
+			<a class="btn btn-success" asp-area="Management" asp-controller="ContestantCategory" asp-action="Create">Ekle</a>
+			<div class="card radius-15">
+				<div class="card-body">
+					<div class="card-title">
+						<h4 class="mb-0">Yarışmacı Kategori</h4>
+					</div>
+					<hr>
+					<div class="table-responsive">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+
+									<th scope="col">Yarışmacı Türü</th>
+									<th scope="col">#</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var item in Model)
+								{
+									<tr>
+										<td>@item.Name</td>
+										<td>
+											
+											<a class="btn btn-primary" asp-area="Management"
+											   asp-controller="ContestantCategory" asp-action="Edit" asp-route-id="@item.Id">Düzenle</a>
+											<a class="btn btn-danger" asp-area="Management"
+											   asp-controller="ContestantCategory" asp-action="Delete" asp-route-id="@item.Id">Sil</a>
+										</td>
+
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+

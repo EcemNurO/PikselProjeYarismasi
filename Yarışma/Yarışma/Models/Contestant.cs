@@ -1,6 +1,6 @@
 ﻿namespace Yarışma.Models
 {
-	public class Contestant
+	public class Contestant:BaseEntity
 	{
 	   
 		public int Id { get; set; }

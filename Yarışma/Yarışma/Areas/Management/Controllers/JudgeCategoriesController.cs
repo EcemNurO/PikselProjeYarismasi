@@ -110,27 +110,45 @@ namespace Yarışma.Areas.Management.Controllers
 			// GET: Management/JudgeCategories/Delete/5
 			public ActionResult Delete(int id)
 			{
-				try
-				{
+				
+				
 					var JudgeCategory = db.JudgeCategories.Find(id);
 					if ( JudgeCategory== null)
 					{
 						return RedirectToAction(nameof(Index));
 					}
-					db.JudgeCategories.Remove(JudgeCategory);
-					db.SaveChanges();
-
-					return RedirectToAction(nameof(Index));
-				}
-				catch (Exception)
-			{
-
-				return View();
+					return RedirectToAction(nameof(Index));		
 
 			}
+
+		// POST: TrainerController/Delete/5
+		[HttpPost, ActionName("Delete")]
+		[ValidateAntiForgeryToken]
+		public ActionResult DeleteConfirmed(int id)
+		{
+			try
+			{
+				var trainer = db.JudgeCategories.Find(id);
+				if (trainer == null)
+				{
+					return RedirectToAction(nameof(Index));
+				}
+				//soft delete
+				trainer.Deleted = true;
+				trainer.UpdatedDate = DateTime.Now;
+				trainer.UpdatedBy = 0;
+				db.SaveChanges();
+				return RedirectToAction(nameof(Index));
+			}
+			catch
+			{
+				return RedirectToAction(nameof(Index));
+			}
 		}
+	}
 
 
 		}
+
 	
-}
+

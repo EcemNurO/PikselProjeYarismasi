@@ -2,7 +2,7 @@
 
 namespace Yarışma.Models
 {
-	public class Period
+	public class Period:BaseEntity
 	{
 		[Key]
 		public int Id { get; set; }

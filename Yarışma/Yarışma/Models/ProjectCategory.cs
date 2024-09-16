@@ -1,6 +1,6 @@
 ﻿namespace Yarışma.Models
 {
-	public class ProjectCategory
+	public class ProjectCategory:BaseEntity
 	{
 		
 		public int Id { get; set; }

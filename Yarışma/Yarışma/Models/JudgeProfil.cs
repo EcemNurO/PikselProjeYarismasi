@@ -2,7 +2,7 @@
 
 namespace Yarışma.Models
 {
-	public class JudgeProfil
+	public class JudgeProfil:BaseEntity
 	{
 		[Key]
 		public int Id { get; set; }

@@ -2,7 +2,7 @@
 
 namespace Yarışma.Models
 {
-	public class ContestantCategory
+	public class ContestantCategory:BaseEntity
 	{
 		[Key]
 		public int Id { get; set; }

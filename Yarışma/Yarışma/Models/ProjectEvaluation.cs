@@ -2,7 +2,7 @@
 
 namespace Yarışma.Models
 {
-	public class ProjectEvaluation
+	public class ProjectEvaluation:BaseEntity
 	{
 		[Key]
 		public int Id { get; set; }

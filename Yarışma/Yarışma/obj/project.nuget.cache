@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "dm5NE5/Poj4=",
+  "dgSpecHash": "lLsDwXwU2Ig=",
   "success": true,
-  "projectFilePath": "C:\\Users\\adtal\\Desktop\\Yarışma\\Yarışma\\Yarışma\\Yarışma.csproj",
+  "projectFilePath": "C:\\Users\\adtal\\Documents\\GitHub\\PikselProjeYarismasi\\Yarışma\\Yarışma\\Yarışma.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\adtal\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\adtal\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

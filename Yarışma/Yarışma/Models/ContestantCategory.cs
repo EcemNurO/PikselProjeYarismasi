@@ -9,5 +9,6 @@ namespace Yarışma.Models
 		[Required]	
 		public string Name { get; set; }
 		public ICollection<Contestant>? Contestants { get; set; }
+		
 	}
 }

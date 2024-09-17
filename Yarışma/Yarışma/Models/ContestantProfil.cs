@@ -11,7 +11,7 @@
 		public string Address { get; set; }
 		public string image { get; set; }
 		public string Biografy { get; set; }
-		public ICollection<Judge> Judges { get; set; }
-		public ICollection<Contestant> Contestants { get; set; }
+		public ICollection<Judge>? Judges { get; set; }
+		public ICollection<Contestant>? Contestants { get; set; }
 	}
 }

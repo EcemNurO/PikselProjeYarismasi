@@ -136,7 +136,7 @@ namespace Yarışma.Areas.Management.Controllers
 				//soft delete
 				trainer.Deleted = true;
 				trainer.UpdatedDate = DateTime.Now;
-				trainer.UpdatedBy = 0;
+				trainer.UpdatedBy = ("admin");
 				db.SaveChanges();
 				return RedirectToAction(nameof(Index));
 			}

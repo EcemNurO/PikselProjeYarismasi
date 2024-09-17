@@ -7,7 +7,7 @@ namespace Yarışma.Models
 		[Key]
 		public int Id { get; set; }
 		public int JudgeProfilId { get; set; }
-		public ContestantProfil contestantProfil { get; set; }
+		public JudgeProfil? JudgeProfil { get; set; }
 		public int JudgeCategoryId { get; set; }
 		public JudgeCategory JudgeCategory { get; set; }
 		public int ProjectEvaluationId { get; set; }

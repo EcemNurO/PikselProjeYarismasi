@@ -1,13 +1,11 @@
-﻿
-
-
+﻿	<!--sidebar-wrapper-->
 <div class="sidebar-wrapper" data-simplebar="true">
 	<div class="sidebar-header">
 		<div class="">
-			<img src="~/assets/images/images.png" class="logo-icon-2" alt="" />
+			<img src="~/management/images/logo-icon.png" class="logo-icon-2" alt="" />
 		</div>
 		<div>
-			<h6 class="logo-text">AOSB </h6>
+			<h4 class="logo-text">AOSB</h4>
 		</div>
 		<a href="javascript:;" class="toggle-btn ms-auto">
 			<i class="bx bx-menu"></i>
@@ -20,33 +18,27 @@
 				<div class="parent-icon icon-color-1">
 					<i class="bx bx-home-alt"></i>
 				</div>
-				<div class="menu-title">AnaSayfa</div>
+				<div class="menu-title">Dashboard</div>
 			</a>
 			<ul>
-
 				<li>
-					<a asp-area="Management" asp-controller="Analyz" asp-action="Index">
-						<div class="parent-icon icon-color-3">
-							<i class="bx bx-conversation"></i>
-						</div>
-						<div class="menu-title">Analizler</div>
+					<a asp-area="Management" asp-controller="Dashboard" asp-action="Index">
+						<i class="bx bx-right-arrow-alt"></i>Rapor
 					</a>
 				</li>
 			</ul>
 		</li>
 		<li class="menu-label">Yarışmacı</li>
 		<li>
-
 			<a asp-area="Management" asp-controller="ContestantTable" asp-action="Index">
-				<div class="parent-icon icon-color-3">
-					<i class="bx bx-conversation"></i>
+				<div class="parent-icon icon-color-2">
+					<i class="bx bx-envelope"></i>
 				</div>
 				<div class="menu-title">Tüm Yarışmacılar</div>
 			</a>
-
 		</li>
 		<li>
-			<a asp-area="Management" asp-controller="ContestantAppreciation" asp-action="Index">
+			<a asp-area="Management" asp-controller="" asp-action="Index">
 				<div class="parent-icon icon-color-3">
 					<i class="bx bx-conversation"></i>
 				</div>
@@ -54,145 +46,60 @@
 			</a>
 		</li>
 		<li>
-			<a asp-area="Management" asp-controller="NotAppreciation" asp-action="Index">
+			<a asp-area="Management" asp-controller="Trainer" asp-action="Index">
 				<div class="parent-icon icon-color-4">
 					<i class="bx bx-archive"></i>
 				</div>
 				<div class="menu-title">Değerlendirilmeyenler</div>
 			</a>
 		</li>
-		<li class="menu-label">Hakemler</li>
 		<li>
-			<a href="Yarışmacılar">
-				<div class="parent-icon icon-color-2">
-					<i class="bx bx-envelope"></i>
-				</div>
-				<div class="menu-title">Hakem Başvuru</div>
-			</a>
-		</li>
-		<li>
-		<li>
-			<a asp-area="Management" asp-controller="Judge" asp-action="Index">
-				<div class="parent-icon icon-color-6">
-					<i class="bx bx-task"></i>
-				</div>
-				<div class="menu-title">Hakemler</div>
-			</a>
-		</li>
+			<a asp-area="Management" asp-controller="ProjectCategories" asp-action="Index">
 
+				<div class="parent-icon icon-color-5">
+					<i class="bx bx-group"></i>
+				</div>
+				<div class="menu-title">Proje Kategorileri</div>
+			</a>
+		</li>
+		<li>
+			<a asp-area="Management" asp-controller="ContestantCategoy" asp-action="Index">
 
-		<li class="menu-label">İşlemler</li>
-		<li>
-			<a asp-area="Management" asp-controller="Periods" asp-action="Index" >
-				<div class="parent-icon icon-color-9">
-					<i class="bx bx-ghost"></i>
+				<div class="parent-icon icon-color-5">
+					<i class="bx bx-group"></i>
 				</div>
-				<div class="menu-title">Yarışma Dönemi</div>
+				<div class="menu-title">Yarışmacı Kategorileri</div>
 			</a>
 		</li>
 		<li>
-			<a asp-area="Management" asp-controller="ContestantCategory" asp-action="Index" >
-				<div class="parent-icon icon-color-9">
-					<i class="bx bx-ghost"></i>
+			<a asp-area="Management" asp-controller="JudgeCategory" asp-action="Index">
+
+				<div class="parent-icon icon-color-5">
+					<i class="bx bx-group"></i>
 				</div>
-				<div class="menu-title">Yarışmacı Kategori</div>
-			</a>
-		</li>
-		<li>
-			<a asp-area="Management" asp-controller="ProjectCategories" asp-action="Index" >
-				<div class="parent-icon icon-color-8">
-					<i class="bx bx-calendar-check"></i>
-				</div>
-				<div class="menu-title">Proje Tematik Alan</div>
-			</a>
-		</li>
-		<li>
-			<a asp-area="Management" asp-controller="JudgeCategories" asp-action="Index">
-				<div class="parent-icon icon-color-8">
-					<i class="bx bx-calendar-check"></i>
-				</div>
-				<div class="menu-title">Hakem Kategori</div>
-			</a>
-		</li>
-		<li>
-			<a asp-area="Management" asp-controller="Contacts" asp-action="Index" >
-				<div class="parent-icon icon-color-8">
-					<i class="bx bx-calendar-check"></i>
-				</div>
-				<div class="menu-title">Hakem Sorular</div>
+				<div class="menu-title">Yarışmacı Kategorileri</div>
 			</a>
 		</li>
 		<li>
 			<a asp-area="Management" asp-controller="ProjectQuestion" asp-action="Index">
-				<div class="parent-icon icon-color-8">
-					<i class="bx bx-calendar-check"></i>
+
+				<div class="parent-icon icon-color-5">
+					<i class="bx bx-group"></i>
 				</div>
-				<div class="menu-title">Yarışmacı Sorular</div>
+				<div class="menu-title">Proje Soruları</div>
 			</a>
 		</li>
 		<li>
-			<a class="has-arrow" href="javascript:;">
-				<div class="parent-icon icon-color-10">
-					<i class="bx bx-spa"></i>
-				</div>
-				<div class="menu-title">Hakem Kategori</div>
-			</a>
-			<ul>
-				<li>
-					<a href="component-alerts.html"><i class="bx bx-right-arrow-alt"></i>Alerts</a>
-				</li>
-				<li>
-					<a href="component-bedges.html"><i class="bx bx-right-arrow-alt"></i>Badge</a>
-				</li>
-				<li>
-					<a href="component-buttons.html"><i class="bx bx-right-arrow-alt"></i>Buttons</a>
-				</li>
-				<li>
-					<a href="component-cards.html"><i class="bx bx-right-arrow-alt"></i>Cards</a>
-				</li>
-				<li>
-					<a href="component-carousels.html"><i class="bx bx-right-arrow-alt"></i>Carousel</a>
-				</li>
-				<li>
-					<a href="component-acordians.html"><i class="bx bx-right-arrow-alt"></i>Acordians</a>
-				</li>
-				<li>
-					<a href="component-list-groups.html"><i class="bx bx-right-arrow-alt"></i>List Groups</a>
-				</li>
-				<li>
-					<a href="component-media-object.html"><i class="bx bx-right-arrow-alt"></i>Media Objects</a>
-				</li>
-				<li>
-					<a href="component-modals.html"><i class="bx bx-right-arrow-alt"></i>Modal</a>
-				</li>
-				<li>
-					<a href="component-navs.html"><i class="bx bx-right-arrow-alt"></i>Navs</a>
-				</li>
-				<li>
-					<a href="components-navbar.html"><i class="bx bx-right-arrow-alt"></i>Navbar</a>
-				</li>
-				<li>
-					<a href="component-paginations.html"><i class="bx bx-right-arrow-alt"></i>Pagination</a>
-				</li>
-				<li>
-					<a href="component-popovers-tooltips.html"><i class="bx bx-right-arrow-alt"></i>Popovers & Tooltips</a>
-				</li>
-				<li>
-					<a href="component-progress-bars.html"><i class="bx bx-right-arrow-alt"></i>Progress</a>
-				</li>
-				<li>
-					<a href="component-spinners.html"><i class="bx bx-right-arrow-alt"></i>Spinners</a>
-				</li>
-				<li>
-					<a href="component-notifications.html"><i class="bx bx-right-arrow-alt"></i>Notifications</a>
-				</li>
-				<li>
-					<a href="components-avtars-chips.html"><i class="bx bx-right-arrow-alt"></i>Avatrs & Chips</a>
-				</li>
-			</ul>
-		</li>
+			<a asp-area="Management" asp-controller="Periods" asp-action="Index">
 
+				<div class="parent-icon icon-color-5">
+					<i class="bx bx-group"></i>
+				</div>
+				<div class="menu-title">Yarışma Takvimi</div>
+			</a>
+		</li>
 
 	</ul>
 	<!--end navigation-->
 </div>
+<!--end sidebar-wrapper-->

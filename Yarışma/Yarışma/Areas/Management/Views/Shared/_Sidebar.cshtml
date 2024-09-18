@@ -21,16 +21,20 @@
 				<div class="menu-title">Dashboard</div>
 			</a>
 			<ul>
-				<li>
-					<a asp-area="Management" asp-controller="Dashboard" asp-action="Index">
-						<i class="bx bx-right-arrow-alt"></i>Rapor
-					</a>
-				</li>
+					<li>
+			<a asp-area="Management" asp-controller="Report" asp-action="Index">
+
+				<div class="parent-icon icon-color-5">
+					<i class="bx bx-group"></i>
+				</div>
+				<div class="menu-title">Rapor</div>
+			</a>
+		</li
 			</ul>
 		</li>
 		<li class="menu-label">Yarışmacı</li>
 		<li>
-			<a asp-area="Management" asp-controller="ContestantTable" asp-action="Index">
+			<a asp-area="Management" asp-controller="Contacts" asp-action="Index">
 				<div class="parent-icon icon-color-2">
 					<i class="bx bx-envelope"></i>
 				</div>
@@ -72,7 +76,7 @@
 			</a>
 		</li>
 		<li>
-			<a asp-area="Management" asp-controller="JudgeCategory" asp-action="Index">
+			<a asp-area="Management" asp-controller="JudgeCategories" asp-action="Index">
 
 				<div class="parent-icon icon-color-5">
 					<i class="bx bx-group"></i>
@@ -98,7 +102,8 @@
 				<div class="menu-title">Yarışma Takvimi</div>
 			</a>
 		</li>
-
+	
+	
 	</ul>
 	<!--end navigation-->
 </div>

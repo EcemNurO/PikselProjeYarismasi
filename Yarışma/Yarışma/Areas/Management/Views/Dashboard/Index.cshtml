@@ -1,5 +1,5 @@
 ﻿
-
+@model Yarışma.Areas.Management.Models.DashboardVM
 
 
 <div class="page-wrapper">
@@ -29,7 +29,7 @@
 											<div class="widgets-icons mx-auto bg-wall text-white rounded-circle">
 												<i class="bx bx-bookmark-alt"></i>
 											</div>
-											<h4 class="mb-0 font-weight-bold mt-3">0</h4>
+											<h4 class="mb-0 font-weight-bold mt-3">@Model.ContestantCount</h4>
 											<p class="mb-0">Toplam Yarışmacı</p>
 										</div>
 									</div>
@@ -40,7 +40,7 @@
 											<div class="widgets-icons mx-auto bg-rose rounded-circle text-white">
 												<i class="bx bx-bulb"></i>
 											</div>
-											<h4 class="mb-0 font-weight-bold mt-3">0</h4>
+											<h4 class="mb-0 font-weight-bold mt-3">@Model.JudgeCount</h4>
 											<p class="mb-0">Toplam Hakem</p>
 										</div>
 									</div>
@@ -51,7 +51,7 @@
 											<div class="widgets-icons mx-auto rounded-circle bg-danger text-white">
 												<i class="bx bx-line-chart"></i>
 											</div>
-											<h4 class="mb-0 font-weight-bold mt-3">0</h4>
+											<h4 class="mb-0 font-weight-bold mt-3">@Model.CategoryCount</h4>
 											<p class="mb-0">Toplam Kategori</p>
 										</div>
 									</div>
@@ -91,14 +91,17 @@
 								</div>
 
 							</div>
-							<div class="progress-wrapper mb-4">
-								<p class="mb-1">
-									Elektirik-Elektronik <span class="float-end">20</span>
-								</p>
-								<div class="progress radius-15" style="height:5px;">
-									<div class="progress-bar" role="progressbar" style="width: 45%"></div>
+							@foreach (var category in Model.projectCategories)
+							{
+								<div class="progress-wrapper mb-4">
+									<p class="mb-1">
+										@category.Name <span class="float-end"></span>
+									</p>
+									<div class="progress radius-15" style="height:5px;">
+										<div class="progress-bar" role="progressbar" style="width: %"></div>
+									</div>
 								</div>
-							</div>
+							}
 							<div class="progress-wrapper mb-4">
 								<p class="mb-1">
 									Donanım-Yazılım<span class="float-end">10</span>

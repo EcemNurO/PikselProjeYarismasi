@@ -3,36 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\adtal\\Documents\\GitHub\\PikselProjeYarismasi\\Yar\u0131\u015Fma\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6D738C30-6486-4975-831C-77317C2D9D0B}|Yar\u0131\u015Fma\\Yar\u0131\u015Fma.csproj|c:\\users\\adtal\\documents\\github\\pikselprojeyarismasi\\yar\u0131\u015Fma\\yar\u0131\u015Fma\\areas\\management\\views\\shared\\_sidebar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6D738C30-6486-4975-831C-77317C2D9D0B}|Yar\u0131\u015Fma\\Yar\u0131\u015Fma.csproj|solutionrelative:yar\u0131\u015Fma\\areas\\management\\views\\shared\\_sidebar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{6D738C30-6486-4975-831C-77317C2D9D0B}|Yar\u0131\u015Fma\\Yar\u0131\u015Fma.csproj|c:\\users\\adtal\\documents\\github\\pikselprojeyarismasi\\yar\u0131\u015Fma\\yar\u0131\u015Fma\\areas\\management\\views\\periods\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6D738C30-6486-4975-831C-77317C2D9D0B}|Yar\u0131\u015Fma\\Yar\u0131\u015Fma.csproj|solutionrelative:yar\u0131\u015Fma\\areas\\management\\views\\periods\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6D738C30-6486-4975-831C-77317C2D9D0B}|Yar\u0131\u015Fma\\Yar\u0131\u015Fma.csproj|c:\\users\\adtal\\documents\\github\\pikselprojeyarismasi\\yar\u0131\u015Fma\\yar\u0131\u015Fma\\areas\\management\\views\\report\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6D738C30-6486-4975-831C-77317C2D9D0B}|Yar\u0131\u015Fma\\Yar\u0131\u015Fma.csproj|solutionrelative:yar\u0131\u015Fma\\areas\\management\\views\\report\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6D738C30-6486-4975-831C-77317C2D9D0B}|Yar\u0131\u015Fma\\Yar\u0131\u015Fma.csproj|c:\\users\\adtal\\documents\\github\\pikselprojeyarismasi\\yar\u0131\u015Fma\\yar\u0131\u015Fma\\areas\\management\\controllers\\reportcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6D738C30-6486-4975-831C-77317C2D9D0B}|Yar\u0131\u015Fma\\Yar\u0131\u015Fma.csproj|solutionrelative:yar\u0131\u015Fma\\areas\\management\\controllers\\reportcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6D738C30-6486-4975-831C-77317C2D9D0B}|Yar\u0131\u015Fma\\Yar\u0131\u015Fma.csproj|c:\\users\\adtal\\documents\\github\\pikselprojeyarismasi\\yar\u0131\u015Fma\\yar\u0131\u015Fma\\areas\\management\\models\\reportvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6D738C30-6486-4975-831C-77317C2D9D0B}|Yar\u0131\u015Fma\\Yar\u0131\u015Fma.csproj|solutionrelative:yar\u0131\u015Fma\\areas\\management\\models\\reportvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6D738C30-6486-4975-831C-77317C2D9D0B}|Yar\u0131\u015Fma\\Yar\u0131\u015Fma.csproj|c:\\users\\adtal\\documents\\github\\pikselprojeyarismasi\\yar\u0131\u015Fma\\yar\u0131\u015Fma\\areas\\management\\views\\contacts\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6D738C30-6486-4975-831C-77317C2D9D0B}|Yar\u0131\u015Fma\\Yar\u0131\u015Fma.csproj|solutionrelative:yar\u0131\u015Fma\\areas\\management\\views\\contacts\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6D738C30-6486-4975-831C-77317C2D9D0B}|Yar\u0131\u015Fma\\Yar\u0131\u015Fma.csproj|c:\\users\\adtal\\documents\\github\\pikselprojeyarismasi\\yar\u0131\u015Fma\\yar\u0131\u015Fma\\areas\\management\\controllers\\contactscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6D738C30-6486-4975-831C-77317C2D9D0B}|Yar\u0131\u015Fma\\Yar\u0131\u015Fma.csproj|solutionrelative:yar\u0131\u015Fma\\areas\\management\\controllers\\contactscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6D738C30-6486-4975-831C-77317C2D9D0B}|Yar\u0131\u015Fma\\Yar\u0131\u015Fma.csproj|c:\\users\\adtal\\documents\\github\\pikselprojeyarismasi\\yar\u0131\u015Fma\\yar\u0131\u015Fma\\areas\\management\\controllers\\contestanttablecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6D738C30-6486-4975-831C-77317C2D9D0B}|Yar\u0131\u015Fma\\Yar\u0131\u015Fma.csproj|solutionrelative:yar\u0131\u015Fma\\areas\\management\\controllers\\contestanttablecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6D738C30-6486-4975-831C-77317C2D9D0B}|Yar\u0131\u015Fma\\Yar\u0131\u015Fma.csproj|c:\\users\\adtal\\documents\\github\\pikselprojeyarismasi\\yar\u0131\u015Fma\\yar\u0131\u015Fma\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6D738C30-6486-4975-831C-77317C2D9D0B}|Yar\u0131\u015Fma\\Yar\u0131\u015Fma.csproj|solutionrelative:yar\u0131\u015Fma\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6D738C30-6486-4975-831C-77317C2D9D0B}|Yar\u0131\u015Fma\\Yar\u0131\u015Fma.csproj|c:\\users\\adtal\\documents\\github\\pikselprojeyarismasi\\yar\u0131\u015Fma\\yar\u0131\u015Fma\\areas\\management\\controllers\\periodscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6D738C30-6486-4975-831C-77317C2D9D0B}|Yar\u0131\u015Fma\\Yar\u0131\u015Fma.csproj|solutionrelative:yar\u0131\u015Fma\\areas\\management\\controllers\\periodscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 374,
-          "SelectedChildIndex": 9,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -54,104 +30,28 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\adtal\\Documents\\GitHub\\PikselProjeYarismasi\\Yar\u0131\u015Fma\\Yar\u0131\u015Fma\\Areas\\Management\\Views\\Report\\Index.cshtml",
-              "RelativeDocumentMoniker": "Yar\u0131\u015Fma\\Areas\\Management\\Views\\Report\\Index.cshtml",
-              "ToolTip": "C:\\Users\\adtal\\Documents\\GitHub\\PikselProjeYarismasi\\Yar\u0131\u015Fma\\Yar\u0131\u015Fma\\Areas\\Management\\Views\\Report\\Index.cshtml",
-              "RelativeToolTip": "Yar\u0131\u015Fma\\Areas\\Management\\Views\\Report\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAABQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-09-18T10:55:48.642Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ReportController.cs",
-              "DocumentMoniker": "C:\\Users\\adtal\\Documents\\GitHub\\PikselProjeYarismasi\\Yar\u0131\u015Fma\\Yar\u0131\u015Fma\\Areas\\Management\\Controllers\\ReportController.cs",
-              "RelativeDocumentMoniker": "Yar\u0131\u015Fma\\Areas\\Management\\Controllers\\ReportController.cs",
-              "ToolTip": "C:\\Users\\adtal\\Documents\\GitHub\\PikselProjeYarismasi\\Yar\u0131\u015Fma\\Yar\u0131\u015Fma\\Areas\\Management\\Controllers\\ReportController.cs",
-              "RelativeToolTip": "Yar\u0131\u015Fma\\Areas\\Management\\Controllers\\ReportController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-18T10:55:22.88Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ReportVM.cs",
-              "DocumentMoniker": "C:\\Users\\adtal\\Documents\\GitHub\\PikselProjeYarismasi\\Yar\u0131\u015Fma\\Yar\u0131\u015Fma\\Areas\\Management\\Models\\ReportVM.cs",
-              "RelativeDocumentMoniker": "Yar\u0131\u015Fma\\Areas\\Management\\Models\\ReportVM.cs",
-              "ToolTip": "C:\\Users\\adtal\\Documents\\GitHub\\PikselProjeYarismasi\\Yar\u0131\u015Fma\\Yar\u0131\u015Fma\\Areas\\Management\\Models\\ReportVM.cs",
-              "RelativeToolTip": "Yar\u0131\u015Fma\\Areas\\Management\\Models\\ReportVM.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-18T10:49:16.198Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ContactsController.cs",
-              "DocumentMoniker": "C:\\Users\\adtal\\Documents\\GitHub\\PikselProjeYarismasi\\Yar\u0131\u015Fma\\Yar\u0131\u015Fma\\Areas\\Management\\Controllers\\ContactsController.cs",
-              "RelativeDocumentMoniker": "Yar\u0131\u015Fma\\Areas\\Management\\Controllers\\ContactsController.cs",
-              "ToolTip": "C:\\Users\\adtal\\Documents\\GitHub\\PikselProjeYarismasi\\Yar\u0131\u015Fma\\Yar\u0131\u015Fma\\Areas\\Management\\Controllers\\ContactsController.cs",
-              "RelativeToolTip": "Yar\u0131\u015Fma\\Areas\\Management\\Controllers\\ContactsController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-18T10:46:24.179Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\adtal\\Documents\\GitHub\\PikselProjeYarismasi\\Yar\u0131\u015Fma\\Yar\u0131\u015Fma\\Program.cs",
-              "RelativeDocumentMoniker": "Yar\u0131\u015Fma\\Program.cs",
-              "ToolTip": "C:\\Users\\adtal\\Documents\\GitHub\\PikselProjeYarismasi\\Yar\u0131\u015Fma\\Yar\u0131\u015Fma\\Program.cs",
-              "RelativeToolTip": "Yar\u0131\u015Fma\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAXAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-18T07:52:38.735Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "ContestantTableController.cs",
-              "DocumentMoniker": "C:\\Users\\adtal\\Documents\\GitHub\\PikselProjeYarismasi\\Yar\u0131\u015Fma\\Yar\u0131\u015Fma\\Areas\\Management\\Controllers\\ContestantTableController.cs",
-              "RelativeDocumentMoniker": "Yar\u0131\u015Fma\\Areas\\Management\\Controllers\\ContestantTableController.cs",
-              "ToolTip": "C:\\Users\\adtal\\Documents\\GitHub\\PikselProjeYarismasi\\Yar\u0131\u015Fma\\Yar\u0131\u015Fma\\Areas\\Management\\Controllers\\ContestantTableController.cs",
-              "RelativeToolTip": "Yar\u0131\u015Fma\\Areas\\Management\\Controllers\\ContestantTableController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-18T06:35:27.948Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\adtal\\Documents\\GitHub\\PikselProjeYarismasi\\Yar\u0131\u015Fma\\Yar\u0131\u015Fma\\Areas\\Management\\Views\\Contacts\\Index.cshtml",
-              "RelativeDocumentMoniker": "Yar\u0131\u015Fma\\Areas\\Management\\Views\\Contacts\\Index.cshtml",
-              "ToolTip": "C:\\Users\\adtal\\Documents\\GitHub\\PikselProjeYarismasi\\Yar\u0131\u015Fma\\Yar\u0131\u015Fma\\Areas\\Management\\Views\\Contacts\\Index.cshtml",
-              "RelativeToolTip": "Yar\u0131\u015Fma\\Areas\\Management\\Views\\Contacts\\Index.cshtml",
-              "ViewState": "AgIAALkAAAAAAAAAAAAAAM4AAAALAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-09-18T06:32:04.827Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "_Sidebar.cshtml",
-              "DocumentMoniker": "C:\\Users\\adtal\\Documents\\GitHub\\PikselProjeYarismasi\\Yar\u0131\u015Fma\\Yar\u0131\u015Fma\\Areas\\Management\\Views\\Shared\\_Sidebar.cshtml",
-              "RelativeDocumentMoniker": "Yar\u0131\u015Fma\\Areas\\Management\\Views\\Shared\\_Sidebar.cshtml",
-              "ToolTip": "C:\\Users\\adtal\\Documents\\GitHub\\PikselProjeYarismasi\\Yar\u0131\u015Fma\\Yar\u0131\u015Fma\\Areas\\Management\\Views\\Shared\\_Sidebar.cshtml",
-              "RelativeToolTip": "Yar\u0131\u015Fma\\Areas\\Management\\Views\\Shared\\_Sidebar.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAG0AAAAaAAAAAAAAAA==",
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\adtal\\Documents\\GitHub\\PikselProjeYarismasi\\Yar\u0131\u015Fma\\Yar\u0131\u015Fma\\Areas\\Management\\Views\\Periods\\Index.cshtml",
+              "RelativeDocumentMoniker": "Yar\u0131\u015Fma\\Areas\\Management\\Views\\Periods\\Index.cshtml",
+              "ToolTip": "C:\\Users\\adtal\\Documents\\GitHub\\PikselProjeYarismasi\\Yar\u0131\u015Fma\\Yar\u0131\u015Fma\\Areas\\Management\\Views\\Periods\\Index.cshtml",
+              "RelativeToolTip": "Yar\u0131\u015Fma\\Areas\\Management\\Views\\Periods\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAmwA8AAAA6AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-09-18T06:31:41.597Z",
+              "WhenOpened": "2024-10-14T13:26:15.59Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PeriodsController.cs",
+              "DocumentMoniker": "C:\\Users\\adtal\\Documents\\GitHub\\PikselProjeYarismasi\\Yar\u0131\u015Fma\\Yar\u0131\u015Fma\\Areas\\Management\\Controllers\\PeriodsController.cs",
+              "RelativeDocumentMoniker": "Yar\u0131\u015Fma\\Areas\\Management\\Controllers\\PeriodsController.cs",
+              "ToolTip": "C:\\Users\\adtal\\Documents\\GitHub\\PikselProjeYarismasi\\Yar\u0131\u015Fma\\Yar\u0131\u015Fma\\Areas\\Management\\Controllers\\PeriodsController.cs",
+              "RelativeToolTip": "Yar\u0131\u015Fma\\Areas\\Management\\Controllers\\PeriodsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-14T13:26:12.572Z",
               "EditorCaption": ""
             }
           ]

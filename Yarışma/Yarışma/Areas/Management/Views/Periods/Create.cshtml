@@ -1,72 +1,93 @@
 ﻿@model Yarışma.Models.Period
 
-@{
-    Layout = null;
-}
+<div class="page-content-wrapper">
+	<div class="page-content">
+		<div class="card border-top border-0 border-4 border-danger">
+			<div class="card-body p-5">
+				<div class="card-title d-flex align-items-center">
+					<div>
+						<i class="bx bxs-user me-1 font-22 text-danger"></i>
+					</div>
+					<h5 class="mb-0 text-danger">Yarışma Takvimi Düzenle</h5>
+				</div>
+				<hr>
+				<form class="row g-3" method="post">
+					<input type="hidden" asp-for="Id">
+					<div class="col-md-6">
+						<label asp-for="PeriodName" class="form-label">Dönem Adı:</label>
+						<div class="input-group">
+							<input type="text" class="form-control border-start-0" asp-for="PeriodName" placeholder="Dönem Adı:">
+							<span class="text-danger" asp-validation-for="PeriodName"></span>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<label asp-for="ContestanStartDate" class="form-label">Yarışmacı Başlama Tarihi:</label>
+						<div class="input-group">
+							<input type="date" class="form-control border-start-0" asp-for="ContestanStartDate" placeholder="Yarışmacı Başlama Tarihi: ">
+							<span class="text-danger" asp-validation-for="ContestanStartDate"></span>
+						</div>
+					</div>
 
-<!DOCTYPE html>
+					<div class="col-md-6">
+						<label asp-for="ContestantEndDate" class="form-label">Yarışmacı Bitiş Tarihi:</label>
+						<div class="input-group">
+							<input type="date" class="form-control border-start-0" asp-for="ContestantEndDate" placeholder="Yarışmacı Bitiş Tarihi">
+							<span class="text-danger" asp-validation-for="ContestantEndDate"></span>
+						</div>
+					</div>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Create</title>
-</head>
-<body>
+					<div class="col-md-6">
+						<label asp-for="ProjectStartDate" class="form-label">Proje Başlangıç Tarihi:</label>
+						<div class="input-group">
+							<input type="date" class="form-control border-start-0" asp-for="ProjectStartDate" placeholder="Proje Başlangıç Tarihi">
+							<span class="text-danger" asp-validation-for="ProjectStartDate"></span>
+						</div>
+					</div>
 
-<h4>Period</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="PeriodName" class="control-label"></label>
-                <input asp-for="PeriodName" class="form-control" />
-                <span asp-validation-for="PeriodName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ContestanStartDate" class="control-label"></label>
-                <input asp-for="ContestanStartDate" class="form-control" />
-                <span asp-validation-for="ContestanStartDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ContestantEndDate" class="control-label"></label>
-                <input asp-for="ContestantEndDate" class="form-control" />
-                <span asp-validation-for="ContestantEndDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProjectStartDate" class="control-label"></label>
-                <input asp-for="ProjectStartDate" class="form-control" />
-                <span asp-validation-for="ProjectStartDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProjectEndDate" class="control-label"></label>
-                <input asp-for="ProjectEndDate" class="form-control" />
-                <span asp-validation-for="ProjectEndDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="JudgeStartDate" class="control-label"></label>
-                <input asp-for="JudgeStartDate" class="form-control" />
-                <span asp-validation-for="JudgeStartDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="JudgeEndDate" class="control-label"></label>
-                <input asp-for="JudgeEndDate" class="form-control" />
-                <span asp-validation-for="JudgeEndDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+					<div class="col-md-6">
+						<label asp-for="ProjectEndDate" class="form-label">Proje Bitiş Tarihi:</label>
+						<div class="input-group">
+							<input type="date" class="form-control border-start-0" asp-for="ProjectEndDate" placeholder="Proje Bitiş Tarihi">
+							<span class="text-danger" asp-validation-for="ProjectEndDate"></span>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<label asp-for="JudgeStartDate" class="form-label">Hakem Başlangıç Tarihi:</label>
+						<div class="input-group">
+							<input type="date" class="form-control border-start-0" asp-for="JudgeStartDate" placeholder="Hakem Başlangıç Tarihi">
+							<span class="text-danger" asp-validation-for="JudgeStartDate"></span>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<label asp-for="JudgeEndDate" class="form-label">Hakem Bitiş Tarihi:</label>
+						<div class="input-group">
+							<input type="date" class="form-control border-start-0" asp-for="JudgeEndDate" placeholder="Hakem Bitiş Tarihi">
+							<span class="text-danger" asp-validation-for="JudgeEndDate"></span>
+						</div>
+					</div>
+					<div class="col-md-6">
+						
+						<div class="col-md-6">
+							<label class="form-label">Durum:</label>
+							<div class="form-check">
+								<input type="radio" class="form-check-input" asp-for="Status" value="true" id="statusActive">
+								<label class="form-check-label" for="statusActive">Aktif</label>
+							</div>
+							<div class="form-check">
+								<input type="radio" class="form-check-input" asp-for="Status" value="false" id="statusPassive">
+								<label class="form-check-label" for="statusPassive">Pasif</label>
+							</div>
+							<span class="text-danger" asp-validation-for="Status"></span>
+						</div>
+
+
+					</div>
+					<div class="col-12">
+						<button type="submit" class="btn btn-danger px-5">Kaydet</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
-</body>
-</html>

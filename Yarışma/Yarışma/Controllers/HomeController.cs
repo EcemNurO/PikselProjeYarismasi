@@ -12,10 +12,11 @@ namespace Yarışma.Controllers
 		{
 			_logger = logger;
 		}
-
+		CompetitionDbContext db = new CompetitionDbContext();
 		public IActionResult Index()
 		{
-			return View();
+			var Profil = db.ContestantProfils.ToList();
+			return View(Profil);
 		}
 
 		public IActionResult Privacy()

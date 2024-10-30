@@ -6,10 +6,10 @@ namespace Yarışma.Models
 	{
 		[Key]
 		public int Id { get; set; }
-		public string Comments { get; set; }
-		public int Score { get; set; }
-		public int JudgeId { get; set; }
-		public virtual Judge Judge { get; set; }
+		public string? Comments { get; set; }
+		public int? Score { get; set; }
+		public int? JudgeId { get; set; }
+		public virtual Judge? Judge { get; set; }
 		
 		
 		

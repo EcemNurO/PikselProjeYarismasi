@@ -63,7 +63,7 @@ namespace Yarışma.Areas.Management.Controllers
 		}
 
 		// GET: Management/Periods/Edit/5
-		public async Task<IActionResult> Edit(int? id)
+		public IActionResult Edit(int id)
 		{
 			var Period = db.Periods.Find(id);
 			if (Period == null)
@@ -94,11 +94,11 @@ namespace Yarışma.Areas.Management.Controllers
 					EditPeriod.PeriodName = model.PeriodName;
 					EditPeriod.ContestanStartDate = model.ContestanStartDate;
 					EditPeriod.ContestantEndDate = model.ContestantEndDate;
-					EditPeriod.JudgeStartDate = model.JudgeStartDate;
-					EditPeriod.JudgeEndDate = model.JudgeEndDate;
 					EditPeriod.ProjectStartDate = model.ProjectStartDate;
 					EditPeriod.ProjectEndDate = model.ProjectEndDate;
-
+					EditPeriod.JudgeStartDate = model.JudgeStartDate;
+					EditPeriod.JudgeEndDate = model.JudgeEndDate;
+					
 					db.SaveChanges();
 					return RedirectToAction(nameof(Index));
 				}

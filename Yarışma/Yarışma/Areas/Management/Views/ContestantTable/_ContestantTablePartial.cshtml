@@ -1,0 +1,48 @@
+﻿@model Yarışma.Areas.Management.Models.ContestantTableVM
+
+<table id="contestantTable" class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Ad - Soyad</th>
+            <th>Kategori</th>
+            <th>Tematik Alan</th>
+            <th>Proje Adı</th>
+            <th>Proje Durumu</th>
+            <th>Sanayici Hakemi</th>
+            <th>Akademisyen Hakemi</th>
+            <th>Ortalama Puan</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var contestant in Model.Contestant)
+        {
+            var project = Model.projects.FirstOrDefault(p => p.ContestantId == contestant.Id);
+            var sanayiciHakemi = Model.Judge.FirstOrDefault(j => j.JudgeCategory.Name == "Sanayici" && Model.ContestantJudges.Any(cj => cj.ContestantId == contestant.Id && cj.JudgeId == j.Id));
+            var akademisyenHakemi = Model.Judge.FirstOrDefault(j => j.JudgeCategory.Name == "Akademisyen" && Model.ContestantJudges.Any(cj => cj.ContestantId == contestant.Id && cj.JudgeId == j.Id));
+
+            var sanayiciPuan = sanayiciHakemi?.ProjectEvaluation?.Score ?? 0;
+            var akademisyenPuan = akademisyenHakemi?.ProjectEvaluation?.Score ?? 0;
+            var ortalamaPuan = (sanayiciPuan + akademisyenPuan) / 2;
+
+            <tr>
+                <td>@(contestant.contestantProfil?.FullName ?? "Ad Soyad Yok")</td>
+                <td>@(Model.contestantCategories.FirstOrDefault(c => c.Id == contestant.ContestantCategoryId)?.Name ?? "Kategori Yok")</td>
+                <td>@(project?.ProjectCategory?.Name ?? "Tematik Alan Yok")</td>
+                <td>@(project?.Name ?? "Proje Adı Yok")</td>
+                <td>@(project?.Status == true ? "Tamamlandı" : "Devam Ediyor")</td>
+                <td>@(sanayiciHakemi?.JudgeProfil?.FullName ?? "Sanayici Hakemi Yok")</td>
+                <td>@(akademisyenHakemi?.JudgeProfil?.FullName ?? "Akademisyen Hakemi Yok")</td>
+                <td>@(ortalamaPuan > 0 ? ortalamaPuan.ToString("F2") : "Puan Yok")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="pagination">
+    @for (int i = 1; i <= (Model.TotalCount / Model.PageSize) + 1; i++)
+    {
+        <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+            <a href="#" class="page-link" data-page="@i">@i</a>
+        </li>
+    }
+</div>

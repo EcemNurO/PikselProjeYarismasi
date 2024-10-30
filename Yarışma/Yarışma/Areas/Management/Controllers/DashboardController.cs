@@ -4,9 +4,10 @@ using Yarışma.Models;
 
 namespace Yarışma.Areas.Management.Controllers
 {
-
+	[Area("Management")]
 	public class DashboardController : Controller
 	{
+	
 		CompetitionDbContext db = new CompetitionDbContext();
 		public IActionResult Index()
 		{

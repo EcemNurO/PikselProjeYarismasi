@@ -11,5 +11,11 @@ namespace Yarışma.Areas.Management.Models
 		public List<Judge> Judge { get; set; }
 		public List<JudgeCategory> JudgeCategories { get; set; }
 		public List<Project> projects { get; set; }
-	}
+		public List<ContestantJudge> ContestantJudges { get; set; }
+
+
+        public int TotalCount { get; set; }   
+        public int PageSize { get; set; }     
+        public int CurrentPage { get; set; }
+    }
 }

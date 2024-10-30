@@ -1,0 +1,54 @@
+﻿@model Yarışma.Areas.Management.Models.ContestantTableVM
+
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <div class="row">
+            <div class="col-12">
+                <div class="card-body">
+                    <div class="card-title">
+                        <h4 class="mb-0">Tüm Yarışmacılar</h4>
+                    </div>
+                    <hr>
+                    <div class="table-responsive">
+                        <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                            <div id="contestantTable">
+                                <div class="dt-buttons btn-group">
+                                    <a href="@Url.Action("ExportToExcel", "Appreciation")" class="btn btn-secondary buttons-excel buttons-html5">
+                                        <span>Excelllll</span>
+                                    </a>
+                                </div>
+                                @await Html.PartialAsync("_AppreciationPartial", Model)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        // İlk sayfayı yükle
+        loadContestants(1);
+
+        // Sayfalama düğmesine tıklama işlemi
+        $(document).on("click", ".pagination a", function (e) {
+            e.preventDefault();
+            var page = $(this).attr("data-page");
+            loadContestants(page);
+        });
+
+        // AJAX ile tabloyu dinamik olarak yükler
+        function loadContestants(page) {
+            $.ajax({
+                url: '@Url.Action("GetContestants", "ContestantTable")',
+                type: 'GET',
+                data: { page: page },
+                success: function (result) {
+                    $("#contestantTable").html(result); // PartialView'i tabloya yükle
+                }
+            });
+        }
+    });
+</script>

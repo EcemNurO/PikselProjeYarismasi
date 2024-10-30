@@ -2,7 +2,7 @@
 
 <div class="page-content-wrapper">
 	<div class="page-content">
-		<a class="btn btn-success" asp-area="Management" asp-controller="Period" asp-action="Create">Ekle</a>
+		<a class="btn btn-success" asp-area="Management" asp-controller="Periods" asp-action="Create">Ekle</a>
 		<div class="card radius-15">
 			<div class="card-body">
 				<div class="card-title">
@@ -14,15 +14,15 @@
 					{
 						<div class="list-group-item">
 							<p><strong>Dönem Adı:</strong> @item.PeriodName</p>
-							<p><strong>Yarışma Başlama Tarihi:</strong> @item.ContestanStartDate</p>
-							<p><strong>Yarışma Bitiş Tarihi:</strong> @item.ContestantEndDate</p>
+							<p><strong>Yarışmacı Başlama Tarihi:</strong> @item.ContestanStartDate</p>
+							<p><strong>Yarışmacı Bitiş Tarihi:</strong> @item.ContestantEndDate</p>
 							<p><strong>Proje Başlama Tarihi:</strong> @item.ProjectStartDate</p>
 							<p><strong>Proje Bitiş Tarihi:</strong> @item.ProjectEndDate</p>
 							<p><strong>Hakem Değerlendirme Başlangıç Tarihi:</strong> @item.JudgeStartDate</p>
 							<p><strong>Hakem Değerlendirme Bitiş Tarihi:</strong> @item.JudgeEndDate</p>
 							<p>
-								<a class="btn btn-primary" asp-area="Management" asp-controller="Period" asp-action="Edit" asp-route-id="@item.Id">Düzenle</a>
-								<a class="btn btn-danger" asp-area="Management" asp-controller="Period" asp-action="Delete" asp-route-id="@item.Id">Sil</a>
+								<a class="btn btn-primary" asp-area="Management" asp-controller="Periods" asp-action="Edit" asp-route-id="@item.Id">Düzenle</a>
+								<a class="btn btn-danger" asp-area="Management" asp-controller="Periods" asp-action="Delete" asp-route-id="@item.Id">Sil</a>
 							</p>
 						</div>
 					}

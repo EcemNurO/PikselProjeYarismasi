@@ -23,7 +23,7 @@ namespace Yarışma.Models
 		public DbSet<JudgeCategory> JudgeCategories { get; set; }
 		public DbSet<ProjectCategory> ProjectCategories { get; set; }
 		public DbSet<Contact> Contacts { get; set; }
-		
+		public DbSet<ContestantJudge> ContestantJudges { get; set; }
 		public DbSet<ProjectQuestion>ProjectQuestions { get; set; }
 		public DbSet<Period> Periods { get; set; }
 
@@ -31,7 +31,7 @@ namespace Yarışma.Models
 		{
 			optionsBuilder.UseSqlServer(
 				"Server=ECEM;"
-				+ "Database=YarismaDb;Trusted_Connection=true;Encrypt=false;"
+				+ "Database=ProjeYarismaDb;Trusted_Connection=true;Encrypt=false;"
 				);
 			base.OnConfiguring(optionsBuilder);
 		}
@@ -60,8 +60,9 @@ namespace Yarışma.Models
                 .HasForeignKey(p => p.ProjectQuestionId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-			
-			base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<ContestantJudge>()
+              .HasKey(c => new { c.ContestantId, c.JudgeId });
+            base.OnModelCreating(modelBuilder);
         }
 	}
 }

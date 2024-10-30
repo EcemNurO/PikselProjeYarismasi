@@ -16,29 +16,53 @@
 					<div class="col-md-6">
 						<label asp-for="PeriodName" class="form-label">Dönem Adı:</label>
 						<div class="input-group">
-							<input type="text" class="form-control border-start-0" asp-for="PeriodName" placeholder="Kategori Adı">
+							<input type="text" class="form-control border-start-0" asp-for="PeriodName" placeholder="Dönem Adı:">
 							<span class="text-danger" asp-validation-for="PeriodName"></span>
 						</div>
 					</div>
 					<div class="col-md-6">
-						<label asp-for="ProjectStartDate" class="form-label">Yarışma Başlama Tarihi:</label>
+						<label asp-for="ContestanStartDate" class="form-label">Yarışmacı Başlama Tarihi:</label>
 						<div class="input-group">
-							<input type="text" class="form-control border-start-0" asp-for="ProjectStartDate" placeholder="Kategori Adı">
+							<input type="date" class="form-control border-start-0" asp-for="ContestanStartDate" placeholder="Yarışmacı Başlama Tarihi: ">
+							<span class="text-danger" asp-validation-for="ContestanStartDate"></span>
+						</div>
+					</div>
+
+					<div class="col-md-6">
+						<label asp-for="ContestantEndDate" class="form-label">Yarışmacı Bitiş Tarihi:</label>
+						<div class="input-group">
+							<input type="date" class="form-control border-start-0" asp-for="ContestantEndDate" placeholder="Yarışmacı Bitiş Tarihi">
+							<span class="text-danger" asp-validation-for="ContestantEndDate"></span>
+						</div>
+					</div>
+
+					<div class="col-md-6">
+						<label asp-for="ProjectStartDate" class="form-label">Proje Başlangıç Tarihi:</label>
+						<div class="input-group">
+							<input type="date" class="form-control border-start-0" asp-for="ProjectStartDate" placeholder="Proje Başlangıç Tarihi">
 							<span class="text-danger" asp-validation-for="ProjectStartDate"></span>
 						</div>
 					</div>
+
 					<div class="col-md-6">
-						<label asp-for="ProjectEndDate" class="form-label">Yarışma Bitiş Tarihi:</label>
+						<label asp-for="ProjectEndDate" class="form-label">Proje Bitiş Tarihi:</label>
 						<div class="input-group">
-							<input type="text" class="form-control border-start-0" asp-for="ProjectEndDate" placeholder="Yarışma Bitiş Tarihi">
+							<input type="date" class="form-control border-start-0" asp-for="ProjectEndDate" placeholder="Proje Bitiş Tarihi">
 							<span class="text-danger" asp-validation-for="ProjectEndDate"></span>
 						</div>
 					</div>
 					<div class="col-md-6">
-						<label asp-for="ProjectEndDate" class="form-label">Yarışma Bitiş Tarihi:</label>
+						<label asp-for="JudgeStartDate" class="form-label">Hakem Başlangıç Tarihi:</label>
 						<div class="input-group">
-							<input type="text" class="form-control border-start-0" asp-for="ProjectEndDate" placeholder="Yarışma Bitiş Tarihi">
-							<span class="text-danger" asp-validation-for="ProjectEndDate"></span>
+							<input type="date" class="form-control border-start-0" asp-for="JudgeStartDate" placeholder="Hakem Başlangıç Tarihi">
+							<span class="text-danger" asp-validation-for="JudgeStartDate"></span>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<label asp-for="JudgeEndDate" class="form-label">Hakem Bitiş Tarihi:</label>
+						<div class="input-group">
+							<input type="date" class="form-control border-start-0" asp-for="JudgeEndDate" placeholder="Hakem Bitiş Tarihi">
+							<span class="text-danger" asp-validation-for="JudgeEndDate"></span>
 						</div>
 					</div>
 					<div class="col-12">

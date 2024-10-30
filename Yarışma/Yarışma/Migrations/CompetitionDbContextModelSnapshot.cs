@@ -17,7 +17,7 @@ namespace Yarışma.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.8")
+                .HasAnnotation("ProductVersion", "8.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -30,8 +30,8 @@ namespace Yarışma.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -61,8 +61,8 @@ namespace Yarışma.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UpdatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
@@ -86,8 +86,8 @@ namespace Yarışma.Migrations
                     b.Property<int>("ContestantProfilId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -98,8 +98,8 @@ namespace Yarışma.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("UpdatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
@@ -121,8 +121,8 @@ namespace Yarışma.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -137,8 +137,8 @@ namespace Yarışma.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("UpdatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
@@ -146,6 +146,21 @@ namespace Yarışma.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ContestantCategories");
+                });
+
+            modelBuilder.Entity("Yarışma.Models.ContestantJudge", b =>
+                {
+                    b.Property<int>("ContestantId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("JudgeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ContestantId", "JudgeId");
+
+                    b.HasIndex("JudgeId");
+
+                    b.ToTable("ContestantJudges");
                 });
 
             modelBuilder.Entity("Yarışma.Models.ContestantProfil", b =>
@@ -160,12 +175,15 @@ namespace Yarışma.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
                     b.Property<string>("Biografy")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -181,9 +199,8 @@ namespace Yarışma.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Password")
+                        .HasColumnType("int");
 
                     b.Property<int>("Phone")
                         .HasColumnType("int");
@@ -195,8 +212,8 @@ namespace Yarışma.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UpdatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
@@ -218,8 +235,11 @@ namespace Yarışma.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CreatedBy")
+                    b.Property<int?>("ContestantProfilId")
                         .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -242,24 +262,21 @@ namespace Yarışma.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("UpdatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("contestantProfilId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("ContestantProfilId");
 
                     b.HasIndex("JudgeCategoryId");
 
                     b.HasIndex("JudgeProfilId");
 
                     b.HasIndex("ProjectCategoryId");
-
-                    b.HasIndex("contestantProfilId");
 
                     b.ToTable("Judges");
                 });
@@ -272,8 +289,8 @@ namespace Yarışma.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -287,8 +304,8 @@ namespace Yarışma.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("UpdatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
@@ -314,8 +331,8 @@ namespace Yarışma.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -345,8 +362,8 @@ namespace Yarışma.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UpdatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
@@ -374,8 +391,8 @@ namespace Yarışma.Migrations
                     b.Property<DateTime?>("ContestantEndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -401,8 +418,8 @@ namespace Yarışma.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("UpdatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
@@ -427,8 +444,8 @@ namespace Yarışma.Migrations
                     b.Property<int>("ContestantId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -449,8 +466,8 @@ namespace Yarışma.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("UpdatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
@@ -474,8 +491,8 @@ namespace Yarışma.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -490,8 +507,8 @@ namespace Yarışma.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("UpdatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
@@ -510,11 +527,10 @@ namespace Yarışma.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Comments")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -522,17 +538,17 @@ namespace Yarışma.Migrations
                     b.Property<bool?>("Deleted")
                         .HasColumnType("bit");
 
-                    b.Property<int>("JudgeId")
+                    b.Property<int?>("JudgeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Score")
+                    b.Property<int?>("Score")
                         .HasColumnType("int");
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("UpdatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
@@ -540,7 +556,8 @@ namespace Yarışma.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("JudgeId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[JudgeId] IS NOT NULL");
 
                     b.ToTable("ProjectEvaluations");
                 });
@@ -553,8 +570,8 @@ namespace Yarışma.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -573,8 +590,8 @@ namespace Yarışma.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UpdatedBy")
-                        .HasColumnType("int");
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
@@ -603,15 +620,38 @@ namespace Yarışma.Migrations
                     b.Navigation("contestantProfil");
                 });
 
+            modelBuilder.Entity("Yarışma.Models.ContestantJudge", b =>
+                {
+                    b.HasOne("Yarışma.Models.Contestant", "Contestant")
+                        .WithMany()
+                        .HasForeignKey("ContestantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Yarışma.Models.Judge", "Judge")
+                        .WithMany()
+                        .HasForeignKey("JudgeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Contestant");
+
+                    b.Navigation("Judge");
+                });
+
             modelBuilder.Entity("Yarışma.Models.Judge", b =>
                 {
+                    b.HasOne("Yarışma.Models.ContestantProfil", null)
+                        .WithMany("Judges")
+                        .HasForeignKey("ContestantProfilId");
+
                     b.HasOne("Yarışma.Models.JudgeCategory", "JudgeCategory")
                         .WithMany("Judges")
                         .HasForeignKey("JudgeCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Yarışma.Models.JudgeProfil", null)
+                    b.HasOne("Yarışma.Models.JudgeProfil", "JudgeProfil")
                         .WithMany("Judges")
                         .HasForeignKey("JudgeProfilId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -623,17 +663,11 @@ namespace Yarışma.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Yarışma.Models.ContestantProfil", "contestantProfil")
-                        .WithMany("Judges")
-                        .HasForeignKey("contestantProfilId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("JudgeCategory");
 
-                    b.Navigation("ProjectCategory");
+                    b.Navigation("JudgeProfil");
 
-                    b.Navigation("contestantProfil");
+                    b.Navigation("ProjectCategory");
                 });
 
             modelBuilder.Entity("Yarışma.Models.Project", b =>
@@ -667,9 +701,7 @@ namespace Yarışma.Migrations
                 {
                     b.HasOne("Yarışma.Models.Judge", "Judge")
                         .WithOne("ProjectEvaluation")
-                        .HasForeignKey("Yarışma.Models.ProjectEvaluation", "JudgeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Yarışma.Models.ProjectEvaluation", "JudgeId");
 
                     b.Navigation("Judge");
                 });

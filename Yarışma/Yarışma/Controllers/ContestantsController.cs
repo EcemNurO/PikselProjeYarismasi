@@ -11,17 +11,14 @@ namespace Yarışma.Controllers
 {
     public class ContestantsController : Controller
     {
-        private readonly CompetitionDbContext _context;
+      
 
-        public ContestantsController(CompetitionDbContext context)
-        {
-            _context = context;
-        }
+    
         CompetitionDbContext db = new CompetitionDbContext();
         // GET: Contestants
         public async Task<IActionResult> Index()
         {
-            var competitionDbContext = _context.Contestants.Include(c => c.ContestantCategory).Include(c => c.contestantProfil);
+            var competitionDbContext = db.Contestants.Include(c => c.ContestantCategory).Include(c => c.contestantProfil);
             return View(await competitionDbContext.ToListAsync());
         }
 
@@ -33,7 +30,7 @@ namespace Yarışma.Controllers
                 return NotFound();
             }
 
-            var contestant = await _context.Contestants
+            var contestant = await db.Contestants
                 .Include(c => c.ContestantCategory)
                 .Include(c => c.contestantProfil)
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -48,8 +45,8 @@ namespace Yarışma.Controllers
         // GET: Contestants/Create
         public IActionResult Create()
         {
-            ViewData["ContestantCategoryId"] = new SelectList(_context.ContestantCategories, "Id", "Id");
-            ViewData["ContestantProfilId"] = new SelectList(_context.ContestantProfils, "Id", "Id");
+            ViewData["ContestantCategoryId"] = new SelectList(db.ContestantCategories, "Id", "Id");
+            ViewData["ContestantProfilId"] = new SelectList(db.ContestantProfils, "Id", "Id");
             return View();
         }
 
@@ -62,12 +59,12 @@ namespace Yarışma.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(contestant);
-                await _context.SaveChangesAsync();
+               db.Add(contestant);
+                await db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ContestantCategoryId"] = new SelectList(_context.ContestantCategories, "Id", "Id", contestant.ContestantCategoryId);
-            ViewData["ContestantProfilId"] = new SelectList(_context.ContestantProfils, "Id", "Id", contestant.ContestantProfilId);
+            ViewData["ContestantCategoryId"] = new SelectList(db.ContestantCategories, "Id", "Id", contestant.ContestantCategoryId);
+            ViewData["ContestantProfilId"] = new SelectList(db.ContestantProfils, "Id", "Id", contestant.ContestantProfilId);
             return View(contestant);
         }
 
@@ -79,13 +76,13 @@ namespace Yarışma.Controllers
                 return NotFound();
             }
 
-            var contestant = await _context.Contestants.FindAsync(id);
+            var contestant = await db.Contestants.FindAsync(id);
             if (contestant == null)
             {
                 return NotFound();
             }
-            ViewData["ContestantCategoryId"] = new SelectList(_context.ContestantCategories, "Id", "Id", contestant.ContestantCategoryId);
-            ViewData["ContestantProfilId"] = new SelectList(_context.ContestantProfils, "Id", "Id", contestant.ContestantProfilId);
+            ViewData["ContestantCategoryId"] = new SelectList(db.ContestantCategories, "Id", "Id", contestant.ContestantCategoryId);
+            ViewData["ContestantProfilId"] = new SelectList(db.ContestantProfils, "Id", "Id", contestant.ContestantProfilId);
             return View(contestant);
         }
 

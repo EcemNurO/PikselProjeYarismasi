@@ -1,0 +1,31 @@
+﻿@model JudgeViewModel
+
+<table>
+    <tr>
+        <th>Ad Soyad</th>
+        <th>Email</th>
+        <th>Hakem Türü</th>
+        <th>Kategori</th>
+        <th>Onay Durumu</th>
+        <th>İşlem</th>
+    </tr>
+
+    @foreach (var judge in Model.Judges)
+    {
+        <tr>
+            <td>@judge.FullName</td>
+            <td>@judge.Email</td>
+            <td>@judge.JudgeCategories.Name</td>
+            <td>@judge.ProjeCategories.Name</td>
+            <td>@(judge.IsApproved ? "Onaylandı" : "Onay Bekliyor")</td>
+            <td>
+                @if (!judge.IsApproved)
+                {
+                    <form method="post" asp-action="ApproveJudge" asp-route-judgeId="@judge.Id">
+                        <button type="submit">Onayla</button>
+                    </form>
+                }
+            </td>
+        </tr>
+    }
+</table>

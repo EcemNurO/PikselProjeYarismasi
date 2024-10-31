@@ -118,6 +118,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlbWVudFxWaWV3c1xKdWRnZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Areas/Management/Views/Judge/PendingApproval.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlbWVudFxWaWV3c1xKdWRnZVxQZW5kaW5nQXBwcm92YWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Areas/Management/Views/NotAppreciation/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlbWVudFxWaWV3c1xOb3RBcHByZWNpYXRpb25cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

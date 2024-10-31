@@ -93,5 +93,42 @@ namespace Yarışma.Areas.Management.Controllers
                 }
             }
         }
+        public IActionResult PendingApproval(int page = 1, int pageSize = 10)
+        {
+            // Onaylanmamış hakemleri alıyoruz
+            var pendingJudges = db.Judges
+                                  .Where(j => !j.IsApproved)
+                                  .Skip((page - 1) * pageSize)
+                                  .Take(pageSize)
+                                  .ToList();
+
+            var totalPendingCount = db.Judges.Count(j => !j.IsApproved);
+
+            var vm = new JudgeViewModel
+            {
+                Judges = pendingJudges,
+                TotalCount = totalPendingCount,
+                PageSize = pageSize,
+                CurrentPage = page,
+                JudgeCategories = db.JudgeCategories.ToList()
+            };
+
+            return View(vm);
+        }
+        [HttpPost]
+        public IActionResult ApproveJudge(int judgeId)
+        {
+            // Onaylanacak hakemi buluyoruz
+            var judge = db.Judges.FirstOrDefault(j => j.Id == judgeId);
+
+            if (judge != null)
+            {
+                judge.IsApproved = true; // Hakemi onaylıyoruz
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("PendingApproval"); // Onay bekleyen sayfaya geri dönüyoruz
+        }
+
     }
 }

@@ -14,8 +14,9 @@ namespace Yarışma.Models
 		public virtual ProjectEvaluation? ProjectEvaluation { get; set; }
 		public int ProjectCategoryId { get; set; }
 		public virtual ProjectCategory ProjectCategory { get; set; }
-		
-		
-	}
+        public bool IsApproved { get; set; } = false;
+
+
+    }
 }
 

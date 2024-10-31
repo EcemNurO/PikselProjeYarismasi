@@ -3,7 +3,8 @@ using Yarışma.Areas.Management.Models;
 
 namespace Yarışma.Areas.Management.Controllers
 {
-    public class AccountController : Controller
+	[Area("Management")]
+	public class AccountController : Controller
     {
         public IActionResult Login()
         {

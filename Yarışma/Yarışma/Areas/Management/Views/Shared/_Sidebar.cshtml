@@ -43,20 +43,30 @@
 		</li>
 		<li>
 			<a asp-area="Management" asp-controller="Appreciation" asp-action="Index">
-				<div class="parent-icon icon-color-3">
-					<i class="bx bx-conversation"></i>
+				<div class="parent-icon icon-color-2">
+					<i class="bx bx-envelope"></i>
 				</div>
-				<div class="menu-title">Değerlendirilenler</div>
+				<div class="menu-title">Değerlendirilen Yarışmacılar</div>
 			</a>
 		</li>
 		<li>
 			<a asp-area="Management" asp-controller="NotAppreciation" asp-action="Index">
-				<div class="parent-icon icon-color-4">
-					<i class="bx bx-archive"></i>
+				<div class="parent-icon icon-color-2">
+					<i class="bx bx-envelope"></i>
 				</div>
-				<div class="menu-title">Değerlendirilmeyenler</div>
+				<div class="menu-title">Değerlendirilmeyen Yarışmacılar</div>
 			</a>
 		</li>
+		<li class="menu-label">Hakemler</li>
+		<li>
+			<a asp-area="Management" asp-controller="Judge" asp-action="Index">
+				<div class="parent-icon icon-color-2">
+					<i class="bx bx-envelope"></i>
+				</div>
+				<div class="menu-title">Tüm Hakemler</div>
+			</a>
+		</li>
+		
 		<li>
 			<a asp-area="Management" asp-controller="ProjectCategories" asp-action="Index">
 

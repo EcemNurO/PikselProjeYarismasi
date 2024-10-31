@@ -26,6 +26,7 @@ namespace Yarışma.Models
 		public DbSet<ContestantJudge> ContestantJudges { get; set; }
 		public DbSet<ProjectQuestion>ProjectQuestions { get; set; }
 		public DbSet<Period> Periods { get; set; }
+		public DbSet<User> Users {  get; set; }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{

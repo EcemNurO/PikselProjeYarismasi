@@ -122,14 +122,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlbWVudFxWaWV3c1xKdWRnZVxQZW5kaW5nQXBwcm92YWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Areas/Management/Views/NotAppreciation/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlbWVudFxWaWV3c1xOb3RBcHByZWNpYXRpb25cSW5kZXguY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Areas/Management/Views/NotAppreciation/_NotAppreciationPartial.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlbWVudFxWaWV3c1xOb3RBcHByZWNpYXRpb25cX05vdEFwcHJlY2lhdGlvblBhcnRpYWwuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Areas/Management/Views/Periods/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlbWVudFxWaWV3c1xQZXJpb2RzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -220,6 +212,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Areas/Management/Views/ThematicArea/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlbWVudFxWaWV3c1xUaGVtYXRpY0FyZWFcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Areas/Management/Views/UnAppreciation/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlbWVudFxWaWV3c1xVbkFwcHJlY2lhdGlvblxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Areas/Management/Views/UnAppreciation/_UnAppreciationPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlbWVudFxWaWV3c1xVbkFwcHJlY2lhdGlvblxfVW5BcHByZWNpYXRpb25QYXJ0aWFsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Areas/Management/Views/_ViewImports.cshtml]

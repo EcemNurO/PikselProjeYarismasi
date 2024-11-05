@@ -25,7 +25,7 @@
 					<a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="javascript:;" data-bs-toggle="dropdown">
 						<div class="d-flex user-box align-items-center">
 							<div class="user-info">
-								<p class="user-name mb-0">Admin</p>
+								<p class="user-name mb-0">@User.Identity.Name</p>
 
 							</div>
 							<img src="assets/images/avatars/avatar-1.png" class="user-img" alt="user avatar">
@@ -37,8 +37,9 @@
 							<i class="bx bx-cog"></i><span>Settings</span>
 						</a>
 
-						<div class="dropdown-divider mb-0"></div>	<a class="dropdown-item" href="javascript:;">
-							<i class="bx bx-power-off"></i><span>Logout</span>
+						<div class="dropdown-divider mb-0"></div>	
+						<a class="dropdown-item" asp-area="Management" asp-controller="Account" asp-action="Logout">
+							<i class="bx bx-power-off"></i><span>Çıkış Yap</span>
 						</a>
 					</div>
 				</li>

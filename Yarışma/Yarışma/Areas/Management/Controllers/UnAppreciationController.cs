@@ -3,15 +3,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Yarışma.Areas.Management.Models;
 using Yarışma.Models;
-using System.IO;
-using System.Linq;
 
 namespace Yarışma.Areas.Management.Controllers
 {
     [Area("Management")]
-    public class AppreciationController : Controller
+    public class UnAppreciationController : Controller
     {
-        private readonly CompetitionDbContext db = new CompetitionDbContext();
+       
+            CompetitionDbContext db = new CompetitionDbContext();
 
         public IActionResult Index(string searchTerm, int page = 1, int pageSize = 10)
         {
@@ -133,12 +132,13 @@ namespace Yarışma.Areas.Management.Controllers
 
                     return new { Contestant = contestant, AverageScore = ortalamaPuan };
                 })
-                .Where(x => x.AverageScore > 0)
+                .Where(x => x.AverageScore == null || x.AverageScore <= 0) // Puanı olmayan veya 0 olan yarışmacıları al
                 .Select(x => x.Contestant)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();
         }
+
 
         public IXLWorksheet CreateExcelWorksheet(XLWorkbook workbook, List<Contestant> contestants, List<Project> projects, List<Judge> judges, List<ContestantJudge> contestantJudges)
         {
@@ -181,5 +181,7 @@ namespace Yarışma.Areas.Management.Controllers
             }
             return worksheet;
         }
+
     }
-}
+    }
+

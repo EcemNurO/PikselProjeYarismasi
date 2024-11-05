@@ -12,7 +12,7 @@ using Yarışma.Models;
 namespace Yarışma.Migrations
 {
     [DbContext(typeof(CompetitionDbContext))]
-    [Migration("20241022103138_Initial")]
+    [Migration("20241101122624_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -248,6 +248,9 @@ namespace Yarışma.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<bool?>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsApproved")
                         .HasColumnType("bit");
 
                     b.Property<int>("JudgeCategoryId")
@@ -602,6 +605,49 @@ namespace Yarışma.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ProjectQuestions");
+                });
+
+            modelBuilder.Entity("Yarışma.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool?>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Yarışma.Models.Contestant", b =>

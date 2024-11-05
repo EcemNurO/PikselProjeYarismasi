@@ -12,6 +12,7 @@ namespace Yarışma.Areas.Management.Models
 		public List<JudgeCategory> JudgeCategories { get; set; }
 		public List<Project> projects { get; set; }
 		public List<ContestantJudge> ContestantJudges { get; set; }
+		public List<ProjectEvaluation> projectEvaluations { get; set; }
 
 
         public int TotalCount { get; set; }   

@@ -50,14 +50,14 @@
 			</a>
 		</li>
 		<li>
-			<a asp-area="Management" asp-controller="NotAppreciation" asp-action="Index">
+			<a asp-area="Management" asp-controller="UnAppreciation" asp-action="Index">
 				<div class="parent-icon icon-color-2">
 					<i class="bx bx-envelope"></i>
 				</div>
 				<div class="menu-title">Değerlendirilmeyen Yarışmacılar</div>
 			</a>
 		</li>
-		<li class="menu-label">Hakemler</li>
+		<li class="menu-label">Hakemler</li>s
 		<li>
 			<a asp-area="Management" asp-controller="Judge" asp-action="Index">
 				<div class="parent-icon icon-color-2">
@@ -66,7 +66,16 @@
 				<div class="menu-title">Tüm Hakemler</div>
 			</a>
 		</li>
-		
+		<li>
+			<a asp-area="Management" asp-controller="Judge" asp-action="PendingApproval">
+				<div class="parent-icon icon-color-2">
+					<i class="bx bx-envelope"></i>
+				</div>
+				<div class="menu-title"> Hakem Onayla</div>
+			</a>
+		</li>
+
+
 		<li>
 			<a asp-area="Management" asp-controller="ProjectCategories" asp-action="Index">
 

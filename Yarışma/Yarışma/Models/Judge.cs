@@ -15,6 +15,7 @@ namespace Yarışma.Models
 		public int ProjectCategoryId { get; set; }
 		public virtual ProjectCategory ProjectCategory { get; set; }
         public bool IsApproved { get; set; } = false;
+        public virtual ICollection<ContestantJudge> ContestantJudges { get; set; }
 
 
     }

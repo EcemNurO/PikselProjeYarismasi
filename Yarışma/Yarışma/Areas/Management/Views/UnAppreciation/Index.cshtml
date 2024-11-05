@@ -6,30 +6,30 @@
             <div class="col-12">
                 <div class="card-body">
                     <div class="card-title">
-                        <h4 class="mb-0">Tüm Yarışmacılar</h4>
+                        <h4 class="mb-0">Değerlendirilmeyen Yarışmacılar</h4>
                     </div>
                     <hr>
                     <div class="table-responsive">
                         <div id="contestantTableWrapper" class="dataTables_wrapper dt-bootstrap4">
                             <div class="dt-buttons btn-group mb-3">
                                 <!-- Export to Excel button -->
-                                <a href="@Url.Action("ExportToExcel", "ContestantTable", new { area = "Management" })" 
+                                <a href="@Url.Action("ExportToExcel", "UnAppreciation", new { area = "Management" })"
                                    class="btn btn-secondary buttons-excel buttons-html5">
                                     <span>Excel'e Aktar</span>
                                 </a>
                             </div>
-                            <form method="get" asp-action="Index" asp-controller="ContestantTable" asp-area="Management">
+                            <form method="get" asp-action="Index" asp-controller="UnAppreciation" asp-area="Management">
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control" name="searchTerm" placeholder="Yarışmacı ara..." value="@ViewBag.SearchTerm" />
                                     <button class="btn btn-primary" type="submit">Ara</button>
                                 </div>
                             </form>
-                            
+
                             <!-- Contestant table partial view -->
                             <div id="contestantTable">
-                                @await Html.PartialAsync("_ContestantTablePartial", Model)
+                                @await Html.PartialAsync("_UnAppreciationPartial", Model)
                             </div>
-                            
+
                             <!-- Pagination links -->
                             <div class="pagination mt-3">
                                 <ul class="pagination">
@@ -64,11 +64,11 @@
         // AJAX ile tabloyu dinamik olarak yükler
         function loadContestants(page) {
             $.ajax({
-                url: '@Url.Action("GetContestants", "ContestantTable", new { area = "Management" })',
+                url: '@Url.Action("GetContestants", "UnAppreciation", new { area = "Management" })',
                 type: 'GET',
                 data: { page: page },
                 success: function (result) {
-                    $("#contestantTable").html(result); // PartialView'i tabloya yükle
+                    $("#unappreciation").html(result); // PartialView'i tabloya yükle
                 }
             });
         }

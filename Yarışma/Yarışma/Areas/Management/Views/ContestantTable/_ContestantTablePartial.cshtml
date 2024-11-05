@@ -24,25 +24,16 @@
             var akademisyenPuan = akademisyenHakemi?.ProjectEvaluation?.Score ?? 0;
             var ortalamaPuan = (sanayiciPuan + akademisyenPuan) / 2;
 
-            <tr>
-                <td>@(contestant.contestantProfil?.FullName ?? "Ad Soyad Yok")</td>
-                <td>@(Model.contestantCategories.FirstOrDefault(c => c.Id == contestant.ContestantCategoryId)?.Name ?? "Kategori Yok")</td>
-                <td>@(project?.ProjectCategory?.Name ?? "Tematik Alan Yok")</td>
-                <td>@(project?.Name ?? "Proje Adı Yok")</td>
-                <td>@(project?.Status == true ? "Tamamlandı" : "Devam Ediyor")</td>
-                <td>@(sanayiciHakemi?.JudgeProfil?.FullName ?? "Sanayici Hakemi Yok")</td>
-                <td>@(akademisyenHakemi?.JudgeProfil?.FullName ?? "Akademisyen Hakemi Yok")</td>
-                <td>@(ortalamaPuan > 0 ? ortalamaPuan.ToString("F2") : "Puan Yok")</td>
-            </tr>
+                <tr>
+                    <td>@(contestant.contestantProfil?.FullName ?? "Ad Soyad Yok")</td>
+                    <td>@(Model.contestantCategories.FirstOrDefault(c => c.Id == contestant.ContestantCategoryId)?.Name ?? "Kategori Yok")</td>
+                    <td>@(project?.ProjectCategory?.Name ?? "Tematik Alan Yok")</td> <!-- Tematik Alan -->
+                    <td>@(project?.Name ?? "Proje Adı Yok")</td>
+                    <td>@(project?.Status == true ? "Tamamlandı" : "Devam Ediyor")</td>
+                    <td>@(sanayiciHakemi?.JudgeProfil?.FullName ?? "Sanayici Hakemi Yok")</td>
+                    <td>@(akademisyenHakemi?.JudgeProfil?.FullName ?? "Akademisyen Hakemi Yok")</td>
+                    <td>@(ortalamaPuan > 0 ? ortalamaPuan.ToString("F2") : "Puan Yok")</td>
+                </tr>
         }
     </tbody>
 </table>
-
-<div class="pagination">
-    @for (int i = 1; i <= (Model.TotalCount / Model.PageSize) + 1; i++)
-    {
-        <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
-            <a href="#" class="page-link" data-page="@i">@i</a>
-        </li>
-    }
-</div>

@@ -9,7 +9,8 @@
 		public int ContestantCategoryId { get; set; }
 		public ContestantCategory ContestantCategory { get; set; }		
 		public ICollection<Project> Projects { get; set; }
-		
-	}
+        public virtual ICollection<ContestantJudge> ContestantJudges { get; set; }
+
+    }
 }
 

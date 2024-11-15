@@ -1,0 +1,52 @@
+﻿@model Yarışma.Models.Project
+
+<div class="container">
+    <h2>Proje: @Model.Name</h2>
+
+    <form method="post" enctype="multipart/form-data" asp-action="SaveProject">
+        <input type="hidden" name="projectId" value="@Model.Id" /> <!-- Project ID'yi gizli olarak gönderiyoruz -->
+        <!-- Proje Adı -->
+        <div class="form-group">
+            <label for="Name">Proje Adı:</label>
+            <input type="text" name="Name" value="@Model.Name" class="form-control" />
+        </div>
+
+        <!-- Sorular ve Cevaplar -->
+        <div>
+            <h3>Proje Soruları</h3>
+            @{
+                int i = 0;
+            }
+            @foreach (var question in Model.ProjectQuestions)
+            {
+                <div class="mb-4">
+                    <h5>@question.Title</h5>
+                    <p>@question.Description</p>
+
+                    @if (question.Answers != null && question.Answers.Any(a => a.ProjectQuestionId == question.Id))
+                    {
+                        int j = 0;
+                        foreach (var answer in question.Answers)
+                        {
+                            <div class="form-group">
+                                <textarea name="answers[@i].Text" class="form-control">@answer.Text</textarea>
+                                <input type="hidden" name="answers[@i].ProjectQuestionId" value="@question.Id" />
+                            </div>
+                            j++;
+                        }
+                    }
+                    else
+                    {
+                        <div class="form-group">
+                            <textarea name="answers[@i].Text" class="form-control"></textarea>
+                            <input type="hidden" name="answers[@i].ProjectQuestionId" value="@question.Id" />
+                        </div>
+                    }
+                </div>
+                i++;
+            }
+
+        <!-- Kaydet Butonu -->
+        <button type="submit" class="btn btn-primary">Kaydet</button>
+    </form>
+</div>

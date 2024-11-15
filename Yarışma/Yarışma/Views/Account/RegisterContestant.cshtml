@@ -1,0 +1,137 @@
+﻿@model Yarışma.Models.ContestantRegisterViewModel
+@{
+    Layout = null;
+}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Yarışmacı Kayıt Sayfası</title>
+    <link rel="icon" href="~/assets/images/favicon-32x32.png" type="image/png">
+    <link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/assets/css/icons.css">
+    <link rel="stylesheet" href="~/assets/css/app.css">
+    <script src="~/assets/js/jquery.min.js"></script>
+</head>
+<body class="bg-register">
+    <div class="section-authentication-register d-flex align-items-center justify-content-center">
+        <div class="card radius-15 overflow-hidden row g-0">
+            <div class="col-xl-6 d-flex align-items-center justify-content-center">
+                <img src="~/assets/images/login-images/register-frent-img.jpg" class="img-fluid" alt="...">
+            </div>
+            <div class="col-xl-6">
+                <div class="card-body p-md-5">
+                    <div class="text-center">
+                        <img src="~/assets/images/logo-icon.png" width="80" alt="">
+                        <h3 class="mt-4 font-weight-bold">Yarışmacı Kayıt Ol</h3>
+                    </div>
+
+                    <form method="post" enctype="multipart/form-data">
+
+                        <div class="form-group">
+                            <label asp-for="image">Profil Fotoğrafı</label>
+                            <input asp-for="image" type="file" class="form-control" />
+                            <span class="text-danger" asp-validation-for="image"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Email">E-posta</label>
+                            <input type="email" asp-for="Email" class="form-control" required />
+                            <span class="text-danger" asp-validation-for="Email"></span>
+                        </div>
+
+                        <div class="form-group" id="show_hide_password">
+                            <label asp-for="Password">Şifre</label>
+                            <input type="password" asp-for="Password" class="form-control" required />
+                            <span class="text-danger" asp-validation-for="Password"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="ConfirmPassword">Şifre Tekrarı</label>
+                            <input type="password" asp-for="ConfirmPassword" class="form-control" required />
+                            <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="FullName">Ad Soyad</label>
+                            <input type="text" asp-for="FullName" class="form-control" required />
+                            <span class="text-danger" asp-validation-for="FullName"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Age">Yaş</label>
+                            <input type="number" asp-for="Age" class="form-control" />
+                            <span class="text-danger" asp-validation-for="Age"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Phone">Telefon</label>
+                            <input type="tel" asp-for="Phone" class="form-control" />
+                            <span class="text-danger" asp-validation-for="Phone"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Univercity">Üniversite</label>
+                            <input type="text" asp-for="Univercity" class="form-control" />
+                            <span class="text-danger" asp-validation-for="Univercity"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Address">Adres</label>
+                            <input type="text" asp-for="Address" class="form-control" />
+                            <span class="text-danger" asp-validation-for="Address"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="ContestantCategoryId">Yarışmacı Kategorisi</label>
+                            <select asp-for="ContestantCategoryId" class="form-control" asp-items="ViewBag.Categories">
+                                <option value="">Yarışmacı Kategorisi Seçin</option>
+                            </select>
+                            <span class="text-danger" asp-validation-for="ContestantCategoryId"></span>
+                        </div>
+
+                       <div class="form-group">
+                        <label asp-for="ProjectCategoryId">Proje Kategorisi</label>
+                            <select asp-for="ProjectCategoryId" class="form-control" asp-items="ViewBag.ProjectCategories">
+                            <option value="">Proje Kategorisi Seçin</option>
+                        </select>
+                        <span class="text-danger" asp-validation-for="ProjectCategoryId"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="ProjectName">Proje Adı</label>
+                            <input type="text" asp-for="ProjectName" class="form-control" required />
+                            <span class="text-danger" asp-validation-for="ProjectName"></span>
+                        </div>
+
+                        
+
+                        <button type="submit" class="btn btn-primary btn-block mt-4">Kaydol</button>
+
+           
+                    </form>
+                   </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+
+    <script src="~/assets/js/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#show_hide_password a").on('click', function (event) {
+                event.preventDefault();
+                if ($('#show_hide_password input').attr("type") == "text") {
+                    $('#show_hide_password input').attr('type', 'password');
+                    $('#show_hide_password i').addClass("bx-hide");
+                    $('#show_hide_password i').removeClass("bx-show");
+                } else if ($('#show_hide_password input').attr("type") == "password") {
+                    $('#show_hide_password input').attr('type', 'text');
+                    $('#show_hide_password i').removeClass("bx-hide");
+                    $('#show_hide_password i').addClass("bx-show");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

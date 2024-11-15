@@ -1,0 +1,152 @@
+﻿@model Yarışma.Models.JudgeProfilViewModel
+
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <!-- Breadcrumb -->
+        <div class="page-breadcrumb d-none d-md-flex align-items-center mb-3">
+            <div class="breadcrumb-title pe-3">Hakem Profile</div>
+            <div class="ps-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-0 p-0">
+                        <li class="breadcrumb-item">
+                            <a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Profil</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <!-- End Breadcrumb -->
+
+        <div class="user-profile-page">
+            <div class="card radius-15">
+                <div class="card-body">
+                    <!-- Profile Header -->
+                    @if (Model.Profile != null)
+                    {
+                        <div class="row">
+                            <div class="col-12 col-lg-7 border-right">
+                                <div class="d-md-flex align-items-center">
+                                    <div class="mb-md-0 mb-3">
+                                        <!-- Profile Picture -->
+                                        <img id="profileImagePreview" src="@Url.Content(Model.Profile.image ?? "~/images/default-profile.png")" class="rounded-circle shadow" width="130" height="130" alt="Profile Image">
+                                    </div>
+                                    <div class="ms-md-4 flex-grow-1">
+                                        <h4 class="mb-0">@Model.Profile.FullName</h4>
+                                        <p class="mb-0 text-muted">@Model.Profile.Address</p>
+                                        <p class="text-primary"><i class="bx bx-buildings"></i> @Model.Profile.Email</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <p>Profil bilgisi bulunamadı.</p>
+                    }
+
+                    <!-- Profile Update Form -->
+                    <div class="tab-content mt-3">
+                        <div class="tab-pane fade active show" id="Edit-Profile">
+                            <div class="card shadow-none border mb-0 radius-15">
+                                <div class="card-body">
+                                    <div class="form-body">
+                                        <form method="post" action="@Url.Action("UpdateJudgeProfile", "Judge")" enctype="multipart/form-data" class="row g-3">
+                                            <!-- Full Name Input -->
+                                            <div class="form-group">
+                                                <label for="FullName">Ad Soyad</label>
+                                                <input asp-for="Profile.FullName" class="form-control" />
+                                                <span asp-validation-for="Profile.FullName" class="text-danger"></span>
+                                            </div>
+
+                                            <!-- Password Input -->
+                                            <div class="col-12">
+                                                <label class="form-label">Password</label>
+                                                <input type="password" name="Password" class="form-control">
+                                            </div>
+
+                                            <!-- Email Input -->
+                                            <div class="form-group">
+                                                <label for="Email">Email</label>
+                                                <input asp-for="Profile.Email" class="form-control" />
+                                                <span asp-validation-for="Profile.Email" class="text-danger"></span>
+                                            </div>
+
+                                            <!-- Phone Input -->
+                                            <div class="form-group">
+                                                <label for="Phone">Telefon</label>
+                                                <input asp-for="Profile.Phone" class="form-control" />
+                                                <span asp-validation-for="Profile.Phone" class="text-danger"></span>
+                                            </div>
+
+                                            <!-- Address Input -->
+                                            <div class="form-group">
+                                                <label for="Address">Adres</label>
+                                                <input asp-for="Profile.Address" class="form-control" />
+                                                <span asp-validation-for="Profile.Address" class="text-danger"></span>
+                                            </div>
+
+
+
+
+                                            <!-- Image Upload Input -->
+                                            <div class="col-12">
+                                                <label class="form-label">Profile Image</label>
+                                                <input type="file" id="profileImageUpload" name="image" class="form-control" accept="image/*">
+                                            </div>
+
+                                            <!-- Contestant Category Selection -->
+                                            <div class="form-group">
+                                                <label for="SelectedContestantCategoryId">Yarışmacı Kategorisi</label>
+                                                @if (Model.JudgeCategories == null || !Model.JudgeCategories.Any())
+                                                {
+                                                    <p class="text-warning">Henüz hakem kategorisi tanımlanmadı.</p>
+                                                }
+                                                else
+                                                {
+                                                    <select asp-for="SelectedJudgeCategoryId" class="form-control"
+                                                            asp-items="@(new SelectList(Model.JudgeCategories, "Id", "Name", Model.SelectedJudgeCategoryId))">
+                                                        <option value="">Yarışmacı Kategorisi Seçin</option>
+                                                    </select>
+                                                    <span class="text-danger" asp-validation-for="SelectedJudgeCategoryId"></span>
+                                                }
+                                            </div>
+
+
+                                            <!-- Proje Kategorisi -->
+                                            <div class="form-group">
+                                                <label for="SelectedProjectCategoryId">Proje Kategorisi</label>
+                                                <select asp-for="SelectedProjectCategoryId" class="form-control"
+                                                        asp-items="@(new SelectList(Model.ProjectCategories, "Id", "Name", Model.SelectedProjectCategoryId))">
+                                                    <option value="">Proje Kategorisi Seçin</option>
+                                                </select>
+                                                <span asp-validation-for="SelectedProjectCategoryId" class="text-danger"></span>
+                                            </div>
+
+                                            <div class="col-12 text-end mt-3">
+                                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End of Edit Profile Tab -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+
+    document.getElementById('profileImageUpload').addEventListener('change', function (event) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            document.getElementById('profileImagePreview').src = e.target.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    });
+</script>

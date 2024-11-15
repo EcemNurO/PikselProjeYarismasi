@@ -1,0 +1,42 @@
+﻿@model ProjectEvaluationViewModel
+
+<h2>@Model.ProjectName</h2>
+<p><strong>Kategori:</strong> @Model.ProjectCategoryName</p>
+<p><strong>Hakem Notu:</strong> @Model.Score</p>
+<p><strong>Hakem Yorumu:</strong> @Model.Comments</p>
+
+<h3>Sorular</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Soru Başlığı</th>
+            <th>Soru Açıklaması</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var question in Model.ProjectQuestions)
+        {
+            <tr>
+                <td>@question.Title</td>
+                <td>@question.Description</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h3>Cevaplar</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Cevap</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var answer in Model.ProjectAnswers)
+        {
+            <tr>
+                <td>@answer.Text</td>
+            </tr>
+        }
+    </tbody>
+</table>

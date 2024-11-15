@@ -52,9 +52,17 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.3, )"
+            },
             "ClosedXML": {
               "target": "Package",
               "version": "[0.104.1, )"
+            },
+            "EPPlus": {
+              "target": "Package",
+              "version": "[7.4.2, )"
             },
             "Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter": {
               "target": "Package",

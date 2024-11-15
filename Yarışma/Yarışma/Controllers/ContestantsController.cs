@@ -1,94 +1,104 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using Yarışma.Models;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
+using DocumentFormat.OpenXml.Spreadsheet;
 
-namespace Yarışma.Controllers
+public class ContestController : Controller
 {
-    public class ContestantsController : Controller
+    CompetitionDbContext db = new CompetitionDbContext();
+
+
+
+    [Authorize(Roles = "Contestant")]
+    public IActionResult Profile(int id)
     {
-      
 
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (string.IsNullOrEmpty(userId))
+        {
+            TempData["ErrorMessage"] = "Kullanıcı kimliği bulunamadı.";
+            return RedirectToAction("Login", "Account");
+        }
+
+        var profile = db.ContestantProfils.Include(p => p.Contestants)
+                                       .FirstOrDefault(p => p.usedContestantJudgeId == int.Parse(userId));
+        if (profile == null)
+        {
+            TempData["ErrorMessage"] = "Profil bulunamadı.";
+            return RedirectToAction("Index", "Home");
+        }
+        var contestant = profile.Contestants.FirstOrDefault();
+
+        var contestantId = profile.Contestants.FirstOrDefault()?.Id ?? 0;
+
+        var selectedProjectCategoryId = db.Projects
+            .Where(p => p.ContestantId == contestantId)
+            .Select(p => p.ProjectCategoryId)
+            .FirstOrDefault();
     
-        CompetitionDbContext db = new CompetitionDbContext();
-        // GET: Contestants
-        public async Task<IActionResult> Index()
+        var model = new ProfileViewModel
         {
-            var competitionDbContext = db.Contestants.Include(c => c.ContestantCategory).Include(c => c.contestantProfil);
-            return View(await competitionDbContext.ToListAsync());
-        }
+            Profile = profile , // Profil `null` ise varsayılan bir nesne oluşturuluyor
+            ContestantCategories = db.ContestantCategories.ToList(),
+            ProjectCategories = db.ProjectCategories.ToList(),
+            SelectedContestantCategoryId = profile.Contestants.FirstOrDefault()?.ContestantCategoryId ?? 0,
+            SelectedProjectCategoryId = db.Projects.FirstOrDefault(p => p.ContestantId == profile.Id)?.ProjectCategoryId ?? 0
+        };
+        return View(model);
 
-        // GET: Contestants/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var contestant = await db.Contestants
-                .Include(c => c.ContestantCategory)
-                .Include(c => c.contestantProfil)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (contestant == null)
-            {
-                return NotFound();
-            }
 
-            return View(contestant);
-        }
-
-        // GET: Contestants/Create
-        public IActionResult Create()
-        {
-            ViewData["ContestantCategoryId"] = new SelectList(db.ContestantCategories, "Id", "Id");
-            ViewData["ContestantProfilId"] = new SelectList(db.ContestantProfils, "Id", "Id");
-            return View();
-        }
-
-        // POST: Contestants/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ContestantProfilId,ContestantCategoryId")] Contestant contestant)
-        {
-            if (ModelState.IsValid)
-            {
-               db.Add(contestant);
-                await db.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["ContestantCategoryId"] = new SelectList(db.ContestantCategories, "Id", "Id", contestant.ContestantCategoryId);
-            ViewData["ContestantProfilId"] = new SelectList(db.ContestantProfils, "Id", "Id", contestant.ContestantProfilId);
-            return View(contestant);
-        }
-
-        // GET: Contestants/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var contestant = await db.Contestants.FindAsync(id);
-            if (contestant == null)
-            {
-                return NotFound();
-            }
-            ViewData["ContestantCategoryId"] = new SelectList(db.ContestantCategories, "Id", "Id", contestant.ContestantCategoryId);
-            ViewData["ContestantProfilId"] = new SelectList(db.ContestantProfils, "Id", "Id", contestant.ContestantProfilId);
-            return View(contestant);
-        }
-
-        
-
-        
-      
     }
+
+       [Authorize]
+       [HttpPost]
+         public async Task<IActionResult> UpdateProfile(ProfileViewModel viewModel)
+ {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (string.IsNullOrEmpty(userId) || !int.TryParse(userId, out int parsedUserId))
+        {
+            TempData["ErrorMessage"] = "Kullanıcı kimliği bulunamadı.";
+            return RedirectToAction("Login", "Account");
+        }
+
+ 
+        var profile = db.ContestantProfils.Include(p => p.Contestants)
+                                              .FirstOrDefault(p => p.usedContestantJudgeId == parsedUserId);
+        if (profile == null)
+        {
+            TempData["ErrorMessage"] = "Profil bulunamadı.";
+            return RedirectToAction("Index", "Home");
+        }
+
+        profile.FullName = viewModel.Profile.FullName;
+        profile.Email = viewModel.Profile.Email;
+        profile.Age = viewModel.Profile.Age;
+        profile.Phone = viewModel.Profile.Phone;
+        profile.Univercity = viewModel.Profile.Univercity;
+        profile.Address = viewModel.Profile.Address;
+        
+
+        // Yarışmacı kategorisi güncelleme
+        var contestant = profile.Contestants.FirstOrDefault();
+        if (contestant != null)
+        {
+            contestant.ContestantCategoryId = viewModel.SelectedContestantCategoryId;
+        }
+
+        // Proje kategorisi güncelleme
+        var project = db.Projects.FirstOrDefault(p => p.ContestantId == contestant.Id);
+        if (project != null)
+        {
+            project.ProjectCategoryId = viewModel.SelectedProjectCategoryId;
+        }
+
+        // Veritabanında değişiklikleri kaydet
+        await db.SaveChangesAsync();
+        TempData["SuccessMessage"] = "Profil başarıyla güncellendi.";
+        return RedirectToAction("Profile");
+     }
 }

@@ -26,8 +26,8 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\adtal\Documents\GitHub\PikselProjeYarismasi\Yarışma\Yarışma
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Areas/Management/Views/Account/Login.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlbWVudFxWaWV3c1xBY2NvdW50XExvZ2luLmNzaHRtbA==
+[C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Areas/Management/Views/AccountAdmin/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlbWVudFxWaWV3c1xBY2NvdW50QWRtaW5cTG9naW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Areas/Management/Views/Appreciation/Index.cshtml]
@@ -78,12 +78,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlbWVudFxWaWV3c1xDb250ZXN0YW50Q2F0ZWdvcnlcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Areas/Management/Views/ContestantTable/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlbWVudFxWaWV3c1xDb250ZXN0YW50VGFibGVcSW5kZXguY3NodG1s
+[C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Areas/Management/Views/ContestantJudge/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlbWVudFxWaWV3c1xDb250ZXN0YW50SnVkZ2VcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Areas/Management/Views/ContestantTable/_ContestantTablePartial.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlbWVudFxWaWV3c1xDb250ZXN0YW50VGFibGVcX0NvbnRlc3RhbnRUYWJsZVBhcnRpYWwuY3NodG1s
+[C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Areas/Management/Views/ContestantTable/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlbWVudFxWaWV3c1xDb250ZXN0YW50VGFibGVcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Areas/Management/Views/ContestantTable/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlbWVudFxWaWV3c1xDb250ZXN0YW50VGFibGVcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Areas/Management/Views/Contestant/Index.cshtml]
@@ -234,24 +238,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Views/Contestants/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGVzdGFudHNcQ3JlYXRlLmNzaHRtbA==
+[C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Views/Account/RegisterContestant.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3RlckNvbnRlc3RhbnQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Views/Contestants/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGVzdGFudHNcRGVsZXRlLmNzaHRtbA==
+[C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Views/Account/RegisterJudge.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlckp1ZGdlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Views/Contestants/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGVzdGFudHNcRGV0YWlscy5jc2h0bWw=
+[C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Views/ContestantProject/Project.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGVzdGFudFByb2plY3RcUHJvamVjdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Views/Contestants/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGVzdGFudHNcRWRpdC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Views/Contestants/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGVzdGFudHNcSW5kZXguY3NodG1s
+[C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Views/Contest/Profile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGVzdFxQcm9maWxlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Views/Home/Index.cshtml]
@@ -260,6 +260,18 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Views/JudgeProject/ProjectDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSnVkZ2VQcm9qZWN0XFByb2plY3REZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Views/JudgeProject/ProjectList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSnVkZ2VQcm9qZWN0XFByb2plY3RMaXN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Views/Judge/JudgeProfile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSnVkZ2VcSnVkZ2VQcm9maWxlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Views/Shared/Error.cshtml]

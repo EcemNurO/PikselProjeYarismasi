@@ -10,6 +10,8 @@ namespace Yarışma.Models
 		public int? Score { get; set; }
 		public int? JudgeId { get; set; }
 		public virtual Judge? Judge { get; set; }
+		public int ProjectId {  get; set; }
+		public virtual Project Project { get; set; }
 		
 		
 		

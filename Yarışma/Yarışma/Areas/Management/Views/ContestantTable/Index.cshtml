@@ -1,76 +1,47 @@
-﻿@model Yarışma.Areas.Management.Models.ContestantTableVM
+﻿@model IEnumerable<Yarışma.Models.Contestant>
 
 <div class="page-content-wrapper">
     <div class="page-content">
-        <div class="row">
-            <div class="col-12">
-                <div class="card-body">
-                    <div class="card-title">
-                        <h4 class="mb-0">Tüm Yarışmacılar</h4>
-                    </div>
-                    <hr>
-                    <div class="table-responsive">
-                        <div id="contestantTableWrapper" class="dataTables_wrapper dt-bootstrap4">
-                            <div class="dt-buttons btn-group mb-3">
-                                <!-- Export to Excel button -->
-                                <a href="@Url.Action("ExportToExcel", "ContestantTable", new { area = "Management" })" 
-                                   class="btn btn-secondary buttons-excel buttons-html5">
-                                    <span>Excel'e Aktar</span>
-                                </a>
-                            </div>
-                            <form method="get" asp-action="Index" asp-controller="ContestantTable" asp-area="Management">
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" name="searchTerm" placeholder="Yarışmacı ara..." value="@ViewBag.SearchTerm" />
-                                    <button class="btn btn-primary" type="submit">Ara</button>
-                                </div>
-                            </form>
-                            
-                            <!-- Contestant table partial view -->
-                            <div id="contestantTable">
-                                @await Html.PartialAsync("_ContestantTablePartial", Model)
-                            </div>
-                            
-                            <!-- Pagination links -->
-                            <div class="pagination mt-3">
-                                <ul class="pagination">
-                                    @for (int i = 1; i <= (Model.TotalCount + Model.PageSize - 1) / Model.PageSize; i++)
-                                    {
-                                        <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
-                                            <a href="#" class="page-link" data-page="@i">@i</a>
-                                        </li>
-                                    }
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    $(document).ready(function () {
-        // İlk sayfayı yükle
-        loadContestants(1);
-
-        // Sayfalama düğmesine tıklama işlemi
-        $(document).on("click", ".pagination a", function (e) {
-            e.preventDefault();
-            var page = $(this).attr("data-page");
-            loadContestants(page);
-        });
-
-        // AJAX ile tabloyu dinamik olarak yükler
-        function loadContestants(page) {
-            $.ajax({
-                url: '@Url.Action("GetContestants", "ContestantTable", new { area = "Management" })',
-                type: 'GET',
-                data: { page: page },
-                success: function (result) {
-                    $("#contestantTable").html(result); // PartialView'i tabloya yükle
-                }
-            });
+        <div class="page-content">
+<h2>Tüm Yarışmacılar</h2>
+<a asp-action="ExportToExcel" class="btn btn-primary">Excel olarak indir</a>
+<form method="get">
+    <input type="text" name="searchTerm" value="@ViewBag.SearchTerm" placeholder="Yarışmacı veya Kategori Ara" />
+    <input type="submit" value="Ara" />
+</form>
+<table>
+    <thead>
+        <tr>
+            <th>Yarışmacı Adı</th>
+            <th>Yarışmacı Kategori</th>
+            <th>Proje Kategori</th>
+            <th>Detaylar</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var contestant in Model)
+        {
+            <tr>
+                <td>@contestant.contestantProfil.FullName</td>
+                <td>@contestant.ContestantCategory.Name</td>
+                <td>
+                    <ul>
+                        @foreach (var project in contestant.Projects)
+                        {
+                            <li>
+                                @project.Name - @project.ProjectCategory.Name
+                            </li>
+                        }
+                    </ul>
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@contestant.Id">Detaylar</a>
+                </td>
+            </tr>
         }
-    });
-</script>
+    </tbody>
+</table>
+</div>
+    </div>
+
+</div>

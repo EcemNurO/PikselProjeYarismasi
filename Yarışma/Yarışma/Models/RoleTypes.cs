@@ -2,9 +2,9 @@
 {
     public enum RoleTypes
     {
-        User=0, 
         Admin=1,
-        SuperAdmin=2
+        Contestant = 2,
+        Judge = 3
 
     }
 }

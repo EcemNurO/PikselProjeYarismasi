@@ -19,7 +19,8 @@ namespace Yarışma.Areas.Management.Controllers
         {
             var judges = db.Judges
                            .Include(j => j.JudgeProfil) // İlişki yükle
-                           .Include(j => j.ProjectCategory) // İlişki yükle
+                          
+                           
                            .Include(j => j.JudgeCategory) // İlişki yükle
                            .Skip((page - 1) * pageSize)
                            .Take(pageSize)
@@ -41,8 +42,9 @@ namespace Yarışma.Areas.Management.Controllers
         public IActionResult GetContestants(int page = 1, int pageSize = 10)
         {
             var judges = db.Judges
-                           .Include(j => j.JudgeProfil) // İlişki yükle
-                           .Include(j => j.ProjectCategory) // İlişki yükle
+                           .Include(j => j.JudgeProfil)
+                         
+                           
                            .Include(j => j.JudgeCategory) // İlişki yükle
                            .Skip((page - 1) * pageSize)
                            .Take(pageSize)
@@ -66,7 +68,8 @@ namespace Yarışma.Areas.Management.Controllers
         {
             var judges = db.Judges
                            .Include(j => j.JudgeProfil) // İlişki yükle
-                           .Include(j => j.ProjectCategory) // İlişki yükle
+                         
+                            
                            .Include(j => j.JudgeCategory) // İlişki yükle
                            .ToList();
 
@@ -82,7 +85,7 @@ namespace Yarışma.Areas.Management.Controllers
                 foreach (var judge in judges)
                 {
                     worksheet.Cell(row, 1).Value = judge.JudgeProfil?.FullName ?? "Ad Soyad Yok";
-                    worksheet.Cell(row, 2).Value = judge.ProjectCategory?.Name ?? "Kategori Yok";
+                   
                     worksheet.Cell(row, 3).Value = judge.JudgeCategory?.Name ?? "Hakem Türü Yok"; // null kontrolü
 
                     row++;
@@ -102,7 +105,8 @@ namespace Yarışma.Areas.Management.Controllers
         {
             var pendingJudges = db.Judges
                                   .Include(j => j.JudgeProfil) // İlişki yükle
-                                  .Include(j => j.ProjectCategory) // İlişki yükle
+                              
+                                  
                                   .Include(j => j.JudgeCategory) // İlişki yükle
                                   .Where(j => !j.IsApproved)
                                   .Skip((page - 1) * pageSize)

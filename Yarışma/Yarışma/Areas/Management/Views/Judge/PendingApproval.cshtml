@@ -34,7 +34,6 @@
                 <td>@judge.JudgeProfil.FullName ?? "Ad Soyad Yok"</td>
                 <td>@judge.JudgeProfil.Email ?? "Email Yok"</td>
                 <td>@judge.JudgeCategory?.Name ?? "Hakem Türü Yok"</td>
-                <td>@judge.ProjectCategory?.Name ?? "Kategori Yok"</td>
                 <td>@(judge.IsApproved ? "Onaylandı" : "Onay Bekliyor")</td>
                 <td>
                     @if (!judge.IsApproved)

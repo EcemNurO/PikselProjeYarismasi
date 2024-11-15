@@ -17,7 +17,7 @@ namespace Yarışma.Controllers
 		{
 			var Profil = db.ContestantProfils.ToList();
 			return View(Profil);
-		}
+		 }
 
 		public IActionResult Privacy()
 		{

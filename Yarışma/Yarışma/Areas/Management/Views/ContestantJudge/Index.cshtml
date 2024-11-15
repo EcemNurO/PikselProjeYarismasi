@@ -1,0 +1,46 @@
+﻿@* @model IEnumerable<Yarışma.Models.Project>
+
+<h2>Projeler Listesi</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Yarışmacı Adı</th>
+            <th>Kategori</th>
+            <th>Proje Adı</th>
+            <th>Hakemler</th>
+            <th>İşlemler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var project in Model)
+        {
+            <tr>
+                <!-- Yarışmacı adı -->
+                <td>@project.Contestant.contestantProfil.FullName</td>
+
+                <!-- Proje kategorisi -->
+                <td>@project.ProjectCategory.Name</td>
+
+                <!-- Proje adı -->
+                <td>@project.Name</td>
+
+                <!-- Hakemler -->
+                <td>
+                    @foreach (var contestantJudge in project.Contestant.ContestantJudges)
+                    {
+                        <span>@contestantJudge.Judge.JudgeCategory.Name - @contestantJudge.Judge.JudgeProfil.FullName</span>
+                        <br />
+                    }
+                </td>
+
+                <!-- İşlemler: Detaylar ve Hakem Eşleştir -->
+                <td>
+                    <a asp-action="Details" asp-route-id="@project.Id" class="btn btn-info">Detaylar</a>
+                    <a asp-action="AssignJudge" asp-route-projectId="@project.Id" class="btn btn-primary">Hakem Eşleştir</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+ *@

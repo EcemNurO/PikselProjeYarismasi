@@ -2,68 +2,84 @@
 
 namespace Yarışma.Models
 {
-	public class CompetitionDbContext:DbContext
+    public class CompetitionDbContext : DbContext
+    {
+        public CompetitionDbContext()
+        {
+        }
 
-	{
-		public CompetitionDbContext()
-		{ 
+        public CompetitionDbContext(DbContextOptions<CompetitionDbContext> options) : base(options)
+        {
+        }
 
-		}
-		public CompetitionDbContext(DbContextOptions<CompetitionDbContext> options) : base(options)
-		{
-
-		}
-		public DbSet<ContestantProfil> ContestantProfils { get; set; }
+        public DbSet<ContestantProfil> ContestantProfils { get; set; }
         public DbSet<JudgeProfil> JudgeProfils { get; set; }
         public DbSet<Judge> Judges { get; set; }
-		public DbSet<Contestant> Contestants { get; set; }
-		public DbSet<Project> Projects { get; set; }
-		public DbSet<ProjectEvaluation> ProjectEvaluations { get; set; }
-		public DbSet<ContestantCategory> ContestantCategories { get; set; }
-		public DbSet<JudgeCategory> JudgeCategories { get; set; }
-		public DbSet<ProjectCategory> ProjectCategories { get; set; }
-		public DbSet<Contact> Contacts { get; set; }
-		public DbSet<ContestantJudge> ContestantJudges { get; set; }
-		public DbSet<ProjectQuestion>ProjectQuestions { get; set; }
-		public DbSet<Period> Periods { get; set; }
-		public DbSet<User> Users {  get; set; }
+        public DbSet<Contestant> Contestants { get; set; }
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<ProjectEvaluation> ProjectEvaluations { get; set; }
+        public DbSet<ContestantCategory> ContestantCategories { get; set; }
+        public DbSet<JudgeCategory> JudgeCategories { get; set; }
+        public DbSet<ProjectCategory> ProjectCategories { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
+       public DbSet<UsedContestantJudge> usedContestantJudges { get; set; }
+        public DbSet<ProjectQuestion> ProjectQuestions { get; set; }
+        public DbSet<Period> Periods { get; set; }
+        public DbSet<User> Users { get; set; }
 
-		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-		{
-			optionsBuilder.UseSqlServer(
-				"Server=ECEM;"
-				+ "Database=ProjeYarismaDb;Trusted_Connection=true;Encrypt=false;"
-				);
-			base.OnConfiguring(optionsBuilder);
-		}
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
-		{
+        public DbSet<ProjectAnswer> ProjectAnswers { get; set; }
 
-            modelBuilder.Entity<Judge>()
-       .HasOne(j => j.ProjectEvaluation)
-       .WithOne(pe => pe.Judge)
-       .HasForeignKey<ProjectEvaluation>(pe => pe.JudgeId);
+        // Connection string configuration
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(
+                "Server=ECEM;" +
+                "Database=ProjeYarismaDb;Trusted_Connection=true;Encrypt=false;"
+            );
+            base.OnConfiguring(optionsBuilder);
+        }
 
+        // Configuring relationships and keys
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // 1:1 ilişki için yabancı anahtar belirtme
+            modelBuilder.Entity<ProjectEvaluation>()
+                .HasOne(pe => pe.Judge) // ProjectEvaluation'ın Judge'a olan ilişkiyi belirtiyoruz
+                .WithOne(j => j.ProjectEvaluation) // Judge'ın ProjectEvaluation ile 1:1 ilişki kurduğunu belirtiyoruz
+                .HasForeignKey<ProjectEvaluation>(pe => pe.JudgeId) // Foreign key'i burada belirtiyoruz
+                .OnDelete(DeleteBehavior.NoAction); // Silme davranışını engelliyoruz, gerekirse silebilirsiniz
+
+
+            // Diğer ilişki yapılandırmaları
             modelBuilder.Entity<Project>()
-           .HasOne(p => p.ProjectCategory)
-           .WithMany(pc => pc.Projects) 
-           .HasForeignKey(p => p.ProjectCategoryId);
-
-            modelBuilder.Entity<Project>()
-               .HasOne(p => p.ProjectCategory)
-               .WithMany(pc => pc.Projects)
-               .HasForeignKey(p => p.ProjectCategoryId)
-               .OnDelete(DeleteBehavior.NoAction); 
-
-            modelBuilder.Entity<Project>()
-                .HasOne(p => p.Question)
-                .WithMany() 
-                .HasForeignKey(p => p.ProjectQuestionId)
+                .HasOne(p => p.ProjectCategory)
+                .WithMany(pc => pc.Projects)
+                .HasForeignKey(p => p.ProjectCategoryId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<ContestantJudge>()
-              .HasKey(c => new { c.ContestantId, c.JudgeId });
-            base.OnModelCreating(modelBuilder);
+           
+
+            modelBuilder.Entity<JudgeProfil>()
+       .HasOne(j => j.UsedContestantJudges)
+       .WithMany(u => u.JudgeProfils)
+       .HasForeignKey(j => j.UsedContestantJudgeId)
+       .OnDelete(DeleteBehavior.Restrict);
+
+
+           
+
+
+
+            modelBuilder.Entity<ProjectAnswer>()
+        .HasOne(pa => pa.Question)
+        .WithMany(q => q.Answers)
+        .HasForeignKey(pa => pa.ProjectQuestionId)
+        .OnDelete(DeleteBehavior.NoAction); 
+
         }
-	}
+
+
+    }
+
 }
+

@@ -12,6 +12,103 @@
 	</div>
 	<!--navigation-->
 	<ul class="metismenu" id="menu">
+		<div class="sidebar-wrapper" data-simplebar="true">
+			<div class="sidebar-header">
+				<div class="">
+					<img src="~/assets/images/images.png" class="logo-icon-2" alt="" />
+				</div>
+				<div>
+					<h6 class="logo-text">AOSB </h6>
+				</div>
+				<a href="javascript:;" class="toggle-btn ms-auto">
+					<i class="bx bx-menu"></i>
+				</a>
+			</div>
+			<!--navigation-->
+			<ul class="metismenu" id="menu">
+				@if (User.IsInRole("Contestant"))
+				{
+					<li>
+						<a href="javascript:;" class="has-arrow">
+							<div class="parent-icon icon-color-1">
+								<i class="bx bx-home-alt"></i>
+							</div>
+							<div class="menu-title">Profilim</div>
+						</a>
+						<ul>
+							<li>
+								<a asp-controller="Contest" asp-action="Profile">
+									Profilim
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="menu-label">Projem</li>
+					<li>
+						<a asp-controller="ContestantProject" asp-action="Project">
+							<div class="parent-icon icon-color-3">
+								<i class="bx bx-conversation"></i>
+							</div>
+							<div class="menu-title">Projem</div>
+						</a>
+					</li>
+				}
+				@if (User.IsInRole("Judge"))
+				{
+					<li>
+						<a href="javascript:;" class="has-arrow">
+							<div class="parent-icon icon-color-2">
+								<i class="bx bx-user"></i>
+							</div>
+							<div class="menu-title">Hakem Profili</div>
+						</a>
+						<ul>
+							<li>
+								<a asp-controller="Judge" asp-action="JudgeProfile">
+									Profilim
+								</a>
+							</li>
+							<li>
+								<a asp-controller="Judge" asp-action="EvaluateProjects">
+									Projeleri Değerlendir
+								</a>
+							</li>
+						</ul>
+					</li>
+				}
+				@if (User.IsInRole("Admin"))
+				{
+					<li class="menu-label">Yönetim</li>
+					<li>
+						<a asp-controller="Admin" asp-action="Dashboard">
+							<div class="parent-icon icon-color-4">
+								<i class="bx bx-cog"></i>
+							</div>
+							<div class="menu-title">Admin Dashboard</div>
+						</a>
+					</li>
+					<li>
+						<a asp-controller="Admin" asp-action="ManageUsers">
+							<div class="parent-icon icon-color-5">
+								<i class="bx bx-user-plus"></i>
+							</div>
+							<div class="menu-title">Kullanıcı Yönetimi</div>
+						</a>
+					</li>
+				}
+				<li class="menu-label">İletişim</li>
+				<li>
+					<a asp-controller="Home" asp-action="Privacy">
+						<div class="parent-icon icon-color-3">
+							<i class="bx bx-conversation"></i>
+						</div>
+						<div class="menu-title">Bize Ulaşın</div>
+					</a>
+				</li>
+			</ul>
+			<!--end navigation-->
+		</div>
+
 		<li>
 			<a href="javascript:;" class="has-arrow">
 				<div class="parent-icon icon-color-1">
@@ -22,7 +119,7 @@
 			<ul>
 
 				<li>
-					<a asp-controller="Home" asp-action="Index">
+					<a asp-controller="Contest" asp-action="Profile">
 						Profilim
 					</a>
 				</li>
@@ -31,7 +128,7 @@
 		<li class="menu-label">Projem</li>
 		<li>
 
-			<a asp-controller="Home" asp-action="Privacy">
+			<a asp-controller="ContestantProject" asp-action="Project">
 				<div class="parent-icon icon-color-3">
 					<i class="bx bx-conversation"></i>
 				</div>

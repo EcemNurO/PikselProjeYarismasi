@@ -8,7 +8,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults
 	.AuthenticationScheme)
 	.AddCookie(opt =>
 	{
-		opt.LoginPath = "/Management/Account/Login";
+		opt.LoginPath = "/Account/Login";
 	});
 var app = builder.Build();
 

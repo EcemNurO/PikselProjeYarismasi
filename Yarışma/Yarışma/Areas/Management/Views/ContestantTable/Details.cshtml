@@ -1,0 +1,50 @@
+﻿@model Yarışma.Models.Contestant // Sadece bir kez tanımlayın
+
+
+<h1>@Model.contestantProfil.FullName - Detaylar</h1>
+
+<h3>Kategori:</h3>
+<p>@Model.ContestantCategory.Name</p>
+<div class="page-content-wrapper">
+<div class="page-content">
+    <div class="page-content">
+<h3>Projeler:</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Proje Adı</th>
+            <th>Kategori</th>
+            <th>Sorular ve Cevaplar</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var project in Model.Projects)
+        {
+            <tr>
+                <td>@project.Name</td>
+                <td>@project.ProjectCategory.Name</td>
+                <td>
+                    <ul>
+                        @foreach (var question in project.ProjectQuestions)
+                        {
+                            <li>
+                                <strong>@question.Description</strong>
+                                <ul>
+                                    @foreach (var answer in question.Answers)
+                                    {
+                                        <li>@answer.Text</li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+                    </ul>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="@Url.Action("Index")">Geri Dön</a>
+</div>
+    </div>
+</div>

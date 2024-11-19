@@ -1,10 +1,12 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Yarışma.Models;
 
 namespace Yarışma.Controllers
 {
-	public class HomeController : Controller
+    [AllowAnonymous]
+    public class HomeController : Controller
 	{
 		private readonly ILogger<HomeController> _logger;
 
@@ -15,8 +17,12 @@ namespace Yarışma.Controllers
 		CompetitionDbContext db = new CompetitionDbContext();
 		public IActionResult Index()
 		{
-			var Profil = db.ContestantProfils.ToList();
-			return View(Profil);
+            if (!User.Identity.IsAuthenticated) // Kullanıcı giriş yapmamışsa
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            return View();
 		 }
 
 		public IActionResult Privacy()

@@ -26,6 +26,7 @@ namespace Yarışma.Models
         public DbSet<ProjectQuestion> ProjectQuestions { get; set; }
         public DbSet<Period> Periods { get; set; }
         public DbSet<User> Users { get; set; }
+       public DbSet<ScoreProject>ScoreProjects { get; set; }
 
         public DbSet<ProjectAnswer> ProjectAnswers { get; set; }
 
@@ -43,11 +44,7 @@ namespace Yarışma.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // 1:1 ilişki için yabancı anahtar belirtme
-            modelBuilder.Entity<ProjectEvaluation>()
-                .HasOne(pe => pe.Judge) // ProjectEvaluation'ın Judge'a olan ilişkiyi belirtiyoruz
-                .WithOne(j => j.ProjectEvaluation) // Judge'ın ProjectEvaluation ile 1:1 ilişki kurduğunu belirtiyoruz
-                .HasForeignKey<ProjectEvaluation>(pe => pe.JudgeId) // Foreign key'i burada belirtiyoruz
-                .OnDelete(DeleteBehavior.NoAction); // Silme davranışını engelliyoruz, gerekirse silebilirsiniz
+           
 
 
             // Diğer ilişki yapılandırmaları
@@ -57,24 +54,24 @@ namespace Yarışma.Models
                 .HasForeignKey(p => p.ProjectCategoryId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-           
-
-            modelBuilder.Entity<JudgeProfil>()
-       .HasOne(j => j.UsedContestantJudges)
-       .WithMany(u => u.JudgeProfils)
-       .HasForeignKey(j => j.UsedContestantJudgeId)
-       .OnDelete(DeleteBehavior.Restrict);
+                    modelBuilder.Entity<JudgeProfil>()
+               .HasOne(j => j.UsedContestantJudges)
+               .WithMany(u => u.JudgeProfils)
+               .HasForeignKey(j => j.UsedContestantJudgeId)
+               .OnDelete(DeleteBehavior.Restrict);
 
 
-           
+                    modelBuilder.Entity<ProjectAnswer>()
+                .HasOne(pa => pa.Question)
+                .WithMany(q => q.Answers)
+                .HasForeignKey(pa => pa.ProjectQuestionId)
+                .OnDelete(DeleteBehavior.NoAction);
 
-
-
-            modelBuilder.Entity<ProjectAnswer>()
-        .HasOne(pa => pa.Question)
-        .WithMany(q => q.Answers)
-        .HasForeignKey(pa => pa.ProjectQuestionId)
-        .OnDelete(DeleteBehavior.NoAction); 
+                        modelBuilder.Entity<ProjectQuestion>()
+            .HasMany(q => q.Answers)
+            .WithOne(a => a.Question)
+            .HasForeignKey(a => a.ProjectQuestionId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         }
 

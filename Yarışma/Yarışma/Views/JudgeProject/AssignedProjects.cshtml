@@ -1,0 +1,63 @@
+﻿
+
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <div class="page-content">
+<div class="projects-container">
+    <h2>Hakeme Atanmış Projeler</h2>
+    @if (ViewBag.Message != null)
+    {
+        <div class="alert alert-warning">
+            @ViewBag.Message
+        </div>
+    }
+    else
+    {
+        @foreach (var project in Model)
+        {
+            <div class="project mb-4 p-3 border rounded">
+                <h3>Proje: @project.ProjectName</h3>
+                <p><strong>Kategori:</strong> @project.ProjectCategory</p>
+
+                <!-- Sorular ve Cevaplar -->
+                <h4 class="mt-3">Sorular ve Cevaplar</h4>
+                <table class="table table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Soru</th>
+                            <th>Cevap</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var qa in project.Questions)
+                        {
+                            <tr>
+                                <td>@qa.Question</td>
+                                <td>@qa.Answer</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <!-- Yüklenen Dosya -->
+                <h4 class="mt-3">Yüklenen Dosya</h4>
+                @if (!string.IsNullOrEmpty(project.FilePath))
+                {
+                    <p>
+                        <a href="@project.FilePath" target="_blank" class="btn btn-link">Dosyayı Görüntüle / İndir</a>
+                    </p>
+                }
+                else
+                {
+                    <p>Henüz dosya yüklenmemiş.</p>
+                }
+
+                <!-- Değerlendirme Butonu -->
+                <a asp-action="EvaluateProject" asp-route-id="@project.ProjectId" class="btn btn-primary">Değerlendir</a>
+            </div>
+        }
+    }
+</div>
+        </div>
+    </div>
+</div>

@@ -1,42 +1,37 @@
 ﻿@model ProjectEvaluationViewModel
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <div class="page-content">
+<h2>Proje Detayları</h2>
 
-<h2>@Model.ProjectName</h2>
-<p><strong>Kategori:</strong> @Model.ProjectCategoryName</p>
-<p><strong>Hakem Notu:</strong> @Model.Score</p>
-<p><strong>Hakem Yorumu:</strong> @Model.Comments</p>
+<p><strong>Puan:</strong> @Model.Score</p>
+<p><strong>Yorum:</strong> @Model.Comments</p>
 
-<h3>Sorular</h3>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Soru Başlığı</th>
-            <th>Soru Açıklaması</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var question in Model.ProjectQuestions)
-        {
+<h3>Sorular ve Cevaplar</h3>
+@if (Model.ProjectAnswers != null && Model.ProjectAnswers.Any())
+{
+    <table>
+        <thead>
             <tr>
-                <td>@question.Title</td>
-                <td>@question.Description</td>
+                <th>Soru</th>
+                <th>Cevap</th>
             </tr>
-        }
-    </tbody>
-</table>
-
-<h3>Cevaplar</h3>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Cevap</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var answer in Model.ProjectAnswers)
-        {
-            <tr>
-                <td>@answer.Text</td>
-            </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var qa in Model.ProjectAnswers)
+            {
+                <tr>
+                    <td>@qa.Question</td>
+                    <td>@qa.Answer</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Henüz sorular ve cevaplar bulunmamaktadır.</p>
+}
+</div>
+</div>
+</div>

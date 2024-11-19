@@ -230,6 +230,9 @@ namespace Yarışma.Migrations
                     b.Property<bool>("IsApproved")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsAssigned")
+                        .HasColumnType("bit");
+
                     b.Property<int>("JudgeCategoryId")
                         .HasColumnType("int");
 
@@ -237,9 +240,6 @@ namespace Yarışma.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("ProjectCategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProjectEvaluationId")
                         .HasColumnType("int");
 
                     b.Property<bool>("Status")
@@ -427,10 +427,13 @@ namespace Yarışma.Migrations
                     b.Property<bool?>("Deleted")
                         .HasColumnType("bit");
 
+                    b.Property<byte[]>("FileData")
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<string>("FilePath")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("JudgeId")
+                    b.Property<int?>("JudgeId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -451,7 +454,8 @@ namespace Yarışma.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ContestantId");
+                    b.HasIndex("ContestantId")
+                        .IsUnique();
 
                     b.HasIndex("JudgeId");
 
@@ -530,9 +534,6 @@ namespace Yarışma.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Comments")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -542,13 +543,13 @@ namespace Yarışma.Migrations
                     b.Property<bool?>("Deleted")
                         .HasColumnType("bit");
 
+                    b.Property<int>("JudgeCategoryId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("JudgeId")
                         .HasColumnType("int");
 
                     b.Property<int>("ProjectId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Score")
                         .HasColumnType("int");
 
                     b.Property<bool>("Status")
@@ -562,9 +563,9 @@ namespace Yarışma.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("JudgeId")
-                        .IsUnique()
-                        .HasFilter("[JudgeId] IS NOT NULL");
+                    b.HasIndex("JudgeCategoryId");
+
+                    b.HasIndex("JudgeId");
 
                     b.HasIndex("ProjectId");
 
@@ -613,6 +614,30 @@ namespace Yarışma.Migrations
                     b.HasIndex("ProjectId");
 
                     b.ToTable("ProjectQuestions");
+                });
+
+            modelBuilder.Entity("Yarışma.Models.ScoreProject", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Comments")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProjectEvaluationId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Score")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProjectEvaluationId");
+
+                    b.ToTable("ScoreProjects");
                 });
 
             modelBuilder.Entity("Yarışma.Models.UsedContestantJudge", b =>
@@ -769,16 +794,14 @@ namespace Yarışma.Migrations
             modelBuilder.Entity("Yarışma.Models.Project", b =>
                 {
                     b.HasOne("Yarışma.Models.Contestant", "Contestant")
-                        .WithMany("Projects")
-                        .HasForeignKey("ContestantId")
+                        .WithOne("Projects")
+                        .HasForeignKey("Yarışma.Models.Project", "ContestantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Yarışma.Models.Judge", "Judge")
+                    b.HasOne("Yarışma.Models.Judge", null)
                         .WithMany("Projects")
-                        .HasForeignKey("JudgeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("JudgeId");
 
                     b.HasOne("Yarışma.Models.ProjectCategory", "ProjectCategory")
                         .WithMany("Projects")
@@ -787,8 +810,6 @@ namespace Yarışma.Migrations
                         .IsRequired();
 
                     b.Navigation("Contestant");
-
-                    b.Navigation("Judge");
 
                     b.Navigation("ProjectCategory");
                 });
@@ -804,7 +825,7 @@ namespace Yarışma.Migrations
                     b.HasOne("Yarışma.Models.ProjectQuestion", "Question")
                         .WithMany("Answers")
                         .HasForeignKey("ProjectQuestionId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Project");
@@ -814,18 +835,25 @@ namespace Yarışma.Migrations
 
             modelBuilder.Entity("Yarışma.Models.ProjectEvaluation", b =>
                 {
+                    b.HasOne("Yarışma.Models.JudgeCategory", "JudgeCategory")
+                        .WithMany()
+                        .HasForeignKey("JudgeCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Yarışma.Models.Judge", "Judge")
-                        .WithOne("ProjectEvaluation")
-                        .HasForeignKey("Yarışma.Models.ProjectEvaluation", "JudgeId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .WithMany("ProjectEvaluations")
+                        .HasForeignKey("JudgeId");
 
                     b.HasOne("Yarışma.Models.Project", "Project")
-                        .WithMany()
+                        .WithMany("ProjectEvaluations")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Judge");
+
+                    b.Navigation("JudgeCategory");
 
                     b.Navigation("Project");
                 });
@@ -837,9 +865,21 @@ namespace Yarışma.Migrations
                         .HasForeignKey("ProjectId");
                 });
 
+            modelBuilder.Entity("Yarışma.Models.ScoreProject", b =>
+                {
+                    b.HasOne("Yarışma.Models.ProjectEvaluation", "ProjectEvaluation")
+                        .WithMany()
+                        .HasForeignKey("ProjectEvaluationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ProjectEvaluation");
+                });
+
             modelBuilder.Entity("Yarışma.Models.Contestant", b =>
                 {
-                    b.Navigation("Projects");
+                    b.Navigation("Projects")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Yarışma.Models.ContestantCategory", b =>
@@ -854,7 +894,7 @@ namespace Yarışma.Migrations
 
             modelBuilder.Entity("Yarışma.Models.Judge", b =>
                 {
-                    b.Navigation("ProjectEvaluation");
+                    b.Navigation("ProjectEvaluations");
 
                     b.Navigation("Projects");
                 });
@@ -872,6 +912,8 @@ namespace Yarışma.Migrations
             modelBuilder.Entity("Yarışma.Models.Project", b =>
                 {
                     b.Navigation("ProjectAnswers");
+
+                    b.Navigation("ProjectEvaluations");
 
                     b.Navigation("ProjectQuestions");
                 });

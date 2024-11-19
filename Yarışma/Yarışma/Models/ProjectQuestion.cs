@@ -10,6 +10,6 @@ namespace Yarışma.Models
 		public string Description { get; set; }
        
 		
-        public virtual ICollection<ProjectAnswer> Answers { get; set; }
+        public virtual ICollection<ProjectAnswer>? Answers { get; set; }
     }
 }

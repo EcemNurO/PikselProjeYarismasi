@@ -1,0 +1,28 @@
+﻿@model Yarışma.Models.ProjectEvaluationViewModel
+
+<div class="container">
+    <h2>Proje Değerlendirme</h2>
+
+    <h3>Proje: @Model.ProjectName</h3>
+    <p><strong>Kategori:</strong> @Model.ProjectCategory</p>
+
+   
+
+    <!-- Değerlendirme Formu -->
+    <form asp-action= "EvaluateProject" method="post">
+        <input type="hidden" name="projectId" value="@Model.ProjectId" />
+
+        <div class="form-group">
+            <label for="score">Puan (0-100):</label>
+            <input type="number" id="score" name="score" value="@Model.Score" class="form-control" min="0" max="100" required />
+        </div>
+
+        <div class="form-group">
+            <label for="comments">Yorum:</label>
+            <textarea id="comments" name="comments" class="form-control" rows="5" required>@Model.Comments</textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success">Kaydet</button>
+        <a asp-action="AssignedProjects" class="btn btn-secondary">Geri Dön</a>
+    </form>
+</div>

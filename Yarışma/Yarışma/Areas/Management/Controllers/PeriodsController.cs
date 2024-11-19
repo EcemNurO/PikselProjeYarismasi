@@ -48,7 +48,7 @@ namespace Yarışma.Areas.Management.Controllers
 			{
 				if (ModelState.IsValid)
 				{
-
+					
 					db.Periods.Add(model);
 					db.SaveChanges();
 					return RedirectToAction(nameof(Index));

@@ -1,47 +1,75 @@
-﻿@model IEnumerable<Yarışma.Models.Contestant>
+﻿@model Yarışma.Areas.Management.Models.ContestantTableVM
 
 <div class="page-content-wrapper">
     <div class="page-content">
-        <div class="page-content">
-<h2>Tüm Yarışmacılar</h2>
-<a asp-action="ExportToExcel" class="btn btn-primary">Excel olarak indir</a>
-<form method="get">
-    <input type="text" name="searchTerm" value="@ViewBag.SearchTerm" placeholder="Yarışmacı veya Kategori Ara" />
-    <input type="submit" value="Ara" />
-</form>
-<table>
-    <thead>
-        <tr>
-            <th>Yarışmacı Adı</th>
-            <th>Yarışmacı Kategori</th>
-            <th>Proje Kategori</th>
-            <th>Detaylar</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var contestant in Model)
-        {
-            <tr>
-                <td>@contestant.contestantProfil.FullName</td>
-                <td>@contestant.ContestantCategory.Name</td>
-                <td>
-                    <ul>
-                        @foreach (var project in contestant.Projects)
-                        {
-                            <li>
-                                @project.Name - @project.ProjectCategory.Name
-                            </li>
-                        }
-                    </ul>
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@contestant.Id">Detaylar</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-</div>
-    </div>
+        <h2>Yarışmacılar</h2>
 
+        <!-- Arama Kutusu -->
+        <form asp-action="Index" method="get">
+            <div class="input-group mb-3">
+                <input type="text" name="searchQuery" class="form-control" placeholder="Ara..." value="@Model.SearchQuery" />
+                <button class="btn btn-primary" type="submit">Ara</button>
+            </div>
+        </form>
+
+        <!-- Yarışmacı Tablosu -->
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Adı</th>
+                    <th>Kategorisi</th>
+                    <th>Proje Adı</th>
+                    <th>Proje Kategorisi</th>
+                    <th>Hakem Durumu</th>
+                    <th>İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var contestant in Model.Contestants)
+                {
+                    <tr>
+                        <td>@contestant.ContestantName</td>
+                        <td>@contestant.ProjectCategoryName</td>
+                        <td>@contestant.ProjectName</td>
+                        <td>@contestant.ProjectCategoryName</td>
+                        <td>
+                            @if (contestant.IsAcademicJudgeAssigned && contestant.IsIndustrialJudgeAssigned)
+                            {
+                                <span class="badge bg-success">Tamamlandı</span>
+                            }
+                            else if (!contestant.IsAcademicJudgeAssigned && !contestant.IsIndustrialJudgeAssigned)
+                            {
+                                <span class="danger alert—check">Akademisyen ve Sanayici Hakem Eksik</span>
+                            }
+                            else if (!contestant.IsAcademicJudgeAssigned)
+                            {
+                                <span class="danger alert—check">Akademisyen Hakem Eksik</span>
+                            }
+                            else if (!contestant.IsIndustrialJudgeAssigned)
+                            {
+                                <span class="danger alert—check">Sanayici Hakem Eksik</span>
+                            }
+                        </td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@contestant.ContestantId" class="btn btn-info">Detaylar</a>
+                            <a asp-action="AssignJudges" asp-route-id="@contestant.ContestantId" class="btn btn-primary">Hakem İşlemleri</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Sayfalama -->
+<div>
+    @if (Model.TotalContestants > Model.PageSize)
+    {
+        int totalPages = (int)Math.Ceiling((double)Model.TotalContestants / Model.PageSize);
+
+        for (int i = 1; i <= totalPages; i++)
+        {
+            <a asp-action="Index" asp-route-page="@i" asp-route-searchQuery="@Model.SearchQuery" class="btn btn-secondary">@i</a>
+        }
+    }
 </div>

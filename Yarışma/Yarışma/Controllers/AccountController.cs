@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Build.Framework;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection.Metadata;
 using System.Security.Claims;
 
@@ -26,14 +27,32 @@ namespace Yarışma.Models.Controllers
 
             // Kullanıcıyı veritabanında bul
             var user = db.usedContestantJudges
+                .Include(p => p.JudgeProfils)
+                .ThenInclude(p => p.Judge)
                 .FirstOrDefault(u => u.Email == model.Email && u.Deleted == false && u.Status == true);
 
-            // Kullanıcı veya şifre yanlışsa
+            // Kullanıcı yoksa hata mesajı
             if (user == null || !BCrypt.Net.BCrypt.Verify(model.Password, user.Password))
             {
                 ModelState.AddModelError("", "Geçersiz e-posta veya şifre.");
                 return View(model);
             }
+
+            // Judge rolü için özel kontrol
+            if (user.Role == RoleTypes.Judge)
+            {
+                var judge = user.JudgeProfils
+                    .SelectMany(jp => jp.Judge)
+                    .FirstOrDefault(); // İlgili hakemi al
+
+                if (judge == null || !judge.IsApproved)
+                {
+                    // Hakem kaydı yoksa veya onaylanmamışsa
+                    ModelState.AddModelError("", "Hesabınız henüz admin tarafından onaylanmadı.");
+                    return View(model);
+                }
+            }
+
 
             // Kullanıcı doğrulandı, oturumu başlat
             var claims = new List<Claim>
@@ -57,7 +76,7 @@ namespace Yarışma.Models.Controllers
             //Kullanıcı rolüne göre yönlendirme
             if (user.Role == RoleTypes.Admin)
             {
-                return RedirectToAction("Dashboard", "Admin");
+                return RedirectToAction("Dashboard",  "Management");
             }
             else if (user.Role == RoleTypes.Contestant)
             {
@@ -72,10 +91,18 @@ namespace Yarışma.Models.Controllers
            // return RedirectToAction("JudgeProfile", "Judge");
            
         }
+        [HttpPost]
         public async Task<IActionResult> Logout()
         {
-            await HttpContext.SignOutAsync();
-            return RedirectToAction("Login");
+            // Kullanıcının oturumunu sonlandır
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            // Giriş sayfasına yönlendir
+            return RedirectToAction("Login", "Account");
+        }
+        public async Task<IActionResult> AccessDenied()
+        {
+            return View();
         }
 
         public IActionResult RegisterContestant()
@@ -160,7 +187,7 @@ namespace Yarışma.Models.Controllers
                 ContestantProfilId = profile.Id,
                 ContestantCategoryId = model.ContestantCategoryId,
                Status=true,
-               Deleted=true
+               Deleted=false
             };
             db.Contestants.Add(contestant);
             db.SaveChanges();
@@ -222,8 +249,9 @@ namespace Yarışma.Models.Controllers
                 Email = model.Email,
                 Password = BCrypt.Net.BCrypt.HashPassword(model.Password),
                 Role = RoleTypes.Judge,
-                Status = true,
-                Deleted = false
+                Status = false,
+                Deleted = true,
+                
             };
             db.usedContestantJudges.Add(newUser);
             db.SaveChanges();
@@ -257,8 +285,8 @@ namespace Yarışma.Models.Controllers
                 Address = model.Address,
                 image = uniqueFileName != null ? "/images/profiles/" + uniqueFileName : null,
                 UsedContestantJudgeId = newUser.Id,
-                Status = true,
-                Deleted = false
+                Status = false,
+                Deleted = true
             };
             db.JudgeProfils.Add(profile);
             db.SaveChanges();
@@ -269,9 +297,10 @@ namespace Yarışma.Models.Controllers
                 JudgeProfilId = profile.Id,
                 JudgeCategoryId = (int)model.JudgeCategoryId,
                  ProjectCategoryId = (int)model.ProjectCategoryId,
-                Status = true,
-                Deleted = false,
-                IsApproved = false
+                Status = false,
+                Deleted = true,
+                IsApproved = false,
+                IsAssigned =false,
 
                 
             };

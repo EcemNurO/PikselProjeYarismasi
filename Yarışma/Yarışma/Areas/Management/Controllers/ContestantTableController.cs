@@ -7,6 +7,10 @@ using System.IO;
 using System.Linq;
 using OfficeOpenXml;
 using System.Reflection.Metadata;
+using Microsoft.CodeAnalysis;
+using System.Security.Claims;
+using Microsoft.Build.Evaluation;
+using DocumentFormat.OpenXml.Office2010.Excel;
 
 namespace Yarışma.Areas.Management.Controllers
 {
@@ -15,62 +19,163 @@ namespace Yarışma.Areas.Management.Controllers
     {
         private readonly CompetitionDbContext db = new CompetitionDbContext();
 
-        public IActionResult Index(string searchTerm, int page = 1, int pageSize = 10)
+        public IActionResult Index(string searchQuery, int page = 1, int pageSize = 10)
         {
-            var contestantsQuery = db.Contestants
-       .Include(c => c.contestantProfil)
-       .Include(c => c.ContestantCategory)
-       .Include(c => c.Projects)
-       .ThenInclude(p => p.ProjectCategory)
-       .AsQueryable();
+            var filteredContestants = db.Contestants
+         .Include(c => c.Projects)
+             .ThenInclude(p => p.ProjectCategory)
+         .Include(c => c.contestantProfil)
+         .Include(c => c.ContestantCategory)
+         .Where(c =>
+             string.IsNullOrEmpty(searchQuery) ||
+             c.contestantProfil.FullName.Contains(searchQuery) ||
+             c.ContestantCategory.Name.Contains(searchQuery) ||
+             c.Projects.Name.Contains(searchQuery) ||
+             c.Projects.ProjectCategory.Name.Contains(searchQuery))
+         .Skip((page - 1) * pageSize)
+         .Take(pageSize)
+         .ToList();
 
-            // Eğer arama terimi varsa, yarışmacıları filtrele
-            if (!string.IsNullOrEmpty(searchTerm))
+            var model = new ContestantTableVM
             {
-                contestantsQuery = contestantsQuery
-                    .Where(c => c.contestantProfil.FullName.Contains(searchTerm) ||
-                                c.ContestantCategory.Name.Contains(searchTerm));
-            }
-
-            // Sayfalama ile birlikte verileri çek
-            var contestants = contestantsQuery
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
-                .ToList();
-
-            // Toplam yarışmacı sayısını hesapla
-            var totalContestants = contestantsQuery.Count();
-
-            ViewBag.TotalContestants = totalContestants;
-            ViewBag.CurrentPage = page;
-            ViewBag.PageSize = pageSize;
-            ViewBag.SearchTerm = searchTerm;
-
-            return View(contestants);
+                Contestants = filteredContestants.Select(c => new ContestantViewModel
+                {
+                    ContestantId = c.Id,
+                    ContestantName = c.contestantProfil?.FullName,
+                    ProjectName = c.Projects?.Name,
+                    ProjectCategoryName = c.Projects?.ProjectCategory?.Name,
+                    AssignedAcademicJudgeName = db.ProjectEvaluations
+                        .Where(pe => pe.ProjectId == c.Projects.Id && pe.JudgeCategoryId == 1)
+                        .Select(pe => pe.Judge.JudgeProfil.FullName)
+                        .FirstOrDefault(),
+                    AssignedIndustrialJudgeName = db.ProjectEvaluations
+                        .Where(pe => pe.ProjectId == c.Projects.Id && pe.JudgeCategoryId == 2)
+                        .Select(pe => pe.Judge.JudgeProfil.FullName)
+                        .FirstOrDefault(),
+                    IsAcademicJudgeAssigned = db.ProjectEvaluations.Any(pe => pe.ProjectId == c.Projects.Id && pe.JudgeCategoryId == 1),
+                    IsIndustrialJudgeAssigned = db.ProjectEvaluations.Any(pe => pe.ProjectId == c.Projects.Id && pe.JudgeCategoryId == 2),
+                }).ToList(),
+                TotalContestants = filteredContestants.Count(),
+                PageSize = pageSize,
+                CurrentPage = page,
+                SearchQuery = searchQuery
+            };
+            return View(model);
         }
         public IActionResult Details(int id)
         {
-             var contestant = db.Contestants
-                        .Include(c => c.Projects)
-                            .ThenInclude(p => p.ProjectCategory) // Proje kategorisini dahil et
-                        .Include(c => c.Projects)
-                            .ThenInclude(p => p.ProjectQuestions) // Projeye ait soruları dahil et
-                       /* .ThenInclude(q => q.ProjectAnswers) */// Sorunun yanıtlarını dahil et
-                        .FirstOrDefault(c => c.Id == id);
+            var contestant = db.Contestants
+        .Include(c => c.Projects)
+            .ThenInclude(p => p.ProjectCategory)
+        .Include(c => c.Projects)
+            .ThenInclude(p => p.ProjectAnswers)
+                .ThenInclude(q => q.Question)
+        .Include(c => c.contestantProfil)
+        .Include(c => c.ContestantCategory)
+        .FirstOrDefault(c => c.Id == id);
 
             if (contestant == null)
             {
                 return NotFound();
             }
 
+
             return View(contestant);
         }
+        public IActionResult AssignJudges(int id)
+        {
+
+            var contestant = db.Contestants
+        .Include(c => c.contestantProfil)
+        .Include(c => c.Projects)
+            .ThenInclude(p => p.ProjectCategory)
+        .FirstOrDefault(c => c.Id == id);
+
+            if (contestant == null || contestant.Projects == null)
+            {
+                TempData["ErrorMessage"] = "Yarışmacıya ait proje bulunamadı.";
+                return RedirectToAction("Index");
+            }
+
+            var academicJudges = db.Judges
+                .Include(j => j.JudgeProfil)
+                .Where(j => j.JudgeCategory.Name == "Akademisyen Hakem" &&
+                            j.ProjectCategoryId == contestant.Projects.ProjectCategoryId)
+                .ToList();
+
+            var industrialJudges = db.Judges
+                .Include(j => j.JudgeProfil)
+                .Where(j => j.JudgeCategory.Name == "Sanayici Hakem" &&
+                            j.ProjectCategoryId == contestant.Projects.ProjectCategoryId)
+                .ToList();
+
+            var model = new AssignJudgesVM
+            {
+                ContestantId = id,
+                ContestantName = contestant.contestantProfil.FullName,
+                ProjectId = contestant.Projects.Id, // Proje ID'sini ekliyoruz
+                ProjectName = contestant.Projects.Name,
+                AcademicJudges = academicJudges,
+                IndustrialJudges = industrialJudges
+            };
+
+            return View(model);
+        }
+        [HttpPost]
+        public IActionResult AssignJudgeToProject(int projectId, int judgeCategoryId, List<int> selectedJudges)
+        {
+
+
+            if (projectId <= 0 || judgeCategoryId <= 0)
+            {
+                TempData["ErrorMessage"] = "Atama işlemi için gerekli bilgiler eksik.";
+                return RedirectToAction("AssignJudges", new { id = projectId });
+            }
+
+            // Eğer hiç hakem seçilmediyse bile işlem devam eder
+            if (selectedJudges == null || !selectedJudges.Any())
+            {
+                TempData["Message"] = "Hakem seçilmedi. Ancak işlem tamamlandı.";
+                return RedirectToAction("AssignJudges", new { id = projectId });
+            }
+
+            foreach (var judgeId in selectedJudges)
+            {
+                // Aynı proje ve hakem kombinasyonunun daha önce atanıp atanmadığını kontrol et
+                var existingAssignment = db.ProjectEvaluations
+                    .FirstOrDefault(pe => pe.ProjectId == projectId && pe.JudgeId == judgeId);
+
+                if (existingAssignment == null)
+                {
+                    // Yeni atama kaydı oluştur
+                    var assignment = new ProjectEvaluation
+                    {
+                        ProjectId = projectId,
+                        JudgeId = judgeId,
+                        JudgeCategoryId = judgeCategoryId,
+                        Status = true,
+                        Deleted = false
+                    };
+
+                    db.ProjectEvaluations.Add(assignment);
+                }
+            }
+
+            db.SaveChanges();
+            TempData["Message"] = "Hakem atamaları başarıyla kaydedildi.";
+            return RedirectToAction("AssignJudges", new { id = projectId });
+
+        }
+
+
         public IActionResult ExportToExcel()
         {
-            var contestants =db.Contestants
-                                .Include(c => c.contestantProfil)
-                                .Include(c => c.ContestantCategory)
-                                .ToList();
+            var contestants = db.Contestants
+        .Include(c => c.contestantProfil)
+        .Include(c => c.ContestantCategory)
+        .Include(c => c.Projects)
+        .ThenInclude(p => p.ProjectCategory)
+        .ToList();
 
             using (var package = new ExcelPackage())
             {
@@ -78,22 +183,24 @@ namespace Yarışma.Areas.Management.Controllers
 
                 // Başlıkları yazıyoruz
                 worksheet.Cells[1, 1].Value = "Yarışmacı Adı";
-                worksheet.Cells[1, 2].Value = "Kategori";
-                worksheet.Cells[1, 3].Value = "Proje Sayısı";
+                worksheet.Cells[1, 2].Value = "Yarışmacı Kategorisi";
+                worksheet.Cells[1, 3].Value = "Proje Adı";
+                worksheet.Cells[1, 4].Value = "Proje Kategorisi";
 
                 // Verileri yazıyoruz
                 int row = 2;
                 foreach (var contestant in contestants)
                 {
-                    worksheet.Cells[row, 1].Value = contestant.contestantProfil.FullName;
-                    worksheet.Cells[row, 2].Value = contestant.ContestantCategory.Name;
-                    worksheet.Cells[row, 3].Value = contestant.Projects.Count;
+                    worksheet.Cells[row, 1].Value = contestant.contestantProfil?.FullName ?? "Bilinmiyor";
+                    worksheet.Cells[row, 2].Value = contestant.ContestantCategory?.Name ?? "Bilinmiyor";
+                    worksheet.Cells[row, 3].Value = contestant.Projects?.Name ?? "Bilinmiyor"; // Proje adı
+                    worksheet.Cells[row, 4].Value = contestant.Projects?.ProjectCategory?.Name ?? "Bilinmiyor"; // Proje kategorisi
                     row++;
                 }
 
                 // Stil ayarlamaları
-                worksheet.Cells[1, 1, row - 1, 3].AutoFitColumns();
-                worksheet.Cells[1, 1, 1, 3].Style.Font.Bold = true;
+                worksheet.Cells[1, 1, row - 1, 4].AutoFitColumns(); // Tüm sütunları otomatik sığdır
+                worksheet.Cells[1, 1, 1, 4].Style.Font.Bold = true; // Başlıkları kalın yap
 
                 // Excel dosyasını byte dizisi olarak alıyoruz
                 var fileContents = package.GetAsByteArray();
@@ -110,3 +217,5 @@ namespace Yarışma.Areas.Management.Controllers
         }
     }
 }
+
+

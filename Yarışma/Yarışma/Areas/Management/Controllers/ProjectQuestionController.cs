@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NuGet.DependencyResolver;
 using Yarışma.Models;
 
 namespace Yarışma.Areas.Management.Controllers
@@ -16,7 +17,8 @@ namespace Yarışma.Areas.Management.Controllers
         // GET: Management/ProjectQuestion
         public async Task<IActionResult> Index()
         {
-            var ProjectQuestion =db.ProjectQuestions.ToList();
+            var ProjectQuestion =db.ProjectQuestions.Where(c => c.Deleted == false)
+				.ToList();
             return View(ProjectQuestion);
         }
 
@@ -44,7 +46,8 @@ namespace Yarışma.Areas.Management.Controllers
 			{
 				if (ModelState.IsValid)
 				{
-
+					model.Status = true;
+					model.Deleted = false;
 					db.ProjectQuestions.Add(model);
 					db.SaveChanges();
 					return RedirectToAction(nameof(Index));
@@ -90,7 +93,8 @@ namespace Yarışma.Areas.Management.Controllers
 					}
 					EditProjectQues.Title = model.Title;
 					EditProjectQues.Description = model.Description;
-					db.SaveChanges();
+                  
+                    db.SaveChanges();
 					return RedirectToAction(nameof(Index));
 				}
 				return View(model);
@@ -116,8 +120,9 @@ namespace Yarışma.Areas.Management.Controllers
 			return View(ProjectQuestion);
 		}
 		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public ActionResult Delete(int id)
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+		public ActionResult DeleteConfirmed(int id)
 		{
 			try
 			{
@@ -127,7 +132,7 @@ namespace Yarışma.Areas.Management.Controllers
 					return RedirectToAction(nameof(Index));
 				}
 				db.ProjectQuestions.Remove(ProjectQuestion);
-				db.SaveChanges();
+                db.SaveChanges();
 
 				return RedirectToAction(nameof(Index));
 			}

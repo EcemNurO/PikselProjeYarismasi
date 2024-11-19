@@ -1,52 +1,88 @@
 ﻿@model Yarışma.Models.Project
 
-<div class="container">
-    <h2>Proje: @Model.Name</h2>
+<div class="container mt-7" style="padding-top: 100px;">
+    <!-- Başlık -->
+    <div class="text-center mb-5">
+        <h2 class="fw-bold text-primary">Proje: @Model.Name</h2>
+        <p class="text-muted">Bu sayfada proje sorularını cevaplayabilir ve dosya yükleme işlemini gerçekleştirebilirsiniz.</p>
+    </div>
 
-    <form method="post" enctype="multipart/form-data" asp-action="SaveProject">
-        <input type="hidden" name="projectId" value="@Model.Id" /> <!-- Project ID'yi gizli olarak gönderiyoruz -->
+    <!-- Form Alanı -->
+    <form method="post" enctype="multipart/form-data" asp-action="SaveProject" class="shadow-lg p-4 bg-white rounded">
+        <!-- Proje ID'si Gizli Alan -->
+        <input type="hidden" name="projectId" value="@Model.Id" />
+
         <!-- Proje Adı -->
-        <div class="form-group">
-            <label for="Name">Proje Adı:</label>
-            <input type="text" name="Name" value="@Model.Name" class="form-control" />
+        <div class="form-group mb-4">
+            <label for="Name" class="form-label fw-bold">Proje Adı:</label>
+            <input type="text" name="Name" value="@Model.Name" class="form-control border-primary shadow-sm" readonly />
         </div>
 
         <!-- Sorular ve Cevaplar -->
-        <div>
-            <h3>Proje Soruları</h3>
-            @{
-                int i = 0;
-            }
-            @foreach (var question in Model.ProjectQuestions)
+        <div class="mb-4">
+            <h3 class="text-secondary mb-3">Proje Soruları</h3>
+            @if (Model.ProjectQuestions != null && Model.ProjectQuestions.Any())
             {
-                <div class="mb-4">
-                    <h5>@question.Title</h5>
-                    <p>@question.Description</p>
-
-                    @if (question.Answers != null && question.Answers.Any(a => a.ProjectQuestionId == question.Id))
-                    {
-                        int j = 0;
-                        foreach (var answer in question.Answers)
-                        {
-                            <div class="form-group">
-                                <textarea name="answers[@i].Text" class="form-control">@answer.Text</textarea>
-                                <input type="hidden" name="answers[@i].ProjectQuestionId" value="@question.Id" />
-                            </div>
-                            j++;
-                        }
-                    }
-                    else
-                    {
-                        <div class="form-group">
-                            <textarea name="answers[@i].Text" class="form-control"></textarea>
+                
+                    // ICollection'ı bir listeye dönüştürüyoruz
+                    var questions = Model.ProjectQuestions.ToList();
+                
+                @for (var i = 0; i < questions.Count; i++)
+                {
+                    var question = questions[i];
+                    <div class="card mb-3 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">@question.Title</h5>
+                            <p class="card-text">@question.Description</p>
+                            
+                            <!-- Cevap Alanı -->
+                            <textarea name="answers[@i].Text" 
+                                      class="form-control border-primary rounded shadow-sm mt-2" rows="3">
+                                @question.Answers?.FirstOrDefault(a => a.ProjectQuestionId == question.Id)?.Text
+                            </textarea>
+                            
+                            <!-- Soru ID'si Gizli Alan -->
                             <input type="hidden" name="answers[@i].ProjectQuestionId" value="@question.Id" />
                         </div>
-                    }
-                </div>
-                i++;
+                    </div>
+                }
             }
+            else
+            {
+                <p class="text-muted">Henüz proje için tanımlanmış soru yok.</p>
+            }
+        </div>
+
+        <!-- Mevcut Dosya -->
+        <div class="mb-4">
+            <h3 class="text-secondary mb-3">Proje Dosyası</h3>
+            @if (!string.IsNullOrEmpty(Model.FilePath))
+            {
+                <p>
+                    <strong>Mevcut Dosya:</strong>
+                    <a href="@Model.FilePath" target="_blank" class="btn btn-link text-primary">Görüntüle / İndir</a>
+                </p>
+                <button type="submit" name="deleteFile" value="true" class="btn btn-danger btn-sm">Dosyayı Sil</button>
+            }
+            else
+            {
+                <p class="text-muted">Henüz bir dosya yüklenmemiş.</p>
+            }
+            <p class="text-muted">Lütfen tüm belgelerinizi .pdf formatında ve tek dosya halinde yükleyiniz.</p>
+        </div>
+
+        <!-- Yeni Dosya Yükleme -->
+        <div class="mb-4">
+            <h3 class="text-secondary mb-3">Yeni Dosya Yükle</h3>
+            <div class="form-group">
+                <label for="file" class="form-label">Dosya Seç:</label>
+                <input type="file" id="file" name="file" class="form-control border-primary shadow-sm" />
+            </div>
+        </div>
 
         <!-- Kaydet Butonu -->
-        <button type="submit" class="btn btn-primary">Kaydet</button>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary btn-lg px-5">Kaydet</button>
+        </div>
     </form>
 </div>

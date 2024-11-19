@@ -34,7 +34,7 @@
 		</li>
 		<li class="menu-label">Yarışmacı</li>
 		<li>
-			<a asp-area="Management" asp-controller="ContestantTable" asp-action="Index">
+			<a asp-area="Management" asp-controller="Contestant" asp-action="Contestant">
 				<div class="parent-icon icon-color-2">
 					<i class="bx bx-envelope"></i>
 				</div>
@@ -42,7 +42,15 @@
 			</a>
 		</li>
 		<li>
-			<a asp-area="Management" asp-controller="Appreciation" asp-action="Index">
+			<a asp-area="Management" asp-controller="ContestantTable" asp-action="Index">
+				<div class="parent-icon icon-color-2">
+					<i class="bx bx-envelope"></i>
+				</div>
+				<div class="menu-title">Bekleyen Yarışmacılar</div>
+			</a>
+		</li>
+		<li>
+			<a asp-area="Management" asp-controller="EvaluatedContestants" asp-action="EvaluatedContestants">
 				<div class="parent-icon icon-color-2">
 					<i class="bx bx-envelope"></i>
 				</div>
@@ -50,36 +58,29 @@
 			</a>
 		</li>
 		<li>
-			<a asp-area="Management" asp-controller="UnAppreciation" asp-action="Index">
+			<a asp-area="Management" asp-controller="NotEvaluatedContestants" asp-action="NotEvaluatedContestants">
 				<div class="parent-icon icon-color-2">
 					<i class="bx bx-envelope"></i>
 				</div>
 				<div class="menu-title">Değerlendirilmeyen Yarışmacılar</div>
 			</a>
 		</li>
-		<li class="menu-label">Hakemler</li>s
+		<li class="menu-label">Hakemler</li>
 		<li>
-			<a asp-area="Management" asp-controller="Judge" asp-action="Index">
+			<a asp-area="Management" asp-controller="Judge" asp-action="Judge">
 				<div class="parent-icon icon-color-2">
 					<i class="bx bx-envelope"></i>
 				</div>
 				<div class="menu-title">Tüm Hakemler</div>
 			</a>
 		</li>
+
 		<li>
-			<a asp-area="Management" asp-controller="Judge" asp-action="PendingApproval">
+			<a asp-area="Management" asp-controller="ApproveJudge" asp-action="AproveJudge">
 				<div class="parent-icon icon-color-2">
 					<i class="bx bx-envelope"></i>
 				</div>
-				<div class="menu-title"> Hakem Onayla</div>
-			</a>
-		</li>
-		<li>
-			<a asp-area="Management" asp-controller="ContestantJudge" asp-action="Index">
-				<div class="parent-icon icon-color-2">
-					<i class="bx bx-envelope"></i>
-				</div>
-				<div class="menu-title"> Hakem-Proje İşlemleri</div>
+				<div class="menu-title">Onay Bekleyen Hakemler</div>
 			</a>
 		</li>
 

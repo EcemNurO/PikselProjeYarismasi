@@ -11,6 +11,7 @@ namespace Yarışma.Models
         public IEnumerable<ProjectCategory> ProjectCategories { get; set; }
         public int SelectedProjectCategoryId { get; set; }
         public int SelectedJudgeCategoryId { get; set; }
-        
+        public IFormFile imageFile { get; set; }
+
     }
 }

@@ -1,0 +1,60 @@
+﻿@model Yarışma.Areas.Management.Models.JudgeTableVM
+
+
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <h2>Hakemler</h2>
+
+        <!-- Hakem Tablosu -->
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Adı</th>
+                    <th>Telefon</th>
+                    <th>Email</th>
+                    <th>Üniversite</th>
+                    <th>Hakem Kategorisi</th>
+                    <th>Proje Kategorileri</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var judge in Model.Judges)
+                {
+                    <tr>
+                        <td>@judge.FullName</td>
+                        <td>@judge.Phone</td>
+                        <td>@judge.Email</td>
+                        <td>@judge.University</td>
+                        <td>@judge.JudgeCategoryName</td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(judge.ProjectCategories))
+                            {
+                                @judge.ProjectCategories
+                            }
+                            else
+                            {
+                                <span class="text-muted">Kategori Yok</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <!-- Sayfalama -->
+        <div>
+            @if (Model.TotalCount > Model.PageSize)
+            {
+                int totalPages = (int)Math.Ceiling((double)Model.TotalCount / Model.PageSize);
+
+                for (int i = 1; i <= totalPages; i++)
+                {
+                    <a asp-action="Judges" asp-route-page="@i"
+                       class="btn btn-secondary @(i == Model.CurrentPage ? "active" : "")">
+                        @i
+                    </a>
+                }
+            }
+        </div>
+    </div>
+</div>

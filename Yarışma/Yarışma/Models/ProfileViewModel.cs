@@ -7,5 +7,6 @@
             public IEnumerable<ProjectCategory> ProjectCategories { get; set; }
             public int SelectedContestantCategoryId { get; set; }
             public int SelectedProjectCategoryId { get; set; }
-}
+                public IFormFile imageFile { get; set; }
     }
+}

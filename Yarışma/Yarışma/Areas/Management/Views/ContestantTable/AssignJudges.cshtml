@@ -1,0 +1,63 @@
+﻿@model Yarışma.Areas.Management.Models.AssignJudgesVM
+
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <h2>Hakem İşlemleri</h2>
+
+        <!-- Yarışmacı ve Proje Bilgileri -->
+        <p><strong>Yarışmacı:</strong> @Model.ContestantName</p>
+        <p><strong>Proje:</strong> @Model.ProjectName</p>
+
+        <!-- Akademisyen Hakemler -->
+        <div class="card mb-3">
+            <div class="card-header">Akademisyen Hakemler</div>
+            <div class="card-body">
+                <form asp-action="AssignJudgeToProject" method="post">
+                    <!-- Proje ve Hakem Kategorisi Bilgileri -->
+                    <input type="hidden" name="projectId" value="@Model.ProjectId" />
+                    <input type="hidden" name="judgeCategoryId" value="1" /> <!-- Akademisyen -->
+
+                    <ul>
+                        @foreach (var judge in Model.AcademicJudges)
+                        {
+                            <li>
+                                <label>
+                                    <input type="checkbox" name="selectedJudges" value="@judge.Id" />
+                                    @judge.JudgeProfil.FullName
+                                </label>
+                            </li>
+                        }
+                    </ul>
+
+                    <button type="submit" class="btn btn-primary">Akademisyen Atamasını Kaydet</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Sanayici Hakemler -->
+        <div class="card mb-3">
+            <div class="card-header">Sanayici Hakemler</div>
+            <div class="card-body">
+                <form asp-action="AssignJudgeToProject" method="post">
+                    <!-- Proje ve Hakem Kategorisi Bilgileri -->
+                    <input type="hidden" name="projectId" value="@Model.ProjectId" />
+                    <input type="hidden" name="judgeCategoryId" value="2" /> <!-- Sanayici -->
+
+                    <ul>
+                        @foreach (var judge in Model.IndustrialJudges)
+                        {
+                            <li>
+                                <label>
+                                    <input type="checkbox" name="selectedJudges" value="@judge.Id" />
+                                    @judge.JudgeProfil.FullName
+                                </label>
+                            </li>
+                        }
+                    </ul>
+
+                    <button type="submit" class="btn btn-primary">Sanayici Atamasını Kaydet</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

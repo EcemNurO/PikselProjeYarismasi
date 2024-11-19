@@ -1,50 +1,60 @@
-﻿@model Yarışma.Models.Contestant // Sadece bir kez tanımlayın
+﻿@model Yarışma.Models.Contestant
 
 
-<h1>@Model.contestantProfil.FullName - Detaylar</h1>
-
-<h3>Kategori:</h3>
-<p>@Model.ContestantCategory.Name</p>
 <div class="page-content-wrapper">
-<div class="page-content">
     <div class="page-content">
-<h3>Projeler:</h3>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Proje Adı</th>
-            <th>Kategori</th>
-            <th>Sorular ve Cevaplar</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var project in Model.Projects)
-        {
-            <tr>
-                <td>@project.Name</td>
-                <td>@project.ProjectCategory.Name</td>
-                <td>
-                    <ul>
-                        @foreach (var question in project.ProjectQuestions)
-                        {
-                            <li>
-                                <strong>@question.Description</strong>
-                                <ul>
-                                    @foreach (var answer in question.Answers)
-                                    {
-                                        <li>@answer.Text</li>
-                                    }
-                                </ul>
-                            </li>
-                        }
-                    </ul>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+        <div class="page-content">
+<h2>Yarışmacı Detayları</h2>
 
-<a href="@Url.Action("Index")">Geri Dön</a>
+<!-- Yarışmacı Bilgileri -->
+<div class="card mb-3">
+    <div class="card-header">
+        Yarışmacı Bilgileri
+    </div>
+    <div class="card-body">
+        <p><strong>Adı:</strong> @Model.contestantProfil?.FullName</p>
+        <p><strong>Kategorisi:</strong> @Model.ContestantCategory?.Name</p>
+    </div>
+</div>
+
+<!-- Proje Bilgileri -->
+<div class="card mb-3">
+    <div class="card-header">
+        Proje Bilgileri
+    </div>
+    <div class="card-body">
+        <p><strong>Proje Adı:</strong> @Model.Projects?.Name</p>
+        <p><strong>Proje Kategorisi:</strong> @Model.Projects?.ProjectCategory?.Name</p>
+    </div>
+</div>
+
+<!-- Sorular ve Cevaplar -->
+<div class="card">
+    <div class="card-header">
+        Proje Soruları ve Cevapları
+    </div>
+    <div class="card-body">
+        @if (Model.Projects?.ProjectAnswers != null && Model.Projects.ProjectAnswers.Any())
+        {
+            <ul>
+                @foreach (var answer in Model.Projects.ProjectAnswers)
+                {
+                    <li>
+                        <p><strong>Soru:</strong> @answer.Question?.Description</p>
+                                    <p><strong>Cevap:</strong> @(string.IsNullOrWhiteSpace(answer.Text) ? "Cevaplanmamış" : answer.Text)</p>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>Bu proje için soru veya cevap bulunmuyor.</p>
+        }
+    </div>
+</div>
+
+<a asp-action="Index" class="btn btn-secondary mt-3">Geri Dön</a>
 </div>
     </div>
+
 </div>

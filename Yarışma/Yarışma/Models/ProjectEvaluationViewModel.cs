@@ -2,14 +2,16 @@
 {
     public class ProjectEvaluationViewModel
     {
-        public int Id { get; set; }
-        public string ProjectName { get; set; }
-        public string ProjectCategoryName { get; set; }
-        public int? Score { get; set; }
-        public string Comments { get; set; }
+        public int ProjectId { get; set; } 
 
-        // Soru ve Cevaplar
-        public List<ProjectQuestion> ProjectQuestions { get; set; }
-        public List<ProjectAnswer> ProjectAnswers { get; set; }
+        public int JudgeId { get; set; } 
+  
+        public int? Score { get; set; } 
+        public string? Comments { get; set; }
+        public string? ProjectName { get; set; }
+        public int? JudgeCategoryId { get; set; }
+        public string? ProjectCategory { get; set; }
+        public List<QuestionWithAnswerViewModel>? ProjectAnswers { get; set; }
+        public string? FilePath { get; set; }
     }
 }

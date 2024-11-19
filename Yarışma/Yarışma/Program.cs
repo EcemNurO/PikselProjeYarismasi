@@ -1,4 +1,8 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Yarýþma.Middleware;
+using Yarýþma.Models; 
+using Microsoft.EntityFrameworkCore;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +13,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults
 	.AddCookie(opt =>
 	{
 		opt.LoginPath = "/Account/Login";
-	});
+        opt.AccessDeniedPath = "/Account/AccessDenied";
+    });
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -19,7 +24,8 @@ if (!app.Environment.IsDevelopment())
 	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 	app.UseHsts();
 }
-//bu bir yorumdur
+
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

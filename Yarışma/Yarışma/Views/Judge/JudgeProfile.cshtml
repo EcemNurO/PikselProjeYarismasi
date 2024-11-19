@@ -59,12 +59,12 @@
                                                 <span asp-validation-for="Profile.FullName" class="text-danger"></span>
                                             </div>
 
-                                            <!-- Password Input -->
+                                            @* <!-- Password Input -->
                                             <div class="col-12">
                                                 <label class="form-label">Password</label>
                                                 <input type="password" name="Password" class="form-control">
                                             </div>
-
+ *@
                                             <!-- Email Input -->
                                             <div class="form-group">
                                                 <label for="Email">Email</label>
@@ -91,21 +91,24 @@
 
                                             <!-- Image Upload Input -->
                                             <div class="col-12">
-                                                <label class="form-label">Profile Image</label>
-                                                <input type="file" id="profileImageUpload" name="image" class="form-control" accept="image/*">
+                                                <label class="form-label">Profil Fotoğrafı</label>
+                                                <input type="file" id="profileImageUpload" name="imageFile" class="form-control" accept="image/*">
+                                                <span asp-validation-for="Profile.image" class="text-danger"></span>
                                             </div>
 
                                             <!-- Contestant Category Selection -->
                                             <div class="form-group">
-                                                <label for="SelectedContestantCategoryId">Yarışmacı Kategorisi</label>
+                                                <label for="SelectedContestantCategoryId">Yarışmacı Kategorisi(Değiştirilemez)</label>
                                                 @if (Model.JudgeCategories == null || !Model.JudgeCategories.Any())
                                                 {
                                                     <p class="text-warning">Henüz hakem kategorisi tanımlanmadı.</p>
                                                 }
                                                 else
                                                 {
-                                                    <select asp-for="SelectedJudgeCategoryId" class="form-control"
-                                                            asp-items="@(new SelectList(Model.JudgeCategories, "Id", "Name", Model.SelectedJudgeCategoryId))">
+                                                    
+
+                                                    <select asp-for="SelectedJudgeCategoryId" class="form-control" disabled
+                                                             asp-items="@(new SelectList(Model.JudgeCategories, "Id", "Name", Model.SelectedJudgeCategoryId))">
                                                         <option value="">Yarışmacı Kategorisi Seçin</option>
                                                     </select>
                                                     <span class="text-danger" asp-validation-for="SelectedJudgeCategoryId"></span>
@@ -115,8 +118,8 @@
 
                                             <!-- Proje Kategorisi -->
                                             <div class="form-group">
-                                                <label for="SelectedProjectCategoryId">Proje Kategorisi</label>
-                                                <select asp-for="SelectedProjectCategoryId" class="form-control"
+                                                <label for="SelectedProjectCategoryId">Proje Kategorisi (Değiştirilemez)</label>
+                                                <select asp-for="SelectedProjectCategoryId" class="form-control" disabled
                                                         asp-items="@(new SelectList(Model.ProjectCategories, "Id", "Name", Model.SelectedProjectCategoryId))">
                                                     <option value="">Proje Kategorisi Seçin</option>
                                                 </select>

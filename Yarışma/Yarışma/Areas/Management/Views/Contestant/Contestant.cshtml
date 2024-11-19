@@ -1,0 +1,58 @@
+﻿<div class="page-content-wrapper">
+    <div class="page-content">
+        <h2>Yarışmacılar</h2>
+
+        @* <!-- Arama Kutusu -->
+        <form asp-action="Index" method="get" class="mb-4">
+            <div class="input-group">
+                <input type="text" name="searchQuery" class="form-control" placeholder="Yarışmacı, Proje veya Kategori Ara..." value="@Model.SearchQuery" />
+                <button class="btn btn-primary" type="submit">Ara</button>
+            </div>
+        </form> *@
+
+        <!-- Yarışmacı Tablosu -->
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Adı</th>
+                    <th>Kategorisi</th>
+                    <th>Proje Adı</th>
+                    <th>Proje Kategorisi</th>
+                    <th>Akademisyen Hakem</th>
+                    <th>Sanayici Hakem</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var contestant in Model.Contestants)
+                {
+                    <tr>
+                        <td>@contestant.ContestantName</td>
+                        <td>@contestant.ProjectCategoryName</td>
+                        <td>@contestant.ProjectName</td>
+                        <td>@contestant.ProjectCategoryName</td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(contestant.AssignedAcademicJudgeName))
+                            {
+                                @contestant.AssignedAcademicJudgeName
+                            }
+                            else
+                            {
+                                <span class="text-muted">Atanmamış</span>
+                            }
+                        </td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(contestant.AssignedIndustrialJudgeName))
+                            {
+                                @contestant.AssignedIndustrialJudgeName
+                            }
+                            else
+                            {
+                                <span class="text-muted">Atanmamış</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

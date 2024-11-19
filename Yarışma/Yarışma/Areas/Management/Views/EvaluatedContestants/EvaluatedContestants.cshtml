@@ -1,0 +1,86 @@
+﻿@model Yarışma.Areas.Management.Models.ContestantTableVM
+
+
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <h2>Değerlendirilen Yarışmacılar</h2>
+
+        <!-- Yarışmacı Tablosu -->
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Adı</th>
+                    <th>Kategorisi</th>
+                    <th>Proje Adı</th>
+                    <th>Proje Kategorisi</th>
+                    <th>Akademisyen Hakem</th>
+                    <th>Sanayici Hakem</th>
+                    <th>Akademisyen Hakem Notu</th>
+                    <th>Sanayici Hakem Notu</th>
+                    <th>Ortalama Not</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var contestant in Model.Contestants)
+                {
+                    <tr>
+                        <td>@contestant.ContestantName</td>
+                        <td>@contestant.ProjectCategoryName</td>
+                        <td>@contestant.ProjectName</td>
+                        <td>@contestant.ProjectCategoryName</td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(contestant.AssignedAcademicJudgeName))
+                            {
+                                @contestant.AssignedAcademicJudgeName
+                            }
+                            else
+                            {
+                                <span class="text-muted">Atanmamış</span>
+                            }
+                        </td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(contestant.AssignedIndustrialJudgeName))
+                            {
+                                @contestant.AssignedIndustrialJudgeName
+                            }
+                            else
+                            {
+                                <span class="text-muted">Atanmamış</span>
+                            }
+                        </td>
+                        <td>
+                            @if (contestant.AcademicJudgeScore.HasValue)
+                            {
+                                @contestant.AcademicJudgeScore
+                            }
+                            else
+                            {
+                                <span class="text-muted">Atanmamış</span>
+                            }
+                        </td>
+                        <td>
+                            @if (contestant.IndustrialJudgeScore.HasValue)
+                            {
+                                @contestant.IndustrialJudgeScore
+                            }
+                            else
+                            {
+                                <span class="text-muted">Atanmamış</span>
+                            }
+                        </td>
+                        <td>
+                            @if (contestant.AverageScore.HasValue)
+                            {
+                                @contestant.AverageScore
+                            }
+                            else
+                            {
+                                <span class="text-muted">Hesaplanamadı</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

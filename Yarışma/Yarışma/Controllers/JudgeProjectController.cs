@@ -47,12 +47,14 @@ namespace Yarışma.Controllers
 
             // Tüm projeleri ve ilişkili sorularla cevapları getir
             var projects = db.Projects
+                .Include(p=>p.Contestant)
                 .Where(p => projectIds.Contains(p.Id))
                 .Select(p => new AssignedProjectViewModel
                 {
                     ProjectId = p.Id,
                     ProjectName = p.Name,
                     ProjectCategory = p.ProjectCategory != null ? p.ProjectCategory.Name : "Kategori Yok",
+                    ContestantCategoryId = p.Contestant.ContestantCategory.Name, // Yarışmacının kategorisini alın
                     FilePath = p.FilePath,
                     Questions = db.ProjectQuestions
                         .Select(q => new QuestionWithAnswerViewModel

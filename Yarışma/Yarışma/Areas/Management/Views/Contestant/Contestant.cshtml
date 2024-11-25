@@ -2,22 +2,22 @@
     <div class="page-content">
         <h2>Yarışmacılar</h2>
 
-        @* <!-- Arama Kutusu -->
-        <form asp-action="Index" method="get" class="mb-4">
+        <!-- Arama Kutusu -->
+        <form asp-action="Contestant" method="get" class="mb-4">
             <div class="input-group">
                 <input type="text" name="searchQuery" class="form-control" placeholder="Yarışmacı, Proje veya Kategori Ara..." value="@Model.SearchQuery" />
                 <button class="btn btn-primary" type="submit">Ara</button>
             </div>
-        </form> *@
+        </form> 
 
         <!-- Yarışmacı Tablosu -->
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th>Adı</th>
-                    <th>Kategorisi</th>
+                    <th>Yarışmacı Kategorisi</th>
                     <th>Proje Adı</th>
-                    <th>Proje Kategorisi</th>
+                    <th>Tematik Alan</th>
                     <th>Akademisyen Hakem</th>
                     <th>Sanayici Hakem</th>
                 </tr>
@@ -27,7 +27,7 @@
                 {
                     <tr>
                         <td>@contestant.ContestantName</td>
-                        <td>@contestant.ProjectCategoryName</td>
+                        <td>@contestant.ContestantCategoryName</td>
                         <td>@contestant.ProjectName</td>
                         <td>@contestant.ProjectCategoryName</td>
                         <td>

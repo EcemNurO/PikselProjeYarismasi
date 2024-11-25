@@ -37,7 +37,7 @@ namespace Yarışma.Controllers
             var judge = profile.Judge.FirstOrDefault();
             var JudgeId = profile.Judge.FirstOrDefault()?.Id ?? 0;
 
-            
+
 
             var model = new JudgeProfilViewModel
             {
@@ -45,8 +45,11 @@ namespace Yarışma.Controllers
                 JudgeCategories = db.JudgeCategories.ToList(),
                 ProjectCategories = db.ProjectCategories.ToList(),
                 SelectedJudgeCategoryId = judge?.JudgeCategoryId ?? 0,
-                SelectedProjectCategoryId = judge?.ProjectCategoryId ?? 0
+                SelectedProjectCategoryId = judge?.ProjectCategoryId ?? 0,
+                Univercity = profile.Univercity != null ? profile.Univercity.UniversityName : string.Empty,
+                WorkplaceName = profile.WorkplaceName ?? string.Empty
             };
+
 
             return View(model);
         }
@@ -93,12 +96,34 @@ namespace Yarışma.Controllers
                 profile.image = "/images/" + uniqueFileName;
 
             }
-                // Profil bilgilerini güncelle
-                profile.FullName = viewModel.Profile.FullName;
+            profile.FullName = viewModel.Profile.FullName;
             profile.Email = viewModel.Profile.Email;
             profile.Phone = viewModel.Profile.Phone;
             profile.Address = viewModel.Profile.Address;
-          
+
+            // Hakem kategorisine göre Üniversite veya İş Yeri Adı güncellemesi
+            if (viewModel.SelectedJudgeCategoryId == 1) // Akademisyen Hakem
+            {
+                // Üniversite bilgisi için kontrol ve atama
+                if (profile.Univercity == null)
+                {
+                    profile.Univercity = new Univercity(); // Eğer null ise yeni bir nesne oluştur
+                }
+                profile.Univercity.UniversityName = viewModel.Univercity;
+
+                // Sanayici bilgisi boşaltılır
+                profile.WorkplaceName = null;
+            }
+            else if (viewModel.SelectedJudgeCategoryId == 2) // Sanayici Hakem
+            {
+                // İş yeri bilgisi güncellenir
+                profile.WorkplaceName = viewModel.WorkplaceName;
+
+                // Üniversite bilgisi boşaltılır
+                profile.Univercity = null;
+            }
+
+
 
 
 

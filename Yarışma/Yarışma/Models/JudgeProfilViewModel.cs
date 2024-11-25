@@ -12,6 +12,8 @@ namespace Yarışma.Models
         public int SelectedProjectCategoryId { get; set; }
         public int SelectedJudgeCategoryId { get; set; }
         public IFormFile imageFile { get; set; }
+        public string Univercity { get; set; }
+        public string WorkplaceName { get; set; }
 
     }
 }

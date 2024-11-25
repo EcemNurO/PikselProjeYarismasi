@@ -35,7 +35,7 @@ namespace Yarışma.Areas.Management.Controllers
                     FullName = c.JudgeProfil?.FullName,
                     Phone = c.JudgeProfil?.Phone,
                     Email = c.JudgeProfil?.Email,
-                    University = c.JudgeProfil?.Univercity,
+                    //University = c.JudgeProfil?.Univercity,
                     JudgeCategoryName = c.JudgeCategory?.Name,
                     ProjectCategories = c.ProjectCategory != null
                         ? c.ProjectCategory.Name // Tekil nesne durumu

@@ -3,7 +3,7 @@
 <div class="container mt-7" style="padding-top: 100px;">
     <!-- Başlık -->
     <div class="text-center mb-5">
-        <h2 class="fw-bold text-primary">Proje: @Model.Name</h2>
+        <h4 class="fw-bold text-primary">PROJEM</h4>
         <p class="text-muted">Bu sayfada proje sorularını cevaplayabilir ve dosya yükleme işlemini gerçekleştirebilirsiniz.</p>
     </div>
 
@@ -15,12 +15,12 @@
         <!-- Proje Adı -->
         <div class="form-group mb-4">
             <label for="Name" class="form-label fw-bold">Proje Adı:</label>
-            <input type="text" name="Name" value="@Model.Name" class="form-control border-primary shadow-sm" readonly />
+            <input type="text" name="projectName" value="@Model.Name" class="form-control border-primary shadow-sm" />
         </div>
 
         <!-- Sorular ve Cevaplar -->
         <div class="mb-4">
-            <h3 class="text-secondary mb-3">Proje Soruları</h3>
+            <h6 class="text-secondary mb-3">Proje Soruları</h6>
             @if (Model.ProjectQuestions != null && Model.ProjectQuestions.Any())
             {
                 
@@ -32,14 +32,17 @@
                     var question = questions[i];
                     <div class="card mb-3 shadow-sm">
                         <div class="card-body">
-                            <h5 class="card-title fw-bold">@question.Title</h5>
+                            <h6 class="card-title fw-bold">@question.Title</h6>
                             <p class="card-text">@question.Description</p>
                             
                             <!-- Cevap Alanı -->
-                            <textarea name="answers[@i].Text" 
-                                      class="form-control border-primary rounded shadow-sm mt-2" rows="3">
+                            <textarea name="answers[@i].Text"
+                                      class="form-control border-primary rounded shadow-sm mt-2"
+                                      rows="3"
+                                      style="text-align: left; white-space: pre-wrap;">
                                 @question.Answers?.FirstOrDefault(a => a.ProjectQuestionId == question.Id)?.Text
-                            </textarea>
+                              </textarea>
+
                             
                             <!-- Soru ID'si Gizli Alan -->
                             <input type="hidden" name="answers[@i].ProjectQuestionId" value="@question.Id" />
@@ -55,27 +58,27 @@
 
         <!-- Mevcut Dosya -->
         <div class="mb-4">
-            <h3 class="text-secondary mb-3">Proje Dosyası</h3>
+            <h3 class="text-secondary mb-3"></h3>
             @if (!string.IsNullOrEmpty(Model.FilePath))
             {
                 <p>
                     <strong>Mevcut Dosya:</strong>
                     <a href="@Model.FilePath" target="_blank" class="btn btn-link text-primary">Görüntüle / İndir</a>
                 </p>
-                <button type="submit" name="deleteFile" value="true" class="btn btn-danger btn-sm">Dosyayı Sil</button>
+                <button type="submit" name="deleteFile" value="true" class="btn btn-link text-primary">Dosyayı Sil</button>
             }
             else
             {
                 <p class="text-muted">Henüz bir dosya yüklenmemiş.</p>
             }
-            <p class="text-muted">Lütfen tüm belgelerinizi .pdf formatında ve tek dosya halinde yükleyiniz.</p>
+            <p> <span style="color: red; font-size: 14px;">&#9733;</span>"Lütfen tüm belgelerinizi .pdf formatında ve tek dosya halinde yükleyiniz.</p>
         </div>
 
         <!-- Yeni Dosya Yükleme -->
         <div class="mb-4">
-            <h3 class="text-secondary mb-3">Yeni Dosya Yükle</h3>
+            <h5 class="text-secondary mb-3">Döküman Ekle</h5>
             <div class="form-group">
-                <label for="file" class="form-label">Dosya Seç:</label>
+                <label for="file" class="form-label"></label>
                 <input type="file" id="file" name="file" class="form-control border-primary shadow-sm" />
             </div>
         </div>

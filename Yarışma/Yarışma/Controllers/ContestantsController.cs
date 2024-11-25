@@ -25,12 +25,14 @@ public class ContestController : Controller
         }
 
         var profile = db.ContestantProfils.Include(p => p.Contestants)
-                                       .FirstOrDefault(p => p.usedContestantJudgeId == int.Parse(userId));
+            .Include(p => p.Univercity)
+             .FirstOrDefault(p => p.usedContestantJudgeId == int.Parse(userId));
         if (profile == null)
         {
             TempData["ErrorMessage"] = "Profil bulunamadı.";
             return RedirectToAction("Index", "Home");
         }
+        var univercities = db.univercities.ToList();
         var contestant = profile.Contestants.FirstOrDefault();
 
         var contestantId = profile.Contestants.FirstOrDefault()?.Id ?? 0;
@@ -43,7 +45,9 @@ public class ContestController : Controller
     
         var model = new ProfileViewModel
         {
-            Profile = profile , 
+            Profile = profile ,
+            Univercities = univercities,
+            SelectedUniversityId = profile.Univercity?.Id ?? 0,
             ContestantCategories = db.ContestantCategories.ToList(),
             ProjectCategories = db.ProjectCategories.ToList(),
             SelectedContestantCategoryId = profile.Contestants.FirstOrDefault()?.ContestantCategoryId ?? 0,
@@ -97,7 +101,7 @@ public class ContestController : Controller
         profile.Email = viewModel.Profile.Email;
         profile.Age = viewModel.Profile.Age;
         profile.Phone = viewModel.Profile.Phone;
-        profile.Univercity = viewModel.Profile.Univercity;
+        profile.UnivercityId = viewModel.SelectedUniversityId;
         profile.Address = viewModel.Profile.Address;
 
 

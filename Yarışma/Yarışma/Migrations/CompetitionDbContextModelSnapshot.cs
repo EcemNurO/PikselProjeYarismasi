@@ -188,8 +188,8 @@ namespace Yarışma.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Univercity")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("UnivercityId")
+                        .HasColumnType("int");
 
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -204,6 +204,8 @@ namespace Yarışma.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UnivercityId");
 
                     b.HasIndex("usedContestantJudgeId");
 
@@ -333,8 +335,8 @@ namespace Yarışma.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Univercity")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("UnivercityId")
+                        .HasColumnType("int");
 
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -345,10 +347,15 @@ namespace Yarışma.Migrations
                     b.Property<int>("UsedContestantJudgeId")
                         .HasColumnType("int");
 
+                    b.Property<string>("WorkplaceName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("image")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UnivercityId");
 
                     b.HasIndex("UsedContestantJudgeId");
 
@@ -640,6 +647,54 @@ namespace Yarışma.Migrations
                     b.ToTable("ScoreProjects");
                 });
 
+            modelBuilder.Entity("Yarışma.Models.Token", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ExpirationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsUsed")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("UsedContestantJudgeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UsedContestantJudgeId");
+
+                    b.ToTable("Tokens");
+                });
+
+            modelBuilder.Entity("Yarışma.Models.Univercity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("UniversityName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("univercities");
+                });
+
             modelBuilder.Entity("Yarışma.Models.UsedContestantJudge", b =>
                 {
                     b.Property<int>("Id")
@@ -664,6 +719,12 @@ namespace Yarışma.Migrations
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ResetToken")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ResetTokenExpirationDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("Role")
                         .HasColumnType("int");
@@ -746,11 +807,19 @@ namespace Yarışma.Migrations
 
             modelBuilder.Entity("Yarışma.Models.ContestantProfil", b =>
                 {
+                    b.HasOne("Yarışma.Models.Univercity", "Univercity")
+                        .WithMany()
+                        .HasForeignKey("UnivercityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Yarışma.Models.UsedContestantJudge", "UsedContestantJudges")
                         .WithMany("ContestantProfils")
                         .HasForeignKey("usedContestantJudgeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Univercity");
 
                     b.Navigation("UsedContestantJudges");
                 });
@@ -782,11 +851,17 @@ namespace Yarışma.Migrations
 
             modelBuilder.Entity("Yarışma.Models.JudgeProfil", b =>
                 {
+                    b.HasOne("Yarışma.Models.Univercity", "Univercity")
+                        .WithMany()
+                        .HasForeignKey("UnivercityId");
+
                     b.HasOne("Yarışma.Models.UsedContestantJudge", "UsedContestantJudges")
                         .WithMany("JudgeProfils")
                         .HasForeignKey("UsedContestantJudgeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Univercity");
 
                     b.Navigation("UsedContestantJudges");
                 });
@@ -876,6 +951,17 @@ namespace Yarışma.Migrations
                     b.Navigation("ProjectEvaluation");
                 });
 
+            modelBuilder.Entity("Yarışma.Models.Token", b =>
+                {
+                    b.HasOne("Yarışma.Models.UsedContestantJudge", "UsedContestantJudge")
+                        .WithMany("Tokens")
+                        .HasForeignKey("UsedContestantJudgeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UsedContestantJudge");
+                });
+
             modelBuilder.Entity("Yarışma.Models.Contestant", b =>
                 {
                     b.Navigation("Projects")
@@ -935,6 +1021,8 @@ namespace Yarışma.Migrations
                     b.Navigation("ContestantProfils");
 
                     b.Navigation("JudgeProfils");
+
+                    b.Navigation("Tokens");
                 });
 #pragma warning restore 612, 618
         }

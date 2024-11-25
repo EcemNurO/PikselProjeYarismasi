@@ -26,8 +26,9 @@ namespace Yarışma.Models
         public string? Phone { get; set; }
         public string? Address { get; set; }    
         public int? JudgeCategoryId { get; set; } 
-        public IFormFile image { get; set; }
-        public string? Univercity { get; set; }
+        //public IFormFile image { get; set; }
+        public int? UnivercityId { get; set; } 
+        public string? WorkplaceName { get; set; }
         public int ProjectCategoryId { get; set; }
         
      

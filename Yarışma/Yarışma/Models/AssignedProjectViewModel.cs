@@ -5,6 +5,7 @@
         public int ProjectId { get; set; }
         public string ProjectName { get; set; }
         public string ProjectCategory { get; set; }
+        public string ContestantCategoryId { get; set; }
         public List<QuestionWithAnswerViewModel> Questions { get; set; }
         public int? Score { get; set; }
         public string Comments { get; set; }

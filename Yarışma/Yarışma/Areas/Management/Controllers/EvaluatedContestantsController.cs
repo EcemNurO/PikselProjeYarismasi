@@ -15,6 +15,7 @@ namespace Yarışma.Areas.Management.Controllers
        .Include(c => c.Projects)
            .ThenInclude(p => p.ProjectCategory)
        .Include(c => c.contestantProfil)
+        .Include(c => c.ContestantCategory)
        .Where(c =>
            db.ScoreProjects.Any(sp => sp.ProjectEvaluation.ProjectId == c.Projects.Id && sp.Score.HasValue) // Puanı olanlar
            &&
@@ -33,6 +34,7 @@ namespace Yarışma.Areas.Management.Controllers
                 {
                     ContestantId = c.Id,
                     ContestantName = c.contestantProfil.FullName,
+                    ContestantCategoryName = c.ContestantCategory?.Name,
                     ProjectName = c.Projects.Name,
                     ProjectCategoryName = c.Projects.ProjectCategory.Name,
                     AcademicJudgeScore = db.ScoreProjects
@@ -50,7 +52,15 @@ namespace Yarışma.Areas.Management.Controllers
                 (db.ScoreProjects
                 .Where(sp => sp.ProjectEvaluation.ProjectId == c.Projects.Id && sp.ProjectEvaluation.JudgeCategoryId == 2)
                 .Select(sp => (double?)sp.Score) // Score nullable hale getirilir
-                .FirstOrDefault() ?? 0.0)) / 2.0 // Ortalama alınır
+                .FirstOrDefault() ?? 0.0)) / 2.0 ,
+                    AcademicJudgeName = db.ScoreProjects
+            .Where(sp => sp.ProjectEvaluation.ProjectId == c.Projects.Id && sp.ProjectEvaluation.JudgeCategoryId == 1)
+            .Select(sp => sp.ProjectEvaluation.Judge.JudgeProfil.FullName)
+            .FirstOrDefault() ?? "Hakem yok",
+                    IndustrialJudgeName = db.ScoreProjects
+            .Where(sp => sp.ProjectEvaluation.ProjectId == c.Projects.Id && sp.ProjectEvaluation.JudgeCategoryId == 2)
+            .Select(sp => sp.ProjectEvaluation.Judge.JudgeProfil.FullName)
+            .FirstOrDefault() ?? "Hakem yok"
                 })
                 .ToList();
 
@@ -63,6 +73,43 @@ namespace Yarışma.Areas.Management.Controllers
                 SearchQuery = searchQuery
             });
         }
+        public IActionResult Details(int id)
+        {
+            var contestant = db.Contestants
+                .Include(c => c.Projects)
+                    .ThenInclude(p => p.ProjectCategory)
+                .Include(c => c.contestantProfil)
+                .FirstOrDefault(c => c.Id == id);
+
+            if (contestant == null)
+            {
+                return NotFound();
+            }
+
+            var judgeComments = db.ScoreProjects
+                .Include(sp => sp.ProjectEvaluation)
+                    .ThenInclude(pe => pe.Judge)
+                .Where(sp => sp.ProjectEvaluation.ProjectId == contestant.Projects.Id)
+                .Select(sp => new JudgeCommentViewModel
+                {
+                    JudgeName = sp.ProjectEvaluation.Judge.JudgeProfil.FullName,
+                    JudgeCategory = sp.ProjectEvaluation.JudgeCategory.Name,
+                    Category = sp.ProjectEvaluation.JudgeCategoryId == 1 ? "Akademik" : "Endüstri",
+                    Comments = sp.Comments,
+                    Score = sp.Score
+                })
+                .ToList();
+
+            return View(new ContestantDetailsVM
+            {
+                ContestantId = contestant.Id,
+                ContestantName = contestant.contestantProfil.FullName,
+                ProjectName = contestant.Projects.Name,
+                ProjectCategoryName = contestant.Projects.ProjectCategory.Name,
+                JudgeComments = judgeComments
+            });
+        }
+
 
     }
 }

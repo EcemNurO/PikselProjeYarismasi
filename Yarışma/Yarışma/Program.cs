@@ -2,11 +2,25 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Yarýþma.Middleware;
 using Yarýþma.Models; 
 using Microsoft.EntityFrameworkCore;
+using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
+using System.Configuration;
+using Yarýþma.Repositories;
+using Yarýþma.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<TokenRepository>();
+builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<ICustomEmailService, CustomEmailService>();
+
+
+
+
+
 builder.Services.AddControllersWithViews();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults
 	.AuthenticationScheme)

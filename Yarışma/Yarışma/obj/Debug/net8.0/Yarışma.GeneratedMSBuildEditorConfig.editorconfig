@@ -78,6 +78,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlbWVudFxWaWV3c1xEYXNoYm9hcmRcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Areas/Management/Views/EvaluatedContestants/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlbWVudFxWaWV3c1xFdmFsdWF0ZWRDb250ZXN0YW50c1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Areas/Management/Views/EvaluatedContestants/EvaluatedContestants.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlbWVudFxWaWV3c1xFdmFsdWF0ZWRDb250ZXN0YW50c1xFdmFsdWF0ZWRDb250ZXN0YW50cy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -210,6 +214,22 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlbWVudFxWaWV3c1xVbkFwcHJlY2lhdGlvblxfVW5BcHByZWNpYXRpb25QYXJ0aWFsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Areas/Management/Views/Univercity/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlbWVudFxWaWV3c1xVbml2ZXJjaXR5XENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Areas/Management/Views/Univercity/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlbWVudFxWaWV3c1xVbml2ZXJjaXR5XERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Areas/Management/Views/Univercity/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlbWVudFxWaWV3c1xVbml2ZXJjaXR5XEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Areas/Management/Views/Univercity/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlbWVudFxWaWV3c1xVbml2ZXJjaXR5XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Areas/Management/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcTWFuYWdlbWVudFxWaWV3c1xfVmlld0ltcG9ydHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -240,6 +260,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Views/Contest/Profile.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGVzdFxQcm9maWxlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Views/ForgotPassword/ForgotPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRm9yZ290UGFzc3dvcmRcRm9yZ290UGFzc3dvcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Views/ForgotPassword/ResetPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRm9yZ290UGFzc3dvcmRcUmVzZXRQYXNzd29yZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/adtal/Documents/GitHub/PikselProjeYarismasi/Yarışma/Yarışma/Views/Home/Index.cshtml]

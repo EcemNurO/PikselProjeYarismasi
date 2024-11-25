@@ -27,8 +27,10 @@ namespace Yarışma.Models
         public DbSet<Period> Periods { get; set; }
         public DbSet<User> Users { get; set; }
        public DbSet<ScoreProject>ScoreProjects { get; set; }
+        public DbSet<Token>Tokens { get; set; }
 
         public DbSet<ProjectAnswer> ProjectAnswers { get; set; }
+        public DbSet<Univercity> univercities { get; set; }
 
         // Connection string configuration
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

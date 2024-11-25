@@ -5,6 +5,16 @@
     <div class="page-content">
         <div class="page-content">
 <h2>Yarışmacı Detayları</h2>
+<div class="text-center mb-4  " >
+                @if (!string.IsNullOrEmpty(Model.contestantProfil?.image))
+                    {
+                        <img src="@Model.contestantProfil.image" alt="Yarışmacı Fotoğrafı" class="img-thumbnail" style="float:left; max-width: 150px; max-height: 150px;" />
+                    }
+                    else
+                    {
+                        <img src="/images/default-profile.png" alt="Varsayılan Fotoğraf" class="img-thumbnail" style="max-width: 150px; max-height: 150px;" />
+                    }
+            </div>
 
 <!-- Yarışmacı Bilgileri -->
 <div class="card mb-3">
@@ -24,7 +34,17 @@
     </div>
     <div class="card-body">
         <p><strong>Proje Adı:</strong> @Model.Projects?.Name</p>
-        <p><strong>Proje Kategorisi:</strong> @Model.Projects?.ProjectCategory?.Name</p>
+        <p><strong>Tematik Alan :</strong> @Model.Projects?.ProjectCategory?.Name</p>
+                   @if (!string.IsNullOrEmpty(Model.Projects?.FilePath))
+                    {
+                        <p><strong>Yüklenen Dosya:</strong></p>
+                        <a href="@Model.Projects.FilePath" target="_blank" class="btn btn-link">Dosyayı Görüntüle / İndir</a>
+                    }
+                    else
+                    {
+                        <p><strong>Yüklenen Dosya:</strong> Henüz bir dosya yüklenmemiş.</p>
+                    }
+    
     </div>
 </div>
 

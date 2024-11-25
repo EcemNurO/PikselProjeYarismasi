@@ -13,8 +13,10 @@ namespace Yarışma.Models
 		public string? Phone { get; set; }
 		public string Email { get; set; }
 	
-		public string? Univercity { get; set; }
-		public string? Address { get; set; }
+		public int? UnivercityId { get; set; }
+		public virtual Univercity? Univercity { get; set; }
+        public string? WorkplaceName { get; set; }
+        public string? Address { get; set; }
 		public string? image { get; set; }
 		public string? Biografy { get; set; }
 

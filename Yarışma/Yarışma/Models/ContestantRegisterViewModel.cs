@@ -26,7 +26,7 @@ namespace Yarışma.Models
 
         public string? Age { get; set; }
         public string? Phone { get; set; }
-        public string? Univercity { get; set; }
+        public int UnivercityId { get; set; }
         
         public string? Address { get; set; }
         public int ContestantCategoryId { get; set; }

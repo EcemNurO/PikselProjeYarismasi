@@ -11,7 +11,6 @@
     <link rel="icon" href="~/assets/images/favicon-32x32.png" type="image/png">
     <link href="~/assets/css/pace.min.css" rel="stylesheet">
     <script src="~/assets/js/pace.min.js"></script>
-    <style type="text/css" id="operaUserStyle"></style>
     <link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/assets/css/icons.css">
     <link rel="stylesheet" href="~/assets/css/app.css">
@@ -30,43 +29,56 @@
                             <div class="col-xl-6">
                                 <div class="card-body p-md-5">
                                     <div class="text-center">
-                                        <script src="~/assets/js/jquery.min.js"></script>
-                                        <h3 class="mt-4 font-weight-bold">Hakem Kayıt Ol</h3>
+                                        <h3 class="mt-4 font-weight-bold">Hakem Kayıt </h3>
                                     </div>
 
                                     <!-- Hakem kaydı formu -->
                                     <form method="post" enctype="multipart/form-data">
-
-                                        <div class="form-group">
+                                        @* <div class="form-group">
                                             <label asp-for="image">Profil Fotoğrafı</label>
                                             <input type="file" asp-for="image" class="form-control" />
                                             <span class="text-danger" asp-validation-for="image"></span>
-                                        </div>
+                                        </div> *@
+
                                         <div class="form-group">
                                             <label asp-for="FullName">Ad Soyad</label>
                                             <input type="text" asp-for="FullName" class="form-control" required />
                                             <span class="text-danger" asp-validation-for="FullName"></span>
                                         </div>
 
-                                        <div class="form-group">
+                                        <!-- Şifre Alanı -->
+                                        <div class="form-group" id="show_hide_password">
                                             <label asp-for="Password">Şifre</label>
-                                            <input type="password" asp-for="Password" class="form-control" required />
+                                            <div class="input-group">
+                                                <input type="password" asp-for="Password" class="form-control" required />
+                                                <div class="input-group-append">
+                                                    <a href="#" class="input-group-text">
+                                                        <i class="bx bx-hide"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
                                             <span class="text-danger" asp-validation-for="Password"></span>
                                         </div>
 
-                                        <div class="form-group">
+                                        <!-- Şifre Tekrarı -->
+                                        <div class="form-group" id="show_hide_password_confirm">
                                             <label asp-for="ConfirmPassword">Şifre Tekrarı</label>
-                                            <input type="password" asp-for="ConfirmPassword" class="form-control" required />
+                                            <div class="input-group">
+                                                <input type="password" asp-for="ConfirmPassword" class="form-control" required />
+                                                <div class="input-group-append">
+                                                    <a href="#" class="input-group-text">
+                                                        <i class="bx bx-hide"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
                                             <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
                                         </div>
-                                        <div class="form-group mt-4">
+
+                                        <div class="form-group">
                                             <label asp-for="Email">E-posta</label>
                                             <input type="email" asp-for="Email" class="form-control" required />
                                             <span class="text-danger" asp-validation-for="Email"></span>
                                         </div>
-
-
-                                        
 
                                         <div class="form-group">
                                             <label asp-for="Phone">Telefon</label>
@@ -78,14 +90,38 @@
                                             <label asp-for="Address">Adres</label>
                                             <input type="text" asp-for="Address" class="form-control" />
                                             <span class="text-danger" asp-validation-for="Address"></span>
-                                        </div>                                      
-                                         <div class="form-group">
+                                        </div>
+
+                                        <!-- Hakem Kategorisi -->
+                                        <div class="form-group">
                                             <label asp-for="JudgeCategoryId">Hakem Kategorisi</label>
-                                            <select asp-for="JudgeCategoryId" asp-items="ViewBag.JudgeCategories" class="form-control" required>
+                                            <select asp-for="JudgeCategoryId" asp-items="ViewBag.JudgeCategories" class="form-control" required id="JudgeCategoryId">
                                                 <option value="">Bir Kategori Seçin</option>
                                             </select>
                                             <span class="text-danger" asp-validation-for="JudgeCategoryId"></span>
                                         </div>
+
+                                        <!-- Dinamik Alanlar -->
+                                        <!-- Akademisyen Hakem -->
+                                        <div id="AcademicianFields" style="display: none;">
+                                            <div class="form-group">
+                                                <label asp-for="UnivercityId">Üniversite</label>
+                                                <select asp-for="UnivercityId" asp-items="ViewBag.Univercity" class="form-control">
+                                                    <option value="">Bir Üniversite Seçin</option>
+                                                </select>
+                                                <span class="text-danger" asp-validation-for="UnivercityId"></span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Sanayici Hakem -->
+                                        <div id="IndustrialistFields" style="display: none;">
+                                            <div class="form-group">
+                                                <label asp-for="WorkplaceName">İş Yeri Adı</label>
+                                                <input type="text" asp-for="WorkplaceName" class="form-control" placeholder="İş Yeri Adı">
+                                                <span class="text-danger" asp-validation-for="WorkplaceName"></span>
+                                            </div>
+                                        </div>
+
                                         <div class="form-group">
                                             <label asp-for="ProjectCategoryId">Proje Kategorisi</label>
                                             <select asp-for="ProjectCategoryId" class="form-control" asp-items="ViewBag.ProjectCategories">
@@ -94,11 +130,8 @@
                                             <span class="text-danger" asp-validation-for="ProjectCategoryId"></span>
                                         </div>
 
-
-
-
                                         <button type="submit" class="btn btn-primary btn-block mt-4">Kaydol</button>
-                                             <P>Not: Hakemler kayıt olduktan 1 gün sonra giriş yapabileceklerdir.</P>
+                                        <p><span style="color: red; font-size: 14px;">&#9733;</span> Kayıt işleminden 24 saat sonra sisteminiz aktif olacaktır.</p>
                                     </form>
                                 </div>
                             </div>
@@ -109,19 +142,38 @@
             </div>
         </div>
     </div>
-    <script src="~/assets/js/jquery.min.js"></script>
+
+    <!-- Şifre Göster/Gizle JavaScript -->
     <script>
         $(document).ready(function () {
-            $("#show_hide_password a").on('click', function (event) {
+            // Şifreyi göster/gizle
+            $("#show_hide_password a, #show_hide_password_confirm a").on('click', function (event) {
                 event.preventDefault();
-                if ($('#show_hide_password input').attr("type") == "text") {
-                    $('#show_hide_password input').attr('type', 'password');
-                    $('#show_hide_password i').addClass("bx-hide");
-                    $('#show_hide_password i').removeClass("bx-show");
-                } else if ($('#show_hide_password input').attr("type") == "password") {
-                    $('#show_hide_password input').attr('type', 'text');
-                    $('#show_hide_password i').removeClass("bx-hide");
-                    $('#show_hide_password i').addClass("bx-show");
+
+                var parentDiv = $(this).closest('.form-group');
+                var inputField = parentDiv.find('input');
+                var icon = $(this).find('i');
+
+                if (inputField.attr("type") === "password") {
+                    inputField.attr('type', 'text');
+                    icon.removeClass("bx-hide").addClass("bx-show");
+                } else {
+                    inputField.attr('type', 'password');
+                    icon.removeClass("bx-show").addClass("bx-hide");
+                }
+            });
+
+            // Hakem Kategorisine Göre Dinamik Alanları Göster
+            $('#JudgeCategoryId').change(function () {
+                var selectedCategory = $(this).val();
+
+                $('#AcademicianFields').hide();
+                $('#IndustrialistFields').hide();
+
+                if (selectedCategory == "1") { // Akademisyen Hakem
+                    $('#AcademicianFields').show();
+                } else if (selectedCategory == "2") { // Sanayici Hakem
+                    $('#IndustrialistFields').show();
                 }
             });
         });

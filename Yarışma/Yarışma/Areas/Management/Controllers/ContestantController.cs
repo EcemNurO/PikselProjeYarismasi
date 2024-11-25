@@ -11,21 +11,22 @@ namespace Yarışma.Areas.Management.Controllers
     {
         CompetitionDbContext db = new CompetitionDbContext();
         public IActionResult Contestant(string searchQuery, int page = 1, int pageSize = 10)
-        {
-            var filteredContestants = db.Contestants
-                .Include(c => c.Projects)
-            .ThenInclude(p => p.ProjectCategory)
-        .Include(c => c.contestantProfil)
-        .Include(c => c.ContestantCategory)
-        .Where(c =>
-            string.IsNullOrEmpty(searchQuery) ||
-            c.contestantProfil.FullName.Contains(searchQuery) ||
-            c.ContestantCategory.Name.Contains(searchQuery) ||
-            c.Projects.Name.Contains(searchQuery) ||
-            c.Projects.ProjectCategory.Name.Contains(searchQuery))
-        .Skip((page - 1) * pageSize)
-        .Take(pageSize)
-        .ToList();
+                {
+                        var filteredContestants = db.Contestants
+              .Include(c => c.Projects)
+                  .ThenInclude(p => p.ProjectCategory)
+              .Include(c => c.contestantProfil)
+              .Include(c => c.ContestantCategory)
+              .Where(c =>
+                  string.IsNullOrEmpty(searchQuery) ||
+                  c.contestantProfil.FullName.Contains(searchQuery) ||
+                  c.ContestantCategory.Name.Contains(searchQuery) ||
+                  c.Projects.Name.Contains(searchQuery) ||
+                  c.Projects.ProjectCategory.Name.Contains(searchQuery))
+              .Skip((page - 1) * pageSize)
+              .Take(pageSize)
+              .ToList();
+
 
             var model = new ContestantTableVM
             {
@@ -33,6 +34,7 @@ namespace Yarışma.Areas.Management.Controllers
                 {
                     ContestantId = c.Id,
                     ContestantName = c.contestantProfil?.FullName,
+                    ContestantCategoryName = c.ContestantCategory?.Name,
                     ProjectName = c.Projects?.Name,
                     ProjectCategoryName = c.Projects?.ProjectCategory?.Name,
                     AssignedAcademicJudgeName = db.ProjectEvaluations

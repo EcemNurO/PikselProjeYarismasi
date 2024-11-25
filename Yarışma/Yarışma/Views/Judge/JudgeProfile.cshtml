@@ -4,7 +4,7 @@
     <div class="page-content">
         <!-- Breadcrumb -->
         <div class="page-breadcrumb d-none d-md-flex align-items-center mb-3">
-            <div class="breadcrumb-title pe-3">Hakem Profile</div>
+            <div class="breadcrumb-title pe-3">Hakem Profil</div>
             <div class="ps-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0 p-0">
@@ -86,15 +86,28 @@
                                                 <span asp-validation-for="Profile.Address" class="text-danger"></span>
                                             </div>
 
+                                            @if (Model.SelectedJudgeCategoryId == 1) // Akademisyen Hakem
+                                            {
+                                                <div class="form-group">
+                                                    <label asp-for="Univercity">Üniversite</label>
+                                                    <input class="form-control" asp-for="Univercity" />
+                                                </div>
+                                            }
+                                            else if (Model.SelectedJudgeCategoryId == 2) // Sanayici Hakem
+                                            {
+                                                <div class="form-group">
+                                                    <label asp-for="WorkplaceName">Şirket Adı</label>
+                                                    <input class="form-control" asp-for="WorkplaceName" />
+                                                </div>
+                                            }
 
 
-
-                                            <!-- Image Upload Input -->
+                                            @* <!-- Image Upload Input -->
                                             <div class="col-12">
                                                 <label class="form-label">Profil Fotoğrafı</label>
                                                 <input type="file" id="profileImageUpload" name="imageFile" class="form-control" accept="image/*">
                                                 <span asp-validation-for="Profile.image" class="text-danger"></span>
-                                            </div>
+                                            </div> *@
 
                                             <!-- Contestant Category Selection -->
                                             <div class="form-group">

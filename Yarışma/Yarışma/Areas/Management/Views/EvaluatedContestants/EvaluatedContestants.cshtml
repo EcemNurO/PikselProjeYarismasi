@@ -5,6 +5,15 @@
     <div class="page-content">
         <h2>Değerlendirilen Yarışmacılar</h2>
 
+        <!-- Arama Kutusu -->
+        <form asp-action="EvaluatedContestants" method="get" class="mb-4">
+            <div class="input-group">
+                <input type="text" name="searchQuery" class="form-control" placeholder="Yarışmacı, Proje veya Kategori Ara..." value="@Model.SearchQuery" />
+                <button class="btn btn-primary" type="submit">Ara</button>
+            </div>
+        </form>
+
+
         <!-- Yarışmacı Tablosu -->
         <table class="table table-striped">
             <thead>
@@ -12,7 +21,7 @@
                     <th>Adı</th>
                     <th>Kategorisi</th>
                     <th>Proje Adı</th>
-                    <th>Proje Kategorisi</th>
+                    <th>Tematik Alan</th>
                     <th>Akademisyen Hakem</th>
                     <th>Sanayici Hakem</th>
                     <th>Akademisyen Hakem Notu</th>
@@ -25,13 +34,13 @@
                 {
                     <tr>
                         <td>@contestant.ContestantName</td>
-                        <td>@contestant.ProjectCategoryName</td>
+                        <td>@contestant.ContestantCategoryName</td>
                         <td>@contestant.ProjectName</td>
                         <td>@contestant.ProjectCategoryName</td>
                         <td>
-                            @if (!string.IsNullOrEmpty(contestant.AssignedAcademicJudgeName))
+                            @if (!string.IsNullOrEmpty(contestant.AcademicJudgeName))
                             {
-                                @contestant.AssignedAcademicJudgeName
+                                @contestant.AcademicJudgeName
                             }
                             else
                             {
@@ -39,9 +48,9 @@
                             }
                         </td>
                         <td>
-                            @if (!string.IsNullOrEmpty(contestant.AssignedIndustrialJudgeName))
+                            @if (!string.IsNullOrEmpty(contestant.IndustrialJudgeName))
                             {
-                                @contestant.AssignedIndustrialJudgeName
+                                @contestant.IndustrialJudgeName
                             }
                             else
                             {
@@ -78,8 +87,18 @@
                                 <span class="text-muted">Hesaplanamadı</span>
                             }
                         </td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@contestant.ContestantId"
+                               class="btn"
+                               style="background-color: #6f42c1; color: white; border: none;">
+                                <i class="bi bi-eye"></i> Detaylar
+                            </a>
+
+                        </td>
                     </tr>
+                   
                 }
+
             </tbody>
         </table>
     </div>

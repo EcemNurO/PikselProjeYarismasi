@@ -283,3 +283,7 @@ C:\Users\adtal\Documents\GitHub\PikselProjeYarismasi\Yarışma\Yarışma\obj\Deb
 C:\Users\adtal\Documents\GitHub\PikselProjeYarismasi\Yarışma\Yarışma\obj\Debug\net8.0\Yarışma.pdb
 C:\Users\adtal\Documents\GitHub\PikselProjeYarismasi\Yarışma\Yarışma\obj\Debug\net8.0\Yarışma.genruntimeconfig.cache
 C:\Users\adtal\Documents\GitHub\PikselProjeYarismasi\Yarışma\Yarışma\obj\Debug\net8.0\ref\Yarışma.dll
+C:\Users\adtal\Documents\GitHub\PikselProjeYarismasi\Yarışma\Yarışma\bin\Debug\net8.0\MailKit.dll
+C:\Users\adtal\Documents\GitHub\PikselProjeYarismasi\Yarışma\Yarışma\bin\Debug\net8.0\MimeKit.dll
+C:\Users\adtal\Documents\GitHub\PikselProjeYarismasi\Yarışma\Yarışma\bin\Debug\net8.0\NETCore.MailKit.dll
+C:\Users\adtal\Documents\GitHub\PikselProjeYarismasi\Yarışma\Yarışma\bin\Debug\net8.0\BouncyCastle.Crypto.dll

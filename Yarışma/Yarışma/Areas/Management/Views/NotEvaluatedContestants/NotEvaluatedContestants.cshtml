@@ -6,6 +6,16 @@
     <div class="page-content">
         <h2>Hakemi Atanan Fakat Puan Verilmeyen Yarışmacılar</h2>
 
+
+
+        <!-- Arama Kutusu -->
+        <form asp-action="NotEvaluatedContestants" method="get" class="mb-4">
+            <div class="input-group">
+                <input type="text" name="searchQuery" class="form-control" placeholder="Yarışmacı, Proje veya Kategori Ara..." value="@Model.SearchQuery" />
+                <button class="btn btn-primary" type="submit">Ara</button>
+            </div>
+        </form>
+
         <!-- Yarışmacı Tablosu -->
         <table class="table table-striped">
             <thead>

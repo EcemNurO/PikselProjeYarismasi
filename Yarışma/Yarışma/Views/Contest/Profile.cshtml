@@ -4,7 +4,7 @@
     <div class="page-content">
         <!-- Breadcrumb -->
         <div class="page-breadcrumb d-none d-md-flex align-items-center mb-3">
-            <div class="breadcrumb-title pe-3">Yarışmacı Profile</div>
+            <div class="breadcrumb-title pe-3">Yarışmacı Profil</div>
             <div class="ps-3">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-0 p-0">
@@ -29,7 +29,10 @@
                                 <div class="d-md-flex align-items-center">
                                     <div class="mb-md-0 mb-3">
                                         <!-- Profile Picture -->
-                                        <img id="profileImagePreview" src="@Url.Content(Model.Profile.image ?? "~/images/default-profile.png")" class="rounded-circle shadow" width="130" height="130" alt="Profile Image">
+                                        <img src="@(!string.IsNullOrEmpty(Model.Profile.image) ? Model.Profile.image : "/images/default-profile.png")"
+                                             alt="Profil Resmi"
+                                             style="max-width: 150px; border-radius: 50%;" />
+
                                     </div>
                                     <div class="ms-md-4 flex-grow-1">
                                         <h4 class="mb-0">@Model.Profile.FullName</h4>
@@ -43,7 +46,7 @@
                     else
                     {
                         <p>Profil bilgisi bulunamadı.</p>
-                    }
+                     }
 
                     <!-- Profile Update Form -->
                     <div class="tab-content mt-3">
@@ -92,7 +95,17 @@
                                                 <input asp-for="Profile.Age" class="form-control" />
                                                 <span asp-validation-for="Profile.Age" class="text-danger"></span>
                                             </div>
-
+                                            <div class="form-group">
+                                                <label for="SelectedUniversityId">Üniversite</label>
+                                                <select asp-for="SelectedUniversityId"
+                                                   asp-items="@(Model.Univercities != null && Model.Univercities.Any()
+                                                    ? new SelectList(Model.Univercities, "Id", "UniversityName", Model.SelectedUniversityId)
+                                                    : new SelectList(Enumerable.Empty<SelectListItem>()))"
+                                                        class="form-control">
+                                                    <option value="">Üniversite Seçin</option>
+                                                </select>
+                                                <span asp-validation-for="SelectedUniversityId" class="text-danger"></span>
+                                            </div>
                                             <!-- Image Upload Input -->
                                             <div class="col-12">
                                                 <label class="form-label">Profil Fotoğrafı</label>
@@ -121,7 +134,7 @@
                                     </div>
 
                                             <div class="col-12 text-end mt-3">
-                                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                                                <button type="submit" class="btn btn-primary"> Kaydet </button>
                                             </div>
                                         </form>
                                     </div>

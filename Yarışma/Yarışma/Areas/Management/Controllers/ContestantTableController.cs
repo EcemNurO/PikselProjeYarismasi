@@ -42,6 +42,7 @@ namespace Yarışma.Areas.Management.Controllers
                 {
                     ContestantId = c.Id,
                     ContestantName = c.contestantProfil?.FullName,
+                    ContestantCategoryName=c.ContestantCategory?.Name,
                     ProjectName = c.Projects?.Name,
                     ProjectCategoryName = c.Projects?.ProjectCategory?.Name,
                     AssignedAcademicJudgeName = db.ProjectEvaluations

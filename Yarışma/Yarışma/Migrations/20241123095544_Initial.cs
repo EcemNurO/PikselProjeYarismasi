@@ -117,6 +117,19 @@ namespace Yarışma.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "univercities",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UniversityName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_univercities", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "usedContestantJudges",
                 columns: table => new
                 {
@@ -124,6 +137,8 @@ namespace Yarışma.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ResetToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ResetTokenExpirationDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Role = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<bool>(type: "bit", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -169,7 +184,7 @@ namespace Yarışma.Migrations
                     Age = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Univercity = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UnivercityId = table.Column<int>(type: "int", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Biografy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -183,6 +198,12 @@ namespace Yarışma.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ContestantProfils", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ContestantProfils_univercities_UnivercityId",
+                        column: x => x.UnivercityId,
+                        principalTable: "univercities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ContestantProfils_usedContestantJudges_usedContestantJudgeId",
                         column: x => x.usedContestantJudgeId,
@@ -201,7 +222,7 @@ namespace Yarışma.Migrations
                     FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Univercity = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UnivercityId = table.Column<int>(type: "int", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Biografy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -216,11 +237,40 @@ namespace Yarışma.Migrations
                 {
                     table.PrimaryKey("PK_JudgeProfils", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_JudgeProfils_univercities_UnivercityId",
+                        column: x => x.UnivercityId,
+                        principalTable: "univercities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_JudgeProfils_usedContestantJudges_UsedContestantJudgeId",
                         column: x => x.UsedContestantJudgeId,
                         principalTable: "usedContestantJudges",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Tokens",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Value = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ExpirationDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsUsed = table.Column<bool>(type: "bit", nullable: false),
+                    UsedContestantJudgeId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tokens", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Tokens_usedContestantJudges_UsedContestantJudgeId",
+                        column: x => x.UsedContestantJudgeId,
+                        principalTable: "usedContestantJudges",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -448,6 +498,11 @@ namespace Yarışma.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_ContestantProfils_UnivercityId",
+                table: "ContestantProfils",
+                column: "UnivercityId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ContestantProfils_usedContestantJudgeId",
                 table: "ContestantProfils",
                 column: "usedContestantJudgeId");
@@ -461,6 +516,11 @@ namespace Yarışma.Migrations
                 name: "IX_Contestants_ContestantProfilId",
                 table: "Contestants",
                 column: "ContestantProfilId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_JudgeProfils_UnivercityId",
+                table: "JudgeProfils",
+                column: "UnivercityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_JudgeProfils_UsedContestantJudgeId",
@@ -532,6 +592,11 @@ namespace Yarışma.Migrations
                 name: "IX_ScoreProjects_ProjectEvaluationId",
                 table: "ScoreProjects",
                 column: "ProjectEvaluationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tokens_UsedContestantJudgeId",
+                table: "Tokens",
+                column: "UsedContestantJudgeId");
         }
 
         /// <inheritdoc />
@@ -548,6 +613,9 @@ namespace Yarışma.Migrations
 
             migrationBuilder.DropTable(
                 name: "ScoreProjects");
+
+            migrationBuilder.DropTable(
+                name: "Tokens");
 
             migrationBuilder.DropTable(
                 name: "Users");
@@ -581,6 +649,9 @@ namespace Yarışma.Migrations
 
             migrationBuilder.DropTable(
                 name: "ProjectCategories");
+
+            migrationBuilder.DropTable(
+                name: "univercities");
 
             migrationBuilder.DropTable(
                 name: "usedContestantJudges");

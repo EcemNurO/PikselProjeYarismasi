@@ -93,7 +93,7 @@ namespace Yarışma.Controllers
 
        
         [HttpPost]
-        public IActionResult SaveProject(int projectId, List<ProjectAnswer> answers, IFormFile file, string deleteFile)
+        public IActionResult SaveProject(int projectId, List<ProjectAnswer> answers, IFormFile file, string deleteFile, string projectName)
         {
 
             int userId = GetCurrentUserId();
@@ -124,7 +124,11 @@ namespace Yarışma.Controllers
                 throw new Exception("Kullanıcıya ait proje bulunamadı.");
             }
 
-
+            if (!string.IsNullOrEmpty(projectName))
+            {
+                project.Name = projectName;
+                db.Entry(project).State = EntityState.Modified;
+            }
             foreach (var answer in answers)
             {
                 var existingAnswer = db.ProjectAnswers
@@ -132,6 +136,7 @@ namespace Yarışma.Controllers
                 if (existingAnswer != null)
                 {
                     // Mevcut cevabı güncelle
+                   
                     existingAnswer.Text = answer.Text ?? string.Empty;
                     db.Entry(existingAnswer).State = EntityState.Modified;
                 }

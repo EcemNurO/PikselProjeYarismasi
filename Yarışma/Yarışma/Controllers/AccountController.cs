@@ -109,7 +109,7 @@ namespace Yarışma.Models.Controllers
         {
             ViewBag.Categories = new SelectList(db.ContestantCategories?.ToList() ?? new List<ContestantCategory>(), "Id", "Name");
             ViewBag.ProjectCategories = new SelectList(db.ProjectCategories?.ToList() ?? new List<ProjectCategory>(), "Id", "Name");
-
+            ViewBag.Univercity= new SelectList(db.univercities.ToList()?? new List<Univercity>(), "Id", "UniversityName");
             return View();
         }
 
@@ -127,6 +127,7 @@ namespace Yarışma.Models.Controllers
 
                 ViewBag.Categories = new SelectList(db.ContestantCategories.ToList(), "Id", "Name");
                 ViewBag.ProjectCategories = new SelectList(db.ProjectCategories.ToList(), "Id", "Name");
+                ViewBag.Univercity = new SelectList(db.univercities.ToList() , "Id", "UniversityName");
                 return View(model);
             }
             var existingUser = db.usedContestantJudges.FirstOrDefault(u => u.Email == model.Email);
@@ -171,7 +172,7 @@ namespace Yarışma.Models.Controllers
                 Age = model.Age,
                 Phone = model.Phone,
                 Email = model.Email,
-                Univercity = model.Univercity,
+                UnivercityId = model.UnivercityId,
                 Address = model.Address,
                 image = uniqueFileName != null ? "/images/profiles/" + uniqueFileName : null,
                 usedContestantJudgeId = newUser.Id,
@@ -215,7 +216,7 @@ namespace Yarışma.Models.Controllers
         {
             ViewBag.JudgeCategories = new SelectList(db.JudgeCategories?.ToList() ?? new List<JudgeCategory>(), "Id", "Name");
             ViewBag.ProjectCategories = new SelectList(db.ProjectCategories?.ToList() ?? new List<ProjectCategory>(), "Id", "Name");
-
+            ViewBag.Univercity = new SelectList( db.univercities?.ToList() ?? new List<Univercity>(),"Id", "UniversityName");
             return View();
         }
 
@@ -231,9 +232,13 @@ namespace Yarışma.Models.Controllers
                 }
 
                 ViewBag.JudgeCategories = new SelectList(db.JudgeCategories.ToList(), "Id", "Name");
-                //ViewBag.ProjectCategories = new SelectList(db.ProjectCategories.ToList(), "Id", "Name");
+                ViewBag.ProjectCategories = new SelectList(db.ProjectCategories.ToList(), "Id", "Name");
+                ViewBag.Univercity = new SelectList(db.univercities?.ToList() ?? new List<Univercity>(), "Id", "UniversityName");
                 return View(model);
             }
+           
+
+        
 
 
             var existingUser = db.usedContestantJudges.FirstOrDefault(u => u.Email == model.Email);
@@ -258,20 +263,20 @@ namespace Yarışma.Models.Controllers
 
 
             // Profil fotoğrafını kaydet
-            string uniqueFileName = null;
-            if (model.image != null)
-            {
-                string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/profiles");
-                Directory.CreateDirectory(uploadsFolder);
+            //string uniqueFileName = null;
+            //if (model.image != null)
+            //{
+            //    string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/profiles");
+            //    Directory.CreateDirectory(uploadsFolder);
 
-                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.image.FileName;
-                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+            //    uniqueFileName = Guid.NewGuid().ToString() + "_" + model.image.FileName;
+            //    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    model.image.CopyTo(fileStream);
-                }
-            }
+            //    using (var fileStream = new FileStream(filePath, FileMode.Create))
+            //    {
+            //        model.image.CopyTo(fileStream);
+            //    }
+            //}
 
 
             // Hakem profil kaydı oluşturma
@@ -281,9 +286,10 @@ namespace Yarışma.Models.Controllers
                
                 Phone = model.Phone,
                 Email = model.Email,
-                Univercity = model.Univercity,
+                UnivercityId = model.JudgeCategoryId == 1 ? model.UnivercityId : (int?)null, // Sadece Akademisyen Hakemler için
+                WorkplaceName = model.JudgeCategoryId == 2 ? model.WorkplaceName : null,    // Sadece Sanayici Hakemler için
                 Address = model.Address,
-                image = uniqueFileName != null ? "/images/profiles/" + uniqueFileName : null,
+                //image = uniqueFileName != null ? "/images/profiles/" + uniqueFileName : null,
                 UsedContestantJudgeId = newUser.Id,
                 Status = false,
                 Deleted = true

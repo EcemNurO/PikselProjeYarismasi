@@ -9,8 +9,11 @@ namespace Yarışma.Models
         public int Id { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public string? ResetToken { get; set; }
+        public DateTime? ResetTokenExpirationDate { get; set; }
         public RoleTypes Role { get; set; }
       public ICollection<JudgeProfil>  JudgeProfils { get; set; }
         public ICollection<ContestantProfil> ContestantProfils { get; set; }
+        public ICollection<Token> Tokens { get; set; }
     }
 }   

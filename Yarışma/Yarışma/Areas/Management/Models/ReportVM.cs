@@ -4,12 +4,28 @@ namespace Yarışma.Areas.Management.Models
 {
 	public class ReportVM
 	{
-		public List<ContestantProfil> contestantProfils { get; set; }
-		public List<JudgeProfil> judgeProfils { get; set; }
-		public List<ProjectCategory> projectCategories { get; set; }
-		public List<JudgeCategory> JudgeCategories { get; set; }
+        public int RemainingTime { get; set; }
+        public int TotalContestants { get; set; }
+        public int TotalJudges { get; set; }
+        public int TotalCategories { get; set; }
+        public int EvaluatedProjects { get; set; }
+        public int NotEvaluatedProjects { get; set; }
+        public int NonEvaluatedProjects { get; set; }
+       
 
-		public List<ContestantCategory> ContestantCategories { get; set; }
+        public List<CategoryReport> ContestantCategories { get; set; }
+        public List<CategoryReport> JudgeCategories { get; set; }
+        public List<CategoryReport> EducationLevels { get; set; }
+        public List<CategoryReport> AcademicLevels { get; set; } = new List<CategoryReport>();
+        public List<CategoryReport> ProjectCategories { get; set; } = new List<CategoryReport>();
+    }
 
-	}
+    public class CategoryReport
+    {
+        public string Name { get; set; }
+        public int Count { get; set; }
+        public double Percentage { get; set; }
+    }
+
 }
+

@@ -34,11 +34,7 @@
 
                                     <!-- Hakem kaydı formu -->
                                     <form method="post" enctype="multipart/form-data">
-                                        @* <div class="form-group">
-                                            <label asp-for="image">Profil Fotoğrafı</label>
-                                            <input type="file" asp-for="image" class="form-control" />
-                                            <span class="text-danger" asp-validation-for="image"></span>
-                                        </div> *@
+                                     
 
                                         <div class="form-group">
                                             <label asp-for="FullName">Ad Soyad</label>
@@ -46,7 +42,7 @@
                                             <span class="text-danger" asp-validation-for="FullName"></span>
                                         </div>
 
-                                        <!-- Şifre Alanı -->
+                                      
                                         <div class="form-group" id="show_hide_password">
                                             <label asp-for="Password">Şifre</label>
                                             <div class="input-group">
@@ -60,7 +56,7 @@
                                             <span class="text-danger" asp-validation-for="Password"></span>
                                         </div>
 
-                                        <!-- Şifre Tekrarı -->
+                                        
                                         <div class="form-group" id="show_hide_password_confirm">
                                             <label asp-for="ConfirmPassword">Şifre Tekrarı</label>
                                             <div class="input-group">
@@ -92,7 +88,7 @@
                                             <span class="text-danger" asp-validation-for="Address"></span>
                                         </div>
 
-                                        <!-- Hakem Kategorisi -->
+                                
                                         <div class="form-group">
                                             <label asp-for="JudgeCategoryId">Hakem Kategorisi</label>
                                             <select asp-for="JudgeCategoryId" asp-items="ViewBag.JudgeCategories" class="form-control" required id="JudgeCategoryId">
@@ -101,8 +97,7 @@
                                             <span class="text-danger" asp-validation-for="JudgeCategoryId"></span>
                                         </div>
 
-                                        <!-- Dinamik Alanlar -->
-                                        <!-- Akademisyen Hakem -->
+                                     
                                         <div id="AcademicianFields" style="display: none;">
                                             <div class="form-group">
                                                 <label asp-for="UnivercityId">Üniversite</label>
@@ -113,7 +108,7 @@
                                             </div>
                                         </div>
 
-                                        <!-- Sanayici Hakem -->
+                                  
                                         <div id="IndustrialistFields" style="display: none;">
                                             <div class="form-group">
                                                 <label asp-for="WorkplaceName">İş Yeri Adı</label>

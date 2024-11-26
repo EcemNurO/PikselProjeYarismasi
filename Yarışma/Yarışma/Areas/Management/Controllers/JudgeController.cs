@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using NuGet.Packaging;
 using System.Collections.Generic;
 using Yarışma.Areas.Management.Models;
@@ -18,6 +19,7 @@ namespace Yarışma.Areas.Management.Controllers
             // Hakemleri çekme ve sayfalama
             var judges = db.Judges
                 .Include(j => j.JudgeProfil)
+                .ThenInclude(p => p.Univercity)
                 .Include(j => j.JudgeCategory)
                 .Include(j => j.ProjectCategory)
                 .Skip((page - 1) * pageSize)
@@ -25,8 +27,6 @@ namespace Yarışma.Areas.Management.Controllers
                 .ToList();
 
             // ViewModel'in doldurulması
-
-
             var model = new JudgeTableVM
             {
                 Judges = judges.Select(c => new JudgeTableViewModel
@@ -35,11 +35,16 @@ namespace Yarışma.Areas.Management.Controllers
                     FullName = c.JudgeProfil?.FullName,
                     Phone = c.JudgeProfil?.Phone,
                     Email = c.JudgeProfil?.Email,
-                    //University = c.JudgeProfil?.Univercity,
+                    UniversityOrWorkplace = c.JudgeProfil?.Univercity != null
+                        ? c.JudgeProfil.Univercity.UniversityName
+                        : (!string.IsNullOrEmpty(c.JudgeProfil?.WorkplaceName)
+                            ? c.JudgeProfil.WorkplaceName
+                            : "Belirtilmemiş"),
                     JudgeCategoryName = c.JudgeCategory?.Name,
                     ProjectCategories = c.ProjectCategory != null
-                        ? c.ProjectCategory.Name // Tekil nesne durumu
-                        : "Belirtilmemiş"
+                        ? c.ProjectCategory.Name
+                        : "Belirtilmemiş",
+                    HasAssignedProject = db.ProjectEvaluations.Any(pe => pe.JudgeId == c.Id) // Proje atanmış mı?
                 }).ToList(),
 
                 TotalCount = totalJudges,

@@ -27,10 +27,10 @@
                         <div class="row">
                             <div class="col-12 col-lg-7 border-right">
                                 <div class="d-md-flex align-items-center">
-                                    <div class="mb-md-0 mb-3">
+                                   @*  <div class="mb-md-0 mb-3">
                                         <!-- Profile Picture -->
                                         <img id="profileImagePreview" src="@Url.Content(Model.Profile.image ?? "~/images/default-profile.png")" class="rounded-circle shadow" width="130" height="130" alt="Profile Image">
-                                    </div>
+                                    </div> *@
                                     <div class="ms-md-4 flex-grow-1">
                                         <h4 class="mb-0">@Model.Profile.FullName</h4>
                                         <p class="mb-0 text-muted">@Model.Profile.Address</p>
@@ -52,7 +52,7 @@
                                 <div class="card-body">
                                     <div class="form-body">
                                         <form method="post" action="@Url.Action("UpdateJudgeProfile", "Judge")" enctype="multipart/form-data" class="row g-3">
-                                            <!-- Full Name Input -->
+                                          
                                             <div class="form-group">
                                                 <label for="FullName">Ad Soyad</label>
                                                 <input asp-for="Profile.FullName" class="form-control" />
@@ -64,36 +64,41 @@
                                                 <label class="form-label">Password</label>
                                                 <input type="password" name="Password" class="form-control">
                                             </div>
- *@
-                                            <!-- Email Input -->
+                                             *@
+                                          
                                             <div class="form-group">
                                                 <label for="Email">Email</label>
                                                 <input asp-for="Profile.Email" class="form-control" />
                                                 <span asp-validation-for="Profile.Email" class="text-danger"></span>
                                             </div>
 
-                                            <!-- Phone Input -->
+                                      
                                             <div class="form-group">
                                                 <label for="Phone">Telefon</label>
                                                 <input asp-for="Profile.Phone" class="form-control" />
                                                 <span asp-validation-for="Profile.Phone" class="text-danger"></span>
                                             </div>
 
-                                            <!-- Address Input -->
+                                      
                                             <div class="form-group">
                                                 <label for="Address">Adres</label>
                                                 <input asp-for="Profile.Address" class="form-control" />
                                                 <span asp-validation-for="Profile.Address" class="text-danger"></span>
                                             </div>
 
-                                            @if (Model.SelectedJudgeCategoryId == 1) // Akademisyen Hakem
+                                            @if (Model.SelectedJudgeCategoryId == 1) 
                                             {
                                                 <div class="form-group">
-                                                    <label asp-for="Univercity">Üniversite</label>
-                                                    <input class="form-control" asp-for="Univercity" />
+                                                    <label for="UnivercityId">Üniversite</label>
+                                                    <select asp-for="Profile.Univercity.Id" class="form-control"
+                                                            asp-items="@(new SelectList(Model.UniversityList, "Id", "UniversityName", Model.Profile.Univercity?.Id))">
+                                                        <option value="">Üniversite Seçin</option>
+                                                    </select>
+                                                    <span asp-validation-for="Profile.Univercity.Id" class="text-danger"></span>
                                                 </div>
                                             }
-                                            else if (Model.SelectedJudgeCategoryId == 2) // Sanayici Hakem
+
+                                            else if (Model.SelectedJudgeCategoryId == 2) 
                                             {
                                                 <div class="form-group">
                                                     <label asp-for="WorkplaceName">Şirket Adı</label>
@@ -102,14 +107,7 @@
                                             }
 
 
-                                            @* <!-- Image Upload Input -->
-                                            <div class="col-12">
-                                                <label class="form-label">Profil Fotoğrafı</label>
-                                                <input type="file" id="profileImageUpload" name="imageFile" class="form-control" accept="image/*">
-                                                <span asp-validation-for="Profile.image" class="text-danger"></span>
-                                            </div> *@
 
-                                            <!-- Contestant Category Selection -->
                                             <div class="form-group">
                                                 <label for="SelectedContestantCategoryId">Yarışmacı Kategorisi(Değiştirilemez)</label>
                                                 @if (Model.JudgeCategories == null || !Model.JudgeCategories.Any())
@@ -128,19 +126,21 @@
                                                 }
                                             </div>
 
-
+                                            
+                                          
                                             <!-- Proje Kategorisi -->
                                             <div class="form-group">
-                                                <label for="SelectedProjectCategoryId">Proje Kategorisi (Değiştirilemez)</label>
-                                                <select asp-for="SelectedProjectCategoryId" class="form-control" disabled
+                                                <label for="SelectedProjectCategoryId">Proje Kategorisi </label>
+                                                <select asp-for="SelectedProjectCategoryId" class="form-control" 
                                                         asp-items="@(new SelectList(Model.ProjectCategories, "Id", "Name", Model.SelectedProjectCategoryId))">
                                                     <option value="">Proje Kategorisi Seçin</option>
                                                 </select>
                                                 <span asp-validation-for="SelectedProjectCategoryId" class="text-danger"></span>
                                             </div>
+                                            <p><span style="color: red; font-size: 14px;">&#9733;</span> Tarafınıza proje yönlendirildikten sonra Proje Kategorisi değişimi yapılamamaktadır</p>
 
                                             <div class="col-12 text-end mt-3">
-                                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                                                <button type="submit" class="btn btn-primary">Kaydet</button>
                                             </div>
                                         </form>
                                     </div>

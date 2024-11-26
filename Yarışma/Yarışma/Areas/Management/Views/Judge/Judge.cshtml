@@ -1,6 +1,5 @@
 ﻿@model Yarışma.Areas.Management.Models.JudgeTableVM
 
-
 <div class="page-content-wrapper">
     <div class="page-content">
         <h2>Hakemler</h2>
@@ -12,9 +11,10 @@
                     <th>Adı</th>
                     <th>Telefon</th>
                     <th>Email</th>
-                    <th>Üniversite</th>
+                    <th>Üniversite/İş Yeri</th> <!-- Güncellenen sütun -->
                     <th>Hakem Kategorisi</th>
                     <th>Proje Kategorileri</th>
+                    <th>Proje Durumu</th> <!-- Yeni sütun -->
                 </tr>
             </thead>
             <tbody>
@@ -24,7 +24,16 @@
                         <td>@judge.FullName</td>
                         <td>@judge.Phone</td>
                         <td>@judge.Email</td>
-                        <td>@judge.University</td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(judge.UniversityOrWorkplace))
+                            {
+                                @judge.UniversityOrWorkplace
+                            }
+                            else
+                            {
+                                <span class="text-muted">Bilgi Yok</span>
+                            }
+                        </td>
                         <td>@judge.JudgeCategoryName</td>
                         <td>
                             @if (!string.IsNullOrEmpty(judge.ProjectCategories))
@@ -34,6 +43,16 @@
                             else
                             {
                                 <span class="text-muted">Kategori Yok</span>
+                            }
+                        </td>
+                        <td>
+                            @if (judge.HasAssignedProject)
+                            {
+                                <span class="badge bg-success">Atanmış</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">Atanmamış</span>
                             }
                         </td>
                     </tr>
@@ -49,7 +68,7 @@
 
                 for (int i = 1; i <= totalPages; i++)
                 {
-                    <a asp-action="Judges" asp-route-page="@i"
+                    <a asp-action="Judge" asp-route-page="@i"
                        class="btn btn-secondary @(i == Model.CurrentPage ? "active" : "")">
                         @i
                     </a>

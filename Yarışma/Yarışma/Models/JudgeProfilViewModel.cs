@@ -14,6 +14,9 @@ namespace Yarışma.Models
         public IFormFile imageFile { get; set; }
         public string Univercity { get; set; }
         public string WorkplaceName { get; set; }
+        public List<Univercity> UniversityList { get; set; }
+        public bool HasAssignedProject { get; set; }
+
 
     }
 }

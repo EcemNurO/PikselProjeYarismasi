@@ -25,41 +25,39 @@ namespace Yarışma.Models.Controllers
                 return View(model);
             }
 
-            // Kullanıcıyı veritabanında bul
+        
             var user = db.usedContestantJudges
                 .Include(p => p.JudgeProfils)
                 .ThenInclude(p => p.Judge)
                 .FirstOrDefault(u => u.Email == model.Email && u.Deleted == false && u.Status == true);
 
-            // Kullanıcı yoksa hata mesajı
             if (user == null || !BCrypt.Net.BCrypt.Verify(model.Password, user.Password))
             {
                 ModelState.AddModelError("", "Geçersiz e-posta veya şifre.");
                 return View(model);
             }
 
-            // Judge rolü için özel kontrol
             if (user.Role == RoleTypes.Judge)
             {
                 var judge = user.JudgeProfils
                     .SelectMany(jp => jp.Judge)
-                    .FirstOrDefault(); // İlgili hakemi al
+                    .FirstOrDefault();
 
                 if (judge == null || !judge.IsApproved)
                 {
-                    // Hakem kaydı yoksa veya onaylanmamışsa
+                   
                     ModelState.AddModelError("", "Hesabınız henüz admin tarafından onaylanmadı.");
                     return View(model);
                 }
             }
 
 
-            // Kullanıcı doğrulandı, oturumu başlat
+           
             var claims = new List<Claim>
 {
     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
     new Claim(ClaimTypes.Name, user.Email),
-    new Claim(ClaimTypes.Role, user.Role.ToString()) // Kullanıcı rolü ekleniyor
+    new Claim(ClaimTypes.Role, user.Role.ToString()) 
 };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -73,7 +71,7 @@ namespace Yarışma.Models.Controllers
 
             
 
-            //Kullanıcı rolüne göre yönlendirme
+           
             if (user.Role == RoleTypes.Admin)
             {
                 return RedirectToAction("Dashboard",  "Management");
@@ -87,17 +85,14 @@ namespace Yarışma.Models.Controllers
                 return RedirectToAction("JudgeProfile", "Judge");
             
 
-            // Eğer rol eşleşmezse varsayılan bir sayfaya yönlendirme
-           // return RedirectToAction("JudgeProfile", "Judge");
-           
         }
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
-            // Kullanıcının oturumunu sonlandır
+           
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
-            // Giriş sayfasına yönlendir
+           
             return RedirectToAction("Login", "Account");
         }
         public async Task<IActionResult> AccessDenied()
@@ -137,7 +132,7 @@ namespace Yarışma.Models.Controllers
                 return View(model);
             }
 
-            // Yeni kullanıcı kaydı oluşturma
+     
             var newUser = new UsedContestantJudge
             {
                 Email = model.Email,
@@ -149,7 +144,7 @@ namespace Yarışma.Models.Controllers
             db.usedContestantJudges.Add(newUser);
             db.SaveChanges();
 
-            // Profil resmi kaydetme işlemi
+           
             string uniqueFileName = null;
             if (model.image != null)
             {
@@ -165,7 +160,7 @@ namespace Yarışma.Models.Controllers
                 }
             }
 
-            // Profil kaydı oluşturma
+          
             var profile = new ContestantProfil
             {
                 FullName = model.FullName,
@@ -182,7 +177,7 @@ namespace Yarışma.Models.Controllers
             db.ContestantProfils.Add(profile);
             db.SaveChanges();
 
-            // Yarışmacı kaydı oluşturma
+           
             var contestant = new Contestant
             {
                 ContestantProfilId = profile.Id,
@@ -196,7 +191,7 @@ namespace Yarışma.Models.Controllers
 
           
 
-            // Project kaydını oluşturma
+           
             var project = new Project
             {
                 Name = model.ProjectName,
@@ -248,7 +243,7 @@ namespace Yarışma.Models.Controllers
                 return View(model);
             }
 
-            // Yeni kullanıcı kaydı oluşturma
+       
             var newUser = new UsedContestantJudge
             {
                 Email = model.Email,
@@ -262,34 +257,20 @@ namespace Yarışma.Models.Controllers
             db.SaveChanges();
 
 
-            // Profil fotoğrafını kaydet
-            //string uniqueFileName = null;
-            //if (model.image != null)
-            //{
-            //    string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/profiles");
-            //    Directory.CreateDirectory(uploadsFolder);
-
-            //    uniqueFileName = Guid.NewGuid().ToString() + "_" + model.image.FileName;
-            //    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-
-            //    using (var fileStream = new FileStream(filePath, FileMode.Create))
-            //    {
-            //        model.image.CopyTo(fileStream);
-            //    }
-            //}
+         
 
 
-            // Hakem profil kaydı oluşturma
+    
             var profile = new JudgeProfil
             {
                 FullName = model.FullName,
                
                 Phone = model.Phone,
                 Email = model.Email,
-                UnivercityId = model.JudgeCategoryId == 1 ? model.UnivercityId : (int?)null, // Sadece Akademisyen Hakemler için
-                WorkplaceName = model.JudgeCategoryId == 2 ? model.WorkplaceName : null,    // Sadece Sanayici Hakemler için
+                UnivercityId = model.JudgeCategoryId == 1 ? model.UnivercityId : (int?)null, 
+                WorkplaceName = model.JudgeCategoryId == 2 ? model.WorkplaceName : null,    
                 Address = model.Address,
-                //image = uniqueFileName != null ? "/images/profiles/" + uniqueFileName : null,
+             
                 UsedContestantJudgeId = newUser.Id,
                 Status = false,
                 Deleted = true
@@ -297,7 +278,7 @@ namespace Yarışma.Models.Controllers
             db.JudgeProfils.Add(profile);
             db.SaveChanges();
 
-            // Hakem kaydı oluşturma
+   
             var judge = new Judge
             {
                 JudgeProfilId = profile.Id,

@@ -25,6 +25,7 @@ namespace Yarışma.Controllers
 
             
             var profile = db.JudgeProfils
+                .Include(j => j.Univercity)
                 .Include(j => j.Judge) 
                 .ThenInclude(j=>j.JudgeCategory)
                 .FirstOrDefault(p => p.UsedContestantJudgeId == int.Parse(userId));
@@ -37,17 +38,20 @@ namespace Yarışma.Controllers
             var judge = profile.Judge.FirstOrDefault();
             var JudgeId = profile.Judge.FirstOrDefault()?.Id ?? 0;
 
-
+            var hasAssignedProject = db.ProjectEvaluations.Any(pe => pe.JudgeId == JudgeId);
 
             var model = new JudgeProfilViewModel
             {
                 Profile = profile,
                 JudgeCategories = db.JudgeCategories.ToList(),
                 ProjectCategories = db.ProjectCategories.ToList(),
+                UniversityList = db.univercities.ToList(),
                 SelectedJudgeCategoryId = judge?.JudgeCategoryId ?? 0,
                 SelectedProjectCategoryId = judge?.ProjectCategoryId ?? 0,
-                Univercity = profile.Univercity != null ? profile.Univercity.UniversityName : string.Empty,
-                WorkplaceName = profile.WorkplaceName ?? string.Empty
+                Univercity = profile.Univercity?.UniversityName ?? string.Empty,
+                WorkplaceName = profile.WorkplaceName ?? string.Empty,
+                  HasAssignedProject = hasAssignedProject
+
             };
 
 
@@ -78,51 +82,51 @@ namespace Yarışma.Controllers
                 TempData["ErrorMessage"] = "Profil bulunamadı.";
                 return RedirectToAction("Index", "Home");
             }
-            // Resim dosyasını işleme
-            if (viewModel.imageFile != null && viewModel.imageFile.Length > 0)
+
+            var judge = profile.Judge.FirstOrDefault();
+            var judgeId = judge?.Id ?? 0;
+
+      
+            if (db.ProjectEvaluations.Any(pe => pe.JudgeId == judgeId))
             {
-                var uploadsFolder = Path.Combine("wwwroot", "images");
-                Directory.CreateDirectory(uploadsFolder); // Dizin yoksa oluştur
-
-                var uniqueFileName = Guid.NewGuid().ToString() + "_" + viewModel.imageFile.FileName;
-                var filePath = Path.Combine(uploadsFolder, uniqueFileName);
-
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    await viewModel.imageFile.CopyToAsync(fileStream);
-                }
-
-                // ContestantProfil modelindeki image alanını güncelle
-                profile.image = "/images/" + uniqueFileName;
-
+                TempData["ErrorMessage"] = "Hakeme proje atanmış, proje kategorisi değiştirilemez.";
+                return RedirectToAction("JudgeProfile");
             }
+
+
+
+
+
             profile.FullName = viewModel.Profile.FullName;
             profile.Email = viewModel.Profile.Email;
             profile.Phone = viewModel.Profile.Phone;
             profile.Address = viewModel.Profile.Address;
 
-            // Hakem kategorisine göre Üniversite veya İş Yeri Adı güncellemesi
-            if (viewModel.SelectedJudgeCategoryId == 1) // Akademisyen Hakem
+            if (viewModel.SelectedJudgeCategoryId == 1) 
             {
-                // Üniversite bilgisi için kontrol ve atama
-                if (profile.Univercity == null)
+               
+                if (viewModel.Profile.Univercity?.Id > 0)
                 {
-                    profile.Univercity = new Univercity(); // Eğer null ise yeni bir nesne oluştur
+                    profile.Univercity = db.univercities.FirstOrDefault(u => u.Id == profile.Univercity.Id);
                 }
-                profile.Univercity.UniversityName = viewModel.Univercity;
+                else
+                {
+                    profile.Univercity = null;
+                }
 
-                // Sanayici bilgisi boşaltılır
-                profile.WorkplaceName = null;
+                profile.WorkplaceName = null; 
             }
-            else if (viewModel.SelectedJudgeCategoryId == 2) // Sanayici Hakem
+            else if (viewModel.SelectedJudgeCategoryId == 2) 
             {
-                // İş yeri bilgisi güncellenir
                 profile.WorkplaceName = viewModel.WorkplaceName;
-
-                // Üniversite bilgisi boşaltılır
-                profile.Univercity = null;
+                profile.Univercity = null; 
             }
 
+            var judgeToUpdate = profile.Judge.FirstOrDefault();
+            if (judgeToUpdate != null && viewModel.SelectedProjectCategoryId > 0)
+            {
+                judgeToUpdate.ProjectCategoryId = viewModel.SelectedProjectCategoryId;
+            }
 
 
 

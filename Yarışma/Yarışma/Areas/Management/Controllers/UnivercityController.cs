@@ -3,7 +3,8 @@ using Yarışma.Models;
 
 namespace Yarışma.Areas.Management.Controllers
 {
-    public class UnivercityController : Controller
+	[Area("Management")]
+	public class UnivercityController : Controller
     {
         CompetitionDbContext db = new CompetitionDbContext();
         public async Task<IActionResult> Index()

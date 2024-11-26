@@ -38,7 +38,7 @@
                         <!-- Kart yüksekliği otomatik -->
                         <div class="card-body p-4">
                             <div class="text-center">
-                                <img src="~/assets/images/adana-haci-sabanci-organize-sanayi-bolgesi-logo-CFEB15F9B4-seeklogo.com.png" width="160"  height="80" alt=""> <!-- Logo boyutu daha küçük -->
+                                <img src="~/assets/images/adana-haci-sabanci-organize-sanayi-bolgesi-logo-CFEB15F9B4-seeklogo.com.png" width="160"  height="80" alt=""> 
                                 <h4 class="mt-3 font-weight-bold">HOŞGELDİNİZ</h4>
                             </div>
                             <div class="login-separater text-center mb-3">
@@ -48,7 +48,7 @@
 
                             <div class="form-body">
                                 <form class="row g-3" method="post">
-                                    <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+                                    <input type="hidden" name="returnUrl" value="@ViewBag.ErorMessage" />
                                     <div class="col-12">
                                         <label for="inputEmailAddress" class="form-label">Email Adresi</label>
                                         <input type="email" class="form-control" asp-for="Email" placeholder="Email " required>

@@ -1,75 +1,76 @@
 ﻿@model Yarışma.Areas.Management.Models.JudgeViewModel
+
 <div class="page-content-wrapper">
     <div class="page-content">
-<h2>Onay Bekleyen Hakemler</h2>
+        <h2>Onay Bekleyen Hakemler</h2>
 
-@if (TempData["SuccessMessage"] != null)
-{
-    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
-}
-
-@if (TempData["ErrorMessage"] != null)
-{
-    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
-}
-
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Ad Soyad</th>
-            <th>E-posta</th>
-            <th>Telefon</th>
-            <th>Üniversite</th>
-            <th>Hakem Kategorisi</th>
-            <th>Tematik Alan</th>
-            <th>Onay</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model.Judges != null && Model.Judges.Any())
+        @if (TempData["SuccessMessage"] != null)
         {
-            @foreach (var judge in Model.Judges)
-            {
+            <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+        }
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+        }
+
+        <table class="table table-bordered">
+            <thead>
                 <tr>
-                    <td>@judge.JudgeProfil?.FullName</td>
-                    <td>@judge.JudgeProfil?.Email</td>
-                    <td>@judge.JudgeProfil?.Phone</td>
-                    <td>@judge.JudgeProfil?.Univercity</td>
-                    <td>@judge.JudgeCategory?.Name</td>
-                    <td>@judge.ProjectCategory?.Name</td>
-                    <td>
-                        <form method="post" asp-action="ApproveJudge" asp-controller="ApproveJudge" asp-area="Management">
-                            <input type="hidden" name="judgeId" value="@judge.Id" />
-                            <button type="submit" class="btn btn-success">Onayla</button>
-                        </form>
-                    </td>
+                    <th>Ad Soyad</th>
+                    <th>E-posta</th>
+                    <th>Telefon</th>
+                    <th>Üniversite/İşyeri</th>
+                    <th>Hakem Kategorisi</th>
+                    <th>Tematik Alan</th>
+                    <th>Onay</th>
                 </tr>
-            }
-        }
-        else
-        {
-            <tr>
-                <td colspan="7" class="text-center">Onay bekleyen hakem bulunamadı.</td>
-            </tr>
-        }
-    </tbody>
-</table>
+            </thead>
+            <tbody>
+                @if (Model.JudgeItemViewModels != null && Model.JudgeItemViewModels.Any())
+                {
+                    @foreach (var judge in Model.JudgeItemViewModels)
+                    {
+                        <tr>
+                            <td>@judge.FullName</td>
+                            <td>@judge.Email</td>
+                            <td>@judge.Phone</td>
+                            <td>@judge.UniversityOrWorkplace</td>
+                            <td>@judge.JudgeCategoryName</td>
+                            <td>@judge.ProjectCategoryName</td>
+                            <td>
+                                <form method="post" asp-action="ApproveJudge" asp-controller="ApproveJudge" asp-area="Management">
+                                    <input type="hidden" name="judgeId" value="@judge.JudgeId" />
+                                    <button type="submit" class="btn btn-success">Onayla</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="7" class="text-center">Onay bekleyen hakem bulunamadı.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
 
-<!-- Sayfalama -->
-@if (Model.TotalCount > Model.PageSize)
-{
-    <nav>
-        <ul class="pagination">
-            @for (int i = 1; i <= (Model.TotalCount + Model.PageSize - 1) / Model.PageSize; i++)
-            {
-                <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
-                    <a class="page-link" asp-action="AproveJudge" asp-controller="ApproveJudge" asp-area="Management" asp-route-page="@i">
-                        @i
-                    </a>
-                </li>
-            }
-        </ul>
-    </nav>
-}
+        <!-- Sayfalama -->
+        @if (Model.TotalCount > Model.PageSize)
+        {
+            <nav>
+                <ul class="pagination">
+                    @for (int i = 1; i <= (Model.TotalCount + Model.PageSize - 1) / Model.PageSize; i++)
+                    {
+                        <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                            <a class="page-link" asp-action="AproveJudge" asp-controller="ApproveJudge" asp-area="Management" asp-route-page="@i">
+                                @i
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </nav>
+        }
     </div>
 </div>

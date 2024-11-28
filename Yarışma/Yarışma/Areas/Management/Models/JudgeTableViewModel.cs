@@ -12,5 +12,6 @@
         public string ProjectCategories { get; set; }
         public string UniversityOrWorkplace { get; set; }
         public bool HasAssignedProject { get; set; }
+        
     }
 }

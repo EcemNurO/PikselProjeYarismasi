@@ -18,6 +18,7 @@ namespace Yarışma.Models
       
         public virtual ICollection<ProjectAnswer> ProjectAnswers { get; set; }
         public virtual ICollection<ProjectEvaluation>? ProjectEvaluations { get; set; }
+        public string FileName => !string.IsNullOrEmpty(FilePath) ? Path.GetFileName(FilePath) : string.Empty;
 
     }
 }

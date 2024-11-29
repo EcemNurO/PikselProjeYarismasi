@@ -1,50 +1,41 @@
 ﻿@model Yarışma.Models.Project
+@using System.IO
 
 <div class="container mt-7" style="padding-top: 100px;">
-    <!-- Başlık -->
     <div class="text-center mb-5">
         <h4 class="fw-bold text-primary">PROJEM</h4>
         <p class="text-muted">Bu sayfada proje sorularını cevaplayabilir ve dosya yükleme işlemini gerçekleştirebilirsiniz.</p>
     </div>
 
-    <!-- Form Alanı -->
     <form method="post" enctype="multipart/form-data" asp-action="SaveProject" class="shadow-lg p-4 bg-white rounded">
-        <!-- Proje ID'si Gizli Alan -->
         <input type="hidden" name="projectId" value="@Model.Id" />
 
         <!-- Proje Adı -->
         <div class="form-group mb-4">
             <label for="Name" class="form-label fw-bold">Proje Adı:</label>
-            <input type="text" name="projectName" value="@Model.Name" class="form-control border-primary shadow-sm" />
+            <input type="text" name="projectName" value="@Model.Name" class="form-control border-primary shadow-sm" required />
         </div>
 
-        <!-- Sorular ve Cevaplar -->
+        <!-- Proje Soruları ve Cevaplar -->
         <div class="mb-4">
             <h6 class="text-secondary mb-3">Proje Soruları</h6>
             @if (Model.ProjectQuestions != null && Model.ProjectQuestions.Any())
             {
-                
-                    // ICollection'ı bir listeye dönüştürüyoruz
-                    var questions = Model.ProjectQuestions.ToList();
-                
+                var questions = Model.ProjectQuestions.ToList();
                 @for (var i = 0; i < questions.Count; i++)
                 {
                     var question = questions[i];
+                    var answerText = question.Answers?.FirstOrDefault(a => a.ProjectQuestionId == question.Id)?.Text ?? string.Empty;
+
                     <div class="card mb-3 shadow-sm">
                         <div class="card-body">
                             <h6 class="card-title fw-bold">@question.Title</h6>
                             <p class="card-text">@question.Description</p>
-                            
-                            <!-- Cevap Alanı -->
                             <textarea name="answers[@i].Text"
                                       class="form-control border-primary rounded shadow-sm mt-2"
                                       rows="3"
-                                      style="text-align: left; white-space: pre-wrap;">
-                                @question.Answers?.FirstOrDefault(a => a.ProjectQuestionId == question.Id)?.Text
-                              </textarea>
+                                      style="text-align: left; white-space: pre-wrap;">@answerText</textarea>
 
-                            
-                            <!-- Soru ID'si Gizli Alan -->
                             <input type="hidden" name="answers[@i].ProjectQuestionId" value="@question.Id" />
                         </div>
                     </div>
@@ -52,7 +43,7 @@
             }
             else
             {
-                <p class="text-muted">Henüz proje için tanımlanmış soru yok.</p>
+                <p class="alert alert-warning">Henüz proje için tanımlanmış soru yok.</p>
             }
         </div>
 
@@ -63,27 +54,29 @@
             {
                 <p>
                     <strong>Mevcut Dosya:</strong>
-                    <a href="@Model.FilePath" target="_blank" class="btn btn-link text-primary">Görüntüle / İndir</a>
+                    <a href="@Url.Action("DownloadFile", "ContestantProject", new { fileName = Model.FileName })" target="_blank">Dosyayı İndir</a>
+
                 </p>
-                <button type="submit" name="deleteFile" value="true" class="btn btn-link text-primary">Dosyayı Sil</button>
+                @* <p>
+                    <a href="@Url.Action("DeleteFile", "ContestantProject", new { projectId = Model.Id })"
+                       class="btn btn-link text-danger">Dosyayı Sil</a>
+                </p> *@
             }
             else
             {
                 <p class="text-muted">Henüz bir dosya yüklenmemiş.</p>
             }
-            <p> <span style="color: red; font-size: 14px;">&#9733;</span>"Lütfen tüm belgelerinizi .pdf formatında ve tek dosya halinde yükleyiniz.</p>
         </div>
 
         <!-- Yeni Dosya Yükleme -->
         <div class="mb-4">
             <h5 class="text-secondary mb-3">Döküman Ekle</h5>
             <div class="form-group">
-                <label for="file" class="form-label"></label>
-                <input type="file" id="file" name="file" class="form-control border-primary shadow-sm" />
+                <input type="file" id="file" name="file" class="form-control border-primary shadow-sm" accept=".pdf,.docx,.xlsx,.jpg,.png" />
+                <p class="text-muted mt-2">Desteklenen formatlar: PDF, DOCX, XLSX, JPG, PNG. Maksimum boyut: 10 MB.</p>
             </div>
         </div>
 
-        <!-- Kaydet Butonu -->
         <div class="text-center">
             <button type="submit" class="btn btn-primary btn-lg px-5">Kaydet</button>
         </div>

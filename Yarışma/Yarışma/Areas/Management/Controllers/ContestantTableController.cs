@@ -83,6 +83,24 @@ namespace Yarışma.Areas.Management.Controllers
 
             return View(contestant);
         }
+        public IActionResult DownloadFile(int projectId)
+        {
+            var project = db.Projects.FirstOrDefault(p => p.Id == projectId);
+            if (project == null || string.IsNullOrEmpty(project.FilePath))
+            {
+                TempData["ErrorMessage"] = "Proje dosyası bulunamadı.";
+                return RedirectToAction("Index");
+            }
+
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/files", Path.GetFileName(project.FilePath));
+            if (!System.IO.File.Exists(filePath))
+            {
+                TempData["ErrorMessage"] = "Dosya fiziksel olarak mevcut değil.";
+                return RedirectToAction("Index");
+            }
+
+            return PhysicalFile(filePath, "application/octet-stream", Path.GetFileName(project.FilePath));
+        }
         public IActionResult AssignJudges(int id)
         {
 

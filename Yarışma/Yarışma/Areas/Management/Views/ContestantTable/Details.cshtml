@@ -38,7 +38,7 @@
                    @if (!string.IsNullOrEmpty(Model.Projects?.FilePath))
                     {
                         <p><strong>Yüklenen Dosya:</strong></p>
-                        <a href="@Model.Projects.FilePath" target="_blank" class="btn btn-link">Dosyayı Görüntüle / İndir</a>
+                                <a href="@Url.Action("DownloadFile", "ContestantTable", new { projectId = Model.Projects.Id })" target="_blank">Dosyayı İndir</a>
                     }
                     else
                     {

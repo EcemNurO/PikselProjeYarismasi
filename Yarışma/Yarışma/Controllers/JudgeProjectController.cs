@@ -82,12 +82,18 @@ namespace Yarışma.Controllers
         public IActionResult DownloadFile(int projectId)
         {
             var project = db.Projects.FirstOrDefault(p => p.Id == projectId);
-            if (project == null || project.FileData == null)
+            if (project == null || string.IsNullOrEmpty(project.FilePath))
             {
                 return NotFound("Dosya bulunamadı.");
             }
 
-            return File(project.FileData, "application/octet-stream", project.FilePath ?? "file");
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/files", Path.GetFileName(project.FilePath));
+            if (!System.IO.File.Exists(filePath))
+            {
+                return NotFound("Dosya fiziksel olarak bulunamadı.");
+            }
+
+            return PhysicalFile(filePath, "application/octet-stream", Path.GetFileName(project.FilePath));
         }
 
         [HttpGet]

@@ -84,7 +84,7 @@ namespace Yarışma.Controllers
                 }
                 db.SaveChanges();
             }
-
+            
             return View(project);
 
 
@@ -182,19 +182,38 @@ namespace Yarışma.Controllers
                 }
 
                 project.FilePath = "/files/" + uniqueFileName;
-                using (var memoryStream = new MemoryStream())
-                {
-                    file.CopyTo(memoryStream);
-                    project.FileData = memoryStream.ToArray();
-                }
+                //using (var memoryStream = new MemoryStream())
+                //{
+                //    file.CopyTo(memoryStream);
+                //    project.FileData = memoryStream.ToArray();
+                //}
             }
-
+            //else
+            //{
+            //    // Dosya yüklenmemişse proje kaydı diğer bilgilerle devam eder.
+            //    project.FilePath = project.FilePath; // Var olan dosya yolunu koruyabilirsiniz veya null bırakabilirsiniz.
+            //}
             db.SaveChanges();
             TempData["SuccessMessage"] = "Proje cevapları başarıyla kaydedildi.";
             return RedirectToAction("Project");
         }
+        [HttpGet]
+        public IActionResult DownloadFile(string fileName)
+        {
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/files", fileName);
+
+            if (!System.IO.File.Exists(filePath))
+            {
+                return NotFound("Dosya bulunamadı.");
+            }
+
+            var fileBytes = System.IO.File.ReadAllBytes(filePath);
+            var contentType = "application/octet-stream";
+            return File(fileBytes, contentType, fileName);
+        }
 
         // Dosya yükler
+        [Authorize]
         [HttpPost]
         public IActionResult UploadFile(IFormFile file, int projectId)
         {
@@ -234,9 +253,17 @@ namespace Yarışma.Controllers
             var uniqueFileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(file.FileName);
             var filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
-            using (var stream = new FileStream(filePath, FileMode.Create))
+            try
             {
-                file.CopyTo(stream);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Dosya yüklenirken bir hata oluştu: " + ex.Message;
+                return RedirectToAction("Project");
             }
 
             project.FilePath = "/files/" + uniqueFileName;
@@ -245,12 +272,12 @@ namespace Yarışma.Controllers
             TempData["SuccessMessage"] = "Dosya başarıyla yüklendi.";
             return RedirectToAction("Project");
         }
+        [Authorize]
         [HttpPost]
         public IActionResult DeleteFile()
         {
             int userId = GetCurrentUserId();
 
-            // Kullanıcının mevcut projesini al
             var project = db.Projects.FirstOrDefault(p => p.ContestantId == userId);
 
             if (project == null || string.IsNullOrEmpty(project.FilePath))
@@ -259,18 +286,23 @@ namespace Yarışma.Controllers
                 return RedirectToAction("Project");
             }
 
-            // Dosya yolunu belirle ve sunucudan sil
             var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", project.FilePath.TrimStart('/'));
-            if (System.IO.File.Exists(filePath))
+
+            try
             {
-                System.IO.File.Delete(filePath);
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+                }
+                project.FilePath = null; // Veritabanını güncelle
+                db.SaveChanges();
+                TempData["SuccessMessage"] = "Dosya başarıyla silindi.";
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Dosya silinirken bir hata oluştu: " + ex.Message;
             }
 
-            // Veritabanını güncelle
-            project.FilePath = null;
-            db.SaveChanges();
-
-            TempData["SuccessMessage"] = "Dosya başarıyla silindi.";
             return RedirectToAction("Project");
         }
     }

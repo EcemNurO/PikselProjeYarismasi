@@ -11,8 +11,8 @@
         public string AssignedIndustrialJudgeName { get; set; }
         public bool IsAcademicJudgeAssigned { get; set; }
         public bool IsIndustrialJudgeAssigned { get; set; }
-
-        public double? AcademicJudgeScore { get; set; } 
+		public string UniversityName { get; set; }
+		public double? AcademicJudgeScore { get; set; } 
         public double? IndustrialJudgeScore { get; set; }
         public string AcademicJudgeName { get; set; } 
         public string IndustrialJudgeName { get; set; }

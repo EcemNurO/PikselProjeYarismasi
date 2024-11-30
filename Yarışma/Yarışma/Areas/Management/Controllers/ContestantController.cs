@@ -16,6 +16,7 @@ namespace Yarışma.Areas.Management.Controllers
               .Include(c => c.Projects)
                   .ThenInclude(p => p.ProjectCategory)
               .Include(c => c.contestantProfil)
+              .ThenInclude(c=>c.Univercity)
               .Include(c => c.ContestantCategory)
               .Where(c =>
                   string.IsNullOrEmpty(searchQuery) ||
@@ -32,22 +33,24 @@ namespace Yarışma.Areas.Management.Controllers
             {
                 Contestants = filteredContestants.Select(c => new ContestantViewModel
                 {
-                    ContestantId = c.Id,
-                    ContestantName = c.contestantProfil?.FullName,
-                    ContestantCategoryName = c.ContestantCategory?.Name,
-                    ProjectName = c.Projects?.Name,
-                    ProjectCategoryName = c.Projects?.ProjectCategory?.Name,
-                    AssignedAcademicJudgeName = db.ProjectEvaluations
-                        .Where(pe => pe.ProjectId == c.Projects.Id && pe.JudgeCategoryId == 1)
-                        .Select(pe => pe.Judge.JudgeProfil.FullName)
-                        .FirstOrDefault(), // Akademik hakem adı
-                    AssignedIndustrialJudgeName = db.ProjectEvaluations
-                        .Where(pe => pe.ProjectId == c.Projects.Id && pe.JudgeCategoryId == 2)
-                        .Select(pe => pe.Judge.JudgeProfil.FullName)
-                        .FirstOrDefault(), // Endüstriyel hakem adı
-                    IsAcademicJudgeAssigned = db.ProjectEvaluations.Any(pe => pe.ProjectId == c.Projects.Id && pe.JudgeCategoryId == 1),
-                    IsIndustrialJudgeAssigned = db.ProjectEvaluations.Any(pe => pe.ProjectId == c.Projects.Id && pe.JudgeCategoryId == 2),
-                }).ToList(),
+					ContestantId = c.Id,
+					ContestantName = c.contestantProfil?.FullName,
+					UniversityName = c.contestantProfil?.Univercity.UniversityName, // Üniversite bilgisi
+					ContestantCategoryName = c.ContestantCategory?.Name,
+					ProjectName = c.Projects?.Name,
+					ProjectCategoryName = c.Projects?.ProjectCategory?.Name,
+					AssignedAcademicJudgeName = db.ProjectEvaluations
+	                .Where(pe => pe.ProjectId == c.Projects.Id && pe.JudgeCategoryId == 1)
+	                .Select(pe => pe.Judge.JudgeProfil.FullName)
+	                .FirstOrDefault(),
+					                AssignedIndustrialJudgeName = db.ProjectEvaluations
+	                .Where(pe => pe.ProjectId == c.Projects.Id && pe.JudgeCategoryId == 2)
+	                .Select(pe => pe.Judge.JudgeProfil.FullName)
+	                .FirstOrDefault(),
+					IsAcademicJudgeAssigned = db.ProjectEvaluations.Any(pe => pe.ProjectId == c.Projects.Id && pe.JudgeCategoryId == 1),
+					IsIndustrialJudgeAssigned = db.ProjectEvaluations.Any(pe => pe.ProjectId == c.Projects.Id && pe.JudgeCategoryId == 2),
+
+				}).ToList(),
                 TotalContestants = filteredContestants.Count(),
                 PageSize = pageSize,
                 CurrentPage = page,

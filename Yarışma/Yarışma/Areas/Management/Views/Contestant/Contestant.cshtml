@@ -20,6 +20,7 @@
                 <tr>
                     <th>Adı</th>
                     <th>Yarışmacı Kategorisi</th>
+                    <th>Üniversite</th>
                     <th>Proje Adı</th>
                     <th>Tematik Alan</th>
                     <th>Akademisyen Hakem</th>
@@ -32,6 +33,16 @@
                     <tr>
                         <td>@contestant.ContestantName</td>
                         <td>@contestant.ContestantCategoryName</td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(contestant.UniversityName))
+                            {
+                                @contestant.UniversityName
+                            }
+                            else
+                            {
+                                <span class="text-muted">Bilinmiyor</span>
+                            }
+                        </td>
                         <td>@contestant.ProjectName</td>
                         <td>@contestant.ProjectCategoryName</td>
                         <td>
